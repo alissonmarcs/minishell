@@ -1,0 +1,6 @@
+bin
+minishell
+*.txt
+minishell2
+*.o
+*.a
