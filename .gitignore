@@ -1,4 +1,5 @@
 bin
+obj
 minishell
 *.txt
 minishell2
