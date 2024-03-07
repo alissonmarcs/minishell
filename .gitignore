@@ -5,3 +5,5 @@ minishell
 minishell2
 *.o
 *.a
+.vscode
+tmp

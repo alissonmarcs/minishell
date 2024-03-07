@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/02/16 12:09:31 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:13:49 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *str1, const void *str2, size_t n);
-char				*ft_strnstr(const char *str, const char *substr, size_t n);
+char				*ft_strnstr(const char *str, const char *substr);
 int					ft_atoi(const char *str);
 void				*ft_calloc(size_t elem, size_t n);
 char				*ft_strdup(const char *str);

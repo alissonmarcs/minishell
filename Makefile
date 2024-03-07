@@ -4,7 +4,7 @@ CFLAGS		:= -Wall -Werror -Wextra -g3 -O0
 RFLAGS 		:= -lreadline -lhistory
 BIN			:= ./bin/
 HEADER		:= ./include/
-SOURCE		:=	main.c token_list.c list_creation.c errors_1.c
+SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c
 OBJECTS		:= $(addprefix $(BIN),$(SOURCE:.c=.o))
 PRINTF		:= ./libft/Printf/libftprintf.a
 LIBFT		:= ./libft/libft.a

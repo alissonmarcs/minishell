@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/06 12:00:14 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:40:49 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,39 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+typedef struct s_token
+{
+	char			*str;
+	int				type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}					t_token;
+
 typedef struct s_minishell
 {
-	char				*user_input;
-	char				*token;
-	struct s_minishell	*next;
-}						t_minishell;
+	char			*user_input;
+	t_token			*tokens;
+}					t_minishell;
+
+enum				e_token
+{
+	SPACES = 1,
+	VAR,
+	WORD,
+	PIPE,
+	INPUT,
+	TRUNC,
+	APPEND,
+	HERE_DOC,
+	END
+};
 
 // Log
-void					ft_tokenize(char *line);
-void					ft_error(char *str);
+void				ft_tokenize(t_minishell *shell);
+void				ft_error(char *str);
+t_token				*ft_create_list(char *str, int type);
+void				ft_print_stack(t_token *stack);
+void				ft_lstend(t_token **tokens, char *str, int type);
+void				ft_free_list(t_minishell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/06 11:38:31 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:19:36 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	ft_loop(void)
 		if (!shell->user_input)
 			break ;
 		add_history(shell->user_input);
-		ft_tokenize(shell->user_input);
-		printf("%s\n", shell->user_input);
+		ft_tokenize(shell);
+		free(shell->user_input);
+		ft_free_list(shell);
 	}
 	rl_clear_history();
 }
