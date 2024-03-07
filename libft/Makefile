@@ -24,13 +24,13 @@ OBJS = $(addprefix $(OBJECTS_FOLDER),$(SRCS:.c=.o))
 all: $(OBJECTS_FOLDER) $(NAME)
 
 $(OBJECTS_FOLDER):
-	mkdir $(OBJECTS_FOLDER)
+	@mkdir $(OBJECTS_FOLDER)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $?
+	@ar rcs $(NAME) $?
 
 $(OBJECTS_FOLDER)%.o: %.c
-	cc $(FLAGS) -c $< -o $@ -I $(HEADER)
+	@cc $(FLAGS) -c $< -o $@ -I $(HEADER)
 
 clean:
 	@rm -rf $(OBJECTS_FOLDER)

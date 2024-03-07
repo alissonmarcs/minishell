@@ -11,7 +11,7 @@ OBJS = $(addprefix $(OBJECTS_FOLDER),$(SRCS:.c=.o))
 all: $(OBJECTS_FOLDER) $(NAME)
 
 $(OBJECTS_FOLDER):
-	mkdir $(OBJECTS_FOLDER)
+	@mkdir $(OBJECTS_FOLDER)
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $?
