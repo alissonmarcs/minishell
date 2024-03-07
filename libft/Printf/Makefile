@@ -1,26 +1,30 @@
 NAME = libftprintf.a
-CC = cc
 FLAGS = -Wall -Werror -Wextra
-RM = rm -rf
 
 HEADER = .
 SRCS = ft_printf.c ft_printf_utils.c ft_printf_hex.c
-OBJS =  $(SRCS:.c=.o)
 
-.PHONY: clean fclean re all
+OBJECTS_FOLDER = ./obj/
 
-all: $(NAME)
+OBJS = $(addprefix $(OBJECTS_FOLDER),$(SRCS:.c=.o))
+
+all: $(OBJECTS_FOLDER) $(NAME)
+
+$(OBJECTS_FOLDER):
+	mkdir $(OBJECTS_FOLDER)
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $?
 
-%.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@ -I $(HEADER)
+$(OBJECTS_FOLDER)%.o: %.c
+	@cc $(FLAGS) -c $< -o $@ -I $(HEADER)
 
 clean:
-	@$(RM) $(OBJS)
+	@rm -rf $(OBJECTS_FOLDER)
 
 fclean: clean
-	@$(RM) $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: clean fclean re all
