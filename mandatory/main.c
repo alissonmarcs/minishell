@@ -26,7 +26,7 @@ void	ft_loop(void)
 	shell = ft_get_shell();
 	while (1)
 	{
-		shell->user_input = readline("Carlitoshell$ ");
+		shell->user_input = readline(PROMPT);
 		if (!shell->user_input)
 			break ;
 		add_history(shell->user_input);

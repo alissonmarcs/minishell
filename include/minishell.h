@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# define PROMPT "\001\e[0m\002\e[33mCarlitoShell$ \001\e[0m\002"
+
 typedef struct s_token
 {
 	char			*str;
