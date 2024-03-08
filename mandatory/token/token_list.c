@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/07 17:14:23 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:47:36 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_is_separator(char *str)
 {
-	if (!ft_strncmp(str, " ", 1))
+	if (!ft_strncmp(str, " ", 1) || !ft_strncmp(str, "\t", 1)
+		|| !ft_strncmp(str, "\n", 1) || !ft_strncmp(str, "\v", 1)
+		|| !ft_strncmp(str, "\f", 1) || !ft_strncmp(str, "\r", 1))
 		return (SPACES);
 	else if (!ft_strncmp(str, ">>", 2))
 		return (APPEND);
@@ -77,15 +79,13 @@ void	ft_separator(char *separator, t_minishell *shell, int start, int type)
 
 void	ft_words_separators(char *input, t_minishell *shell)
 {
-	int	type;
-	int	i;
-	int	end;
-	int	start;
+	int				type;
+	unsigned long	i;
+	int				start;
 
-	end = ft_strlen(input) + 1;
 	start = 0;
 	i = -1;
-	while (++i < end)
+	while (++i < ft_strlen(input) + 1)
 	{
 		type = ft_is_separator(&input[i]);
 		if (type)
@@ -109,6 +109,7 @@ void	ft_tokenize(t_minishell *shell)
 	char	*line;
 
 	line = shell->user_input;
-	ft_words_separators(line, shell);
+	ft_open_quotes(line);
+	//ft_words_separators(line, shell);
 	ft_print_stack(shell->tokens);
 }
