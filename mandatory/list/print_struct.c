@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:03 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/07 16:28:16 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:36:21 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_print_stack(t_token *stack)
 	while (stack)
 	{
 		printf("-----------------------------\n");
-		printf("| Token[%d]:%s\n", i, stack->str);
+		printf("| Token[%d]:%s.\n", i, stack->str);
 		ft_translate_type(stack->type, i);
 		printf("| Stack[%d]:%p\n", i, stack);
 		printf("| Next [%d]:%p\n", i, stack->next);
