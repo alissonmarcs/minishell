@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 14:47:36 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:20:37 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	ft_words_separators(char *input, t_minishell *shell)
 	i = -1;
 	while (++i < ft_strlen(input) + 1)
 	{
+		ft_skip_quotes(input, &i);
 		type = ft_is_separator(&input[i]);
 		if (type)
 		{
@@ -110,6 +111,6 @@ void	ft_tokenize(t_minishell *shell)
 
 	line = shell->user_input;
 	ft_open_quotes(line);
-	//ft_words_separators(line, shell);
+	ft_words_separators(line, shell);
 	ft_print_stack(shell->tokens);
 }

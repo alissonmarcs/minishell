@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 15:04:35 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:21:00 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,21 @@ void	ft_open_quotes(char *str)
 			status = 0;
 		if (str[i + 1] == '\0' && status != 0)
 			ft_error("syntax error");
+	}
+}
+
+void	ft_skip_quotes(char *str, unsigned long *i)
+{
+	if (str[*i] == '\'')
+	{
+		(*i)++;
+		while (str[*i] != '\'')
+			(*i)++;
+	}
+	else if (str[*i] == '\"')
+	{
+		(*i)++;
+		while (str[*i] != '\"')
+			(*i)++;
 	}
 }
