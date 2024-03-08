@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 14:40:05 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:21:13 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void				ft_lstend(t_token **tokens, char *str, int type);
 void				ft_free_list(t_minishell *shell);
 void				ft_clear_spaces(char **str);
 void				ft_open_quotes(char *str);
+void				ft_skip_quotes(char *str, unsigned long *i);
 
 #endif
