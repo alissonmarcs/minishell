@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -52,9 +53,9 @@ char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-void				ft_putstr_fd(char *s, int fd);
+int					ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_putchar_fd(char c, int fd);
+int					ft_putchar_fd(char c, int fd);
 void				ft_putendl_fd(char *s, int fd);
 t_list				*ft_lstlast(t_list *lst);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
@@ -83,5 +84,13 @@ char				*g_ft_strjoin(const char *dest, char *str);
 char				*g_ft_strchr(const char *str, int c);
 char				*g_ft_strdup(const char *str);
 size_t				g_ft_strlcpy(char *dest, const char *str, size_t n);
+
+// ft_printf_fd
+
+# define DECIMAL_BASE "0123456789"
+# define HEXA_LOW_BASE "0123456789abcdef"
+# define HEXA_UP_BASE "0123456789ABCDEF"
+
+int					ft_printf_fd(int fd, const char *format, ...);
 
 #endif
