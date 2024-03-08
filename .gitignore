@@ -7,3 +7,4 @@ minishell2
 *.a
 .vscode
 tmp
+.nfs*
