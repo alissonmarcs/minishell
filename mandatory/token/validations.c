@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 11:38:47 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:44:04 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@ void	ft_clear_spaces(char **str)
 	(*end) = '\0';
 	ft_memmove(*str, start, end - start + 2);
 }
+void lalalal
