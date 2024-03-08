@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/07 15:40:49 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:30:56 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ t_token				*ft_create_list(char *str, int type);
 void				ft_print_stack(t_token *stack);
 void				ft_lstend(t_token **tokens, char *str, int type);
 void				ft_free_list(t_minishell *shell);
+void				ft_clear_spaces(char **str);
 
 #endif
