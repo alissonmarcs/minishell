@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 15:21:13 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:06:02 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,28 @@ enum				e_token
 	END
 };
 
-// Log
-void				ft_tokenize(t_minishell *shell);
-void				ft_error(char *str);
-t_token				*ft_create_list(char *str, int type);
-void				ft_print_stack(t_token *stack);
-void				ft_lstend(t_token **tokens, char *str, int type);
-void				ft_free_list(t_minishell *shell);
-void				ft_clear_spaces(char **str);
+/*------------------------------------TOKEN--------------------------------*/
+//#Validation pre-tokenization
 void				ft_open_quotes(char *str);
 void				ft_skip_quotes(char *str, unsigned long *i);
+
+//#Tokenization
+void				ft_tokenize(t_minishell *shell);
+void				ft_clear_spaces(char **str);
+/*------------------------------------------------------------------------*/
+
+/*------------------------------------EXIT--------------------------------*/
+void				ft_error(char *str);
+void				ft_lstend(t_token **tokens, char *str, int type);
+/*------------------------------------------------------------------------*/
+
+/*------------------------------------LIST--------------------------------*/
+t_token				*ft_create_list(char *str, int type);
+void				ft_free_list(t_minishell *shell);
+/*------------------------------------------------------------------------*/
+
+/*---------------------------------DEBUGGING------------------------------*/
+void				ft_print_stack(t_token *stack);
+/*------------------------------------------------------------------------*/
 
 #endif
