@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 15:20:37 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:01:23 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	ft_tokenize(t_minishell *shell)
 	line = shell->user_input;
 	ft_open_quotes(line);
 	ft_words_separators(line, shell);
+	ft_check_syntax(shell->tokens);
 	ft_print_stack(shell->tokens);
 }
