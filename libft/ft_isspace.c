@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validations.c                                      :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 11:38:47 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/08 11:32:40 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/08 11:38:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_clear_spaces(char **str)
+int	ft_isspace(char c)
 {
-	char	*start;
-	char	*end;
-
-	start = *str;
-	end = *str + ft_strlen(*str);
-	while (ft_isspace(*start))
-		start++;
-	while (end > start && ft_isspace(*end))
-		end--;
-	(*end) = '\0';
-	ft_memmove(*str, start, end - start + 2);
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r')
+		return (1);
+	return (0);
 }
