@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/07 12:23:19 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:14:07 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_error(char *str)
 {
-	printf("%s\n", str);
-	exit(1);
+	ft_printf_fd(2, "minishell: %s\n", str);
+	ft_free_list(ft_get_shell());
+	//exit(1);
 }
 
 void	ft_free_list(t_minishell *shell)

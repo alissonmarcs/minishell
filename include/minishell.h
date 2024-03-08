@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 18:00:58 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:12:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_minishell
 	t_token			*tokens;
 }					t_minishell;
 
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}t_bool;
+
 enum				e_token
 {
 	SPACES = 1,
@@ -53,10 +59,13 @@ enum				e_token
 	END
 };
 
+t_minishell			*ft_get_shell(void);
+
 /*------------------------------------TOKEN--------------------------------*/
 //#Validation pre-tokenization
-void				ft_open_quotes(char *str);
+t_bool				ft_open_quotes(char *str);
 void				ft_skip_quotes(char *str, unsigned long *i);
+t_bool				ft_double_separators(char *line);
 
 //#Tokenization
 void				ft_tokenize(t_minishell *shell);

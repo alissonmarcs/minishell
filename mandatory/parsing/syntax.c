@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:57:12 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 18:02:37 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:24:16 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ void	ft_check_syntax(t_token *tokens)
 		if (curr->type == PIPE && !curr->next)
 			ft_error("unexpected end of file");
 		else if (curr->type == PIPE && curr->next->type == PIPE)
-			ft_error("syntax error near unexpected token '|'");
+			ft_error("syntax error near unexpected token `|'");
+		else if ((curr->type == TRUNC || curr->type == APPEND
+				|| curr->type == HERE_DOC || curr->type == INPUT)
+			&& (curr->next->type == PIPE))
+			ft_error("syntax error near unexpected token `|'");
+		else if (curr->type == TRUNC && curr->next->type == TRUNC)
+			ft_error("syntax error near unexpected token `>'");
 		curr = curr->next;
 	}
 }
