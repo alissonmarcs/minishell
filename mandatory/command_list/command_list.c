@@ -38,8 +38,6 @@ void	append_command(t_command **cmd_list, t_command *new)
 	}
 }
 
-
-
 void	free_cmd_list(t_command **cmd_list)
 {
 	t_command *tmp;

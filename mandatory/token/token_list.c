@@ -115,5 +115,4 @@ void	ft_tokenize(t_minishell *shell)
 	//	return ;
 	ft_words_separators(line, shell);
 	ft_check_syntax(shell->tokens);
-	ft_print_stack(shell->tokens);
 }

@@ -102,9 +102,15 @@ void				ft_free_list(t_minishell *shell);
 void				ft_print_stack(t_token *stack);
 /*------------------------------------------------------------------------*/
 
-t_command 			*new_command(char *name, bool pipe);
 void				append_command(t_command **cmd_list, t_command *new);
+t_command 			*new_command(char *name, bool pipe);
 void				print_cmd_list(t_command *list);
+void				free_cmd_list(t_command **cmd_list);
 t_command			*get_last_command(t_command *cmd);
+int					get_len_args(t_token *token);
+void				add_dummy_node(t_command **cmd);
+void				populate_command_list(t_minishell *minishell);
+void				get_args(t_token **token, t_command *last);
+void				handle_words(t_token **token, t_command **cmd);
 
 #endif
