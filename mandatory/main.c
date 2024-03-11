@@ -32,7 +32,11 @@ void	ft_loop(void)
 		add_history(shell->user_input);
 		ft_tokenize(shell);
 		free(shell->user_input);
+		ft_print_stack(shell->tokens);
+		populate_command_list(shell);
+		print_cmd_list(shell->commands);
 		ft_free_list(shell);
+		free_cmd_list(&shell->commands);
 	}
 	rl_clear_history();
 }
