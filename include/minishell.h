@@ -104,5 +104,6 @@ void				ft_print_stack(t_token *stack);
 
 t_command 			*new_command(char *name, bool pipe);
 void				append_command(t_command **cmd_list, t_command *new);
+void				print_cmd_list(t_command *list);
 
 #endif

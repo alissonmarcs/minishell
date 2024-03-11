@@ -4,7 +4,8 @@ CFLAGS		:= -Wall -Werror -Wextra -g3 -O0
 RFLAGS 		:= -lreadline -lhistory
 BIN			:= ./bin/
 HEADER		:= ./include/
-SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c
+SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c \
+			debug.c
 OBJECTS		:= $(addprefix $(BIN),$(SOURCE:.c=.o))
 PRINTF		:= ./libft/Printf/libftprintf.a
 LIBFT		:= ./libft/libft.a
@@ -49,6 +50,10 @@ $(BIN)%.o: ./mandatory/parsing/%.c $(HEADER)minishell.h
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/command_list/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
+
+$(BIN)%.o: ./mandatory/debug/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
