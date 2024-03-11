@@ -23,8 +23,19 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # define PROMPT "\001\e[0m\002\e[33mCarlitoShell$ \001\e[0m\002"
+
+typedef struct s_command
+{
+	char				*name;
+	char				**argv;
+	int					tube[2];
+	bool				output_to_pipe;
+	struct s_command	*prev;
+	struct s_command	*next;
+}					t_command;
 
 typedef struct s_token
 {
@@ -38,6 +49,7 @@ typedef struct s_minishell
 {
 	char			*user_input;
 	t_token			*tokens;
+	t_command		*commands;
 }					t_minishell;
 
 typedef enum e_bool
@@ -89,5 +101,8 @@ void				ft_free_list(t_minishell *shell);
 /*---------------------------------DEBUGGING------------------------------*/
 void				ft_print_stack(t_token *stack);
 /*------------------------------------------------------------------------*/
+
+t_command 			*new_command(char *name, bool pipe);
+void				append_command(t_command **cmd_list, t_command *new);
 
 #endif
