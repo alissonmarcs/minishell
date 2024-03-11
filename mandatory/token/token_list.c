@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 15:20:37 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:18:33 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,10 @@ void	ft_words_separators(char *input, t_minishell *shell)
 			if (type != SPACES && type != VAR && type != WORD)
 			{
 				ft_separator(input, shell, i, type);
-				i++;
 				if (type == APPEND || type == HERE_DOC)
 					i++;
 			}
-			start = i;
+			start = i + 1;
 		}
 	}
 }
@@ -110,7 +109,11 @@ void	ft_tokenize(t_minishell *shell)
 	char	*line;
 
 	line = shell->user_input;
-	ft_open_quotes(line);
+	if (ft_open_quotes(line))
+		return ;
+	//if (ft_double_separators(line))
+	//	return ;
 	ft_words_separators(line, shell);
+	ft_check_syntax(shell->tokens);
 	ft_print_stack(shell->tokens);
 }

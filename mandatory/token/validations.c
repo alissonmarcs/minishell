@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 15:21:00 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:16:26 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_clear_spaces(char **str)
 	(*str)[i - start] = '\0';
 }
 
-void	ft_open_quotes(char *str)
+t_bool	ft_open_quotes(char *str)
 {
 	int	status;
 	int	i;
@@ -51,8 +51,9 @@ void	ft_open_quotes(char *str)
 		else if (str[i] == '\'' && status == 2)
 			status = 0;
 		if (str[i + 1] == '\0' && status != 0)
-			ft_error("syntax error");
+			return (TRUE);
 	}
+	return (FALSE);
 }
 
 void	ft_skip_quotes(char *str, unsigned long *i)
@@ -69,4 +70,20 @@ void	ft_skip_quotes(char *str, unsigned long *i)
 		while (str[*i] != '\"')
 			(*i)++;
 	}
+}
+
+t_bool	ft_double_separators(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '|' && line[i + 1] == '|')
+			return (TRUE);
+		if (line[i] == '&' && line[i + 1] == '&')
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }
