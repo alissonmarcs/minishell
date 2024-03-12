@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: almarcos <almarcos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 10:22:14 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/11 10:22:16 by almarcos         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:15:41 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_command	*new_command(char *name, bool pipe)
 {
-	t_command *command;
+	t_command	*command;
 
-	command = ft_calloc(1, sizeof (t_command));
+	command = ft_calloc(1, sizeof(t_command));
 	if (!command)
 		return (NULL);
 	command->name = name;
@@ -26,7 +26,7 @@ t_command	*new_command(char *name, bool pipe)
 
 void	append_command(t_command **cmd_list, t_command *new)
 {
-	t_command *tail;
+	t_command	*tail;
 
 	if (!*cmd_list)
 		*cmd_list = new;
@@ -51,8 +51,8 @@ void	free_io(t_io *io)
 
 void	free_cmd_list(t_command **cmd_list)
 {
-	t_command *tmp;
-	t_command *next;
+	t_command	*tmp;
+	t_command	*next;
 
 	tmp = *cmd_list;
 	while (tmp)
@@ -68,7 +68,7 @@ void	free_cmd_list(t_command **cmd_list)
 	*cmd_list = NULL;
 }
 
-t_command		*get_last_command(t_command *cmd)
+t_command	*get_last_command(t_command *cmd)
 {
 	while (cmd->next)
 		cmd = cmd->next;

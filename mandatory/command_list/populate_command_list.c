@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   populate_command_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: almarcos <almarcos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:03:30 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/11 15:03:31 by almarcos         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:16:09 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	add_dummy_node(t_command **cmd)
 {
-	t_command *dummy;
+	t_command	*dummy;
 
 	dummy = new_command(NULL, false);
 	append_command(cmd, dummy);
@@ -48,7 +48,7 @@ void	handle_truc(t_token **token, t_command *cmd)
 	t_command	*last;
 
 	last = get_last_command(cmd);
-	io = ft_calloc(1, sizeof (t_io));
+	io = ft_calloc(1, sizeof(t_io));
 	if (!io)
 		return ;
 	io->outfile = ft_strdup((*token)->next->str);
@@ -66,9 +66,9 @@ void	handle_pipe(t_token **token, t_command **cmd)
 	*token = (*token)->next;
 }
 
-int get_len_args(t_token *token)
+int	get_len_args(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (token->type == WORD)
@@ -81,8 +81,8 @@ int get_len_args(t_token *token)
 
 void	get_args(t_token **token, t_command *last)
 {
-	t_token		*current;
-	int			i;
+	t_token	*current;
+	int		i;
 
 	current = *token;
 	i = 1;
@@ -110,7 +110,7 @@ void	handle_words(t_token **token, t_command **cmd)
 	else
 	{
 		len_args = get_len_args(*token) + 2;
-		last->argv = ft_calloc(len_args, sizeof (char *));
+		last->argv = ft_calloc(len_args, sizeof(char *));
 		if (!last->argv)
 			return ;
 		get_args(token, last);

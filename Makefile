@@ -57,7 +57,7 @@ $(BIN)%.o: ./mandatory/debug/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
-$(BIN)%.o: ./mandatory/built_in%.c $(HEADER)minishell.h
+$(BIN)%.o: ./mandatory/built_in/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 

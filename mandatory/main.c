@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/12 11:46:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:12:46 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	ft_loop(void)
 	}
 	rl_clear_history();
 }
-
-execve("/usr/bin/ls", {"ls", "-l", NULL}, NULL);
 
 int	main(void)
 {
