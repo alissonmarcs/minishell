@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/12 12:12:16 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:37:17 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void		ft_skip_quotes(char *str, unsigned long *i);
 t_bool		ft_double_separators(char *line);
 
 //#Tokenization
-void		ft_tokenize(t_minishell *shell);
+t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
-void		ft_check_syntax(t_token *tokens);
+char		*ft_check_syntax(t_token *tokens);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/
@@ -59,7 +59,7 @@ void		free_io(t_io *io);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
-void		ft_error(char *str);
+t_bool		ft_error(char *str);
 void		ft_lstend(t_token **tokens, char *str, int type);
 /*------------------------------------------------------------------------*/
 

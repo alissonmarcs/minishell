@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 19:16:26 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:14:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ t_bool	ft_double_separators(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '|' && line[i + 1] == '|')
-			return (TRUE);
 		if (line[i] == '&' && line[i + 1] == '&')
 			return (TRUE);
 		i++;
