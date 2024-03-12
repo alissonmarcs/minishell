@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/12 12:12:46 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:28:16 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ t_minishell	*ft_get_shell(void)
 	static t_minishell	shell;
 
 	return (&shell);
+}
+
+void	ft_process(t_minishell *shell)
+{
+	if (ft_tokenize(shell))
+		return ;
+	//if (ft_exec(shell))
+	//	return ;
+	ft_print_stack(shell->tokens);
 }
 
 void	ft_loop(void)
@@ -30,9 +39,8 @@ void	ft_loop(void)
 		if (!shell->user_input)
 			break ;
 		add_history(shell->user_input);
-		ft_tokenize(shell);
+		ft_process(shell);
 		free(shell->user_input);
-		ft_print_stack(shell->tokens);
 		populate_command_list(shell);
 		print_cmd_list(shell->commands);
 		ft_free_list(shell);
