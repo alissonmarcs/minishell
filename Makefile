@@ -5,7 +5,7 @@ RFLAGS 		:= -lreadline -lhistory
 BIN			:= ./bin/
 HEADER		:= ./include/
 SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c \
-				populate_command_list.c debug.c
+				populate_command_list.c debug.c built_in.c
 OBJECTS		:= $(addprefix $(BIN),$(SOURCE:.c=.o))
 PRINTF		:= ./libft/Printf/libftprintf.a
 LIBFT		:= ./libft/libft.a
@@ -54,6 +54,10 @@ $(BIN)%.o: ./mandatory/command_list/%.c $(HEADER)minishell.h
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/debug/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
+
+$(BIN)%.o: ./mandatory/built_in%.c $(HEADER)minishell.h
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
