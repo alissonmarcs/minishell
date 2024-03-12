@@ -26,7 +26,7 @@ static	void	print_argv(t_command *node)
 
 void	print_cmd_list(t_command *list)
 {
-	printf("\n\n\n\t\t------ COMMAND LIST ------\n\n\n");
+	printf("\n\n\n       ------ COMMAND LIST ------\n\n\n");
 	while (list)
 	{
 		printf("\t- Name: %s\n", list->name);
@@ -40,7 +40,7 @@ void	print_cmd_list(t_command *list)
 		printf("\t- Next: %p\n", list->next);
 		if (list->next)
 			printf("\t\t- Name: %s\n", list->next->name);
-		printf("\n\n");
 		list = list->next;
+		printf("\n   ===================================\n\n");
 	}
 }
