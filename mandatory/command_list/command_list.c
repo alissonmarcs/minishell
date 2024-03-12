@@ -38,6 +38,17 @@ void	append_command(t_command **cmd_list, t_command *new)
 	}
 }
 
+void	free_io(t_io *io)
+{
+	if (!io)
+		return ;
+	if (io->infile)
+		free(io->infile);
+	if (io->outfile)
+		free(io->outfile);
+	free(io);
+}
+
 void	free_cmd_list(t_command **cmd_list)
 {
 	t_command *tmp;
@@ -49,6 +60,7 @@ void	free_cmd_list(t_command **cmd_list)
 		next = tmp->next;
 		if (tmp->argv)
 			ft_delete_matrice(tmp->argv);
+		free_io(tmp->io);
 		free(tmp->name);
 		free(tmp);
 		tmp = next;
