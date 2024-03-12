@@ -25,51 +25,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-# define PROMPT "\001\e[0m\002\e[33mCarlitoShell$ \001\e[0m\002"
-
-typedef struct s_command
-{
-	char				*name;
-	char				**argv;
-	int					tube[2];
-	bool				output_to_pipe;
-	struct s_command	*prev;
-	struct s_command	*next;
-}					t_command;
-
-typedef struct s_token
-{
-	char			*str;
-	int				type;
-	struct s_token	*next;
-	struct s_token	*prev;
-}					t_token;
-
-typedef struct s_minishell
-{
-	char			*user_input;
-	t_token			*tokens;
-	t_command		*commands;
-}					t_minishell;
-
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}t_bool;
-
-enum				e_token
-{
-	SPACES = 1,
-	VAR,
-	WORD,
-	PIPE,
-	INPUT,
-	TRUNC,
-	APPEND,
-	HERE_DOC,
-	END
-};
+# include "types.h"
+# include "defines.h"
 
 t_minishell			*ft_get_shell(void);
 
@@ -113,6 +70,5 @@ void				populate_command_list(t_minishell *minishell);
 void				get_args(t_token **token, t_command *last);
 void				handle_words(t_token **token, t_command **cmd);
 void				handle_pipe(t_token **token, t_command **cmd);
-
 
 #endif
