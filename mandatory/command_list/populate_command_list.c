@@ -34,10 +34,26 @@ void	populate_command_list(t_minishell *shell)
 			handle_words(&token, &command);
 		else if (token->type == PIPE)
 			handle_pipe(&token, &command);
+		else if (token->type == TRUNC)
+			handle_truc(&token, command);
 		else if (token->type == END)
 			break ;
 	}
 	shell->commands = command;
+}
+
+void	handle_truc(t_token **token, t_command *cmd)
+{
+	t_io		*io;
+	t_command	*last;
+
+	last = get_last_command(cmd);
+	io = ft_calloc(1, sizeof (t_io));
+	if (!io)
+		return ;
+	io->outfile = ft_strdup((*token)->next->str);
+	last->io = io;
+	*token = (*token)->next->next;
 }
 
 void	handle_pipe(t_token **token, t_command **cmd)
