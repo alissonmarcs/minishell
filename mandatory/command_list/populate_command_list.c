@@ -32,10 +32,22 @@ void	populate_command_list(t_minishell *shell)
 	{
 		if (token->type == WORD)
 			handle_words(&token, &command);
+		else if (token->type == PIPE)
+			handle_pipe(&token, &command);
 		else if (token->type == END)
 			break ;
 	}
 	shell->commands = command;
+}
+
+void	handle_pipe(t_token **token, t_command **cmd)
+{
+	t_command	*last;
+
+	last = get_last_command(*cmd);
+	last->output_to_pipe = true;
+	append_command(cmd, new_command(NULL, false));
+	*token = (*token)->next;
 }
 
 int get_len_args(t_token *token)

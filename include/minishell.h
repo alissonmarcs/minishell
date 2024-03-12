@@ -112,5 +112,7 @@ void				add_dummy_node(t_command **cmd);
 void				populate_command_list(t_minishell *minishell);
 void				get_args(t_token **token, t_command *last);
 void				handle_words(t_token **token, t_command **cmd);
+void				handle_pipe(t_token **token, t_command **cmd);
+
 
 #endif
