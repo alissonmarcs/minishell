@@ -14,12 +14,21 @@
 
 # define DEFINE TYPES_H
 
+typedef struct s_io
+{
+	char	*infile;
+	char	*outfile;
+	int		infile_fd;
+	int		outfile_fd;
+} t_io;
+
 typedef struct s_command
 {
 	char				*name;
 	char				**argv;
 	int					tube[2];
 	bool				output_to_pipe;
+	t_io				*io;
 	struct s_command	*prev;
 	struct s_command	*next;
 }					t_command;
