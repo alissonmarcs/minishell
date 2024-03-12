@@ -39,12 +39,25 @@ void	populate_command_list(t_minishell *shell)
 		else if (token->type == END)
 			break ;
 	}
+	set_commands_with_no_argv(command);
 	shell->commands = command;
+}
+
+void	set_commands_with_no_argv(t_command *cmd)
+{
+	while (cmd)
+	{
+		if (!cmd->argv)
+		{
+			cmd->argv = ft_calloc(2, sizeof (char *));
+			cmd->argv[0] = ft_strdup(cmd->name);
+		}
+		cmd = cmd->next;
+	}
 }
 
 void	handle_truc_input(t_token **token, t_command *cmd)
 {
-	t_io		*io;
 	t_command	*last;
 
 	last = get_last_command(cmd);
