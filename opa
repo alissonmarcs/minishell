@@ -1,3 +1,0 @@
-um
-dis
-opa
