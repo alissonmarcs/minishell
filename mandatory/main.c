@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/13 15:11:14 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:52:33 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_loop(void)
 		add_history(shell->user_input);
 		ft_process(shell);
 		//free(shell->user_input);
-		//ft_free_list(shell);
+		ft_free_list(shell);
 		//free_cmd_list(&shell->commands);
 	}
 	rl_clear_history();

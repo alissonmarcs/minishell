@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/13 18:29:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:58:53 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,18 @@ t_bool	ft_tokenize(t_minishell *shell)
 	char	*line;
 
 	line = shell->user_input;
-	// if (ft_open_quotes(line))
-	//	return (TRUE);
-	// if (ft_double_separators(line))
-	//{
-	//	ft_error(AND_ERROR);
-	//	return (TRUE);
-	//}
+	if (ft_open_quotes(line))
+		return (TRUE);
+	if (ft_double_separators(line))
+	{
+		ft_error(AND_ERROR);
+		return (TRUE);
+	}
 	if (ft_var_expansion(&line))
 		ft_error("error");
-	printf("%s\n", line);
-	// ft_words_separators(line, shell);
-	// if (ft_error(ft_check_syntax(shell->tokens)))
-	//	return (TRUE);
-	free (line);
+	ft_words_separators(line, shell);
+	if (ft_error(ft_check_syntax(shell->tokens)))
+		return (TRUE);
+	free(line);
 	return (FALSE);
 }
