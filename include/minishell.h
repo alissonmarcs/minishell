@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/12 14:37:17 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:57:25 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ t_minishell	*ft_get_shell(void);
 t_bool		ft_open_quotes(char *str);
 void		ft_skip_quotes(char *str, unsigned long *i);
 t_bool		ft_double_separators(char *line);
+t_bool		ft_var_expansion(char **line);
 
 //#Tokenization
+int			ft_is_separator(char *str);
 t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
 char		*ft_check_syntax(t_token *tokens);
