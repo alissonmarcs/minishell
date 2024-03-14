@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/13 17:57:25 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:52:31 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,7 @@ void		print_cmd_list(t_command *list);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------BUILT-IN------------------------------*/
-void		ft_tony_tony_chopper(void);
-void				append_command(t_command **cmd_list, t_command *new);
-t_command 			*new_command(char *name, bool pipe);
-void				print_cmd_list(t_command *list);
-void				free_cmd_list(t_command **cmd_list);
-t_command			*get_last_command(t_command *cmd);
-int					get_len_args(t_token *token);
-void				add_dummy_node(t_command **cmd);
-void				populate_command_list(t_minishell *minishell);
-void				get_args(t_token **token, t_command *last);
-void				handle_words(t_token **token, t_command **cmd);
-void				handle_pipe(t_token **token, t_command **cmd);
-void				handle_truc_input(t_token **token, t_command *cmd);
-void				free_io(t_io *io);
-void				set_commands_with_no_argv(t_command *cmd);
-
+void		ft_echo_builtin(char **argv);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/
