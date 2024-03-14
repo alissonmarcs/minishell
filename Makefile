@@ -19,52 +19,76 @@ END=\033[0m
 all: $(42LIBS) $(BIN) $(NAME)
 
 $(LIBFT):
-	@printf "$(BLUE)Compiling Libft...$(END)\n"
+	@printf "$(BLUE)---------------------$(END)\n"
+	@printf "$(BLUE)--Compiling Libft...-$(END)\n"
+	@printf "$(BLUE)---------------------$(END)\n"
 	@make -C ./libft --no-print-directory
 
 $(PRINTF):
-	@printf "$(BLUE)Compiling Printf...$(END)\n"
+	@printf "$(BLUE)---------------------$(END)\n"
+	@printf "$(BLUE)-Compiling Printf...-$(END)\n"
+	@printf "$(BLUE)---------------------$(END)\n"
 	@make -C ./libft/Printf --no-print-directory
 
 $(BIN):
 	@mkdir -p $(BIN)
 
 $(BIN)%.o: ./mandatory/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/token/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/list/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/errors/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/parsing/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/command_list/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/debug/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/built_in/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(NAME): $(OBJECTS) $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $(NAME)...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(RFLAGS) $(CFLAGS) $(OBJECTS) $(42LIBS) -o $(NAME)
-	@printf "$(GREEN)$(NAME) compiled!$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
+	@printf "$(GREEN)--$(NAME) compiled!-$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 
 clean:
 	@printf "$(RED)Cleaning...$(END)\n"

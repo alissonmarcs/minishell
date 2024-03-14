@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/12 15:14:19 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:59:34 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ void	ft_skip_quotes(char *str, unsigned long *i)
 
 t_bool	ft_double_separators(char *line)
 {
-	int	i;
+	unsigned long i;
 
 	i = 0;
 	while (line[i])
 	{
+		ft_skip_quotes(line, &i);
 		if (line[i] == '&' && line[i + 1] == '&')
 			return (TRUE);
 		i++;
