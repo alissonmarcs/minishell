@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 15:04:28 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:04:26 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,6 +30,8 @@
 
 /*----------------------------------MAIN-STRUCT----------------------------*/
 t_minishell	*ft_get_shell(void);
+void		ft_receive_signal(void);
+
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------TOKEN--------------------------------*/
@@ -36,6 +39,7 @@ t_minishell	*ft_get_shell(void);
 t_bool		ft_open_quotes(char *str);
 void		ft_skip_quotes(char *str, unsigned long *i);
 t_bool		ft_double_separators(char *line);
+t_bool		ft_only_spaces(char *line);
 t_bool		ft_var_expansion(char **line);
 
 //#Tokenization
@@ -43,6 +47,7 @@ int			ft_is_separator(char *str);
 t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
 char		*ft_check_syntax(t_token *tokens);
+t_bool		ft_handle_cntl_c(int sig);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/

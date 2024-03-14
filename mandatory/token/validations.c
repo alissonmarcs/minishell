@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 10:59:34 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:16:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,18 @@ t_bool	ft_double_separators(char *line)
 		i++;
 	}
 	return (FALSE);
+}
+
+t_bool	ft_only_spaces(char *line)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!ft_isspace(line[i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
