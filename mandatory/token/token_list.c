@@ -121,6 +121,5 @@ t_bool	ft_tokenize(t_minishell *shell)
 	ft_words_separators(line, shell);
 	if (ft_error(ft_check_syntax(shell->tokens)))
 		return (TRUE);
-	free(line);
 	return (FALSE);
 }
