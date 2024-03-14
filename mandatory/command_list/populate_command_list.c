@@ -34,25 +34,39 @@ void	populate_command_list(t_minishell *shell)
 			handle_words(&token, &command);
 		else if (token->type == PIPE)
 			handle_pipe(&token, &command);
-		else if (token->type == TRUNC)
-			handle_truc(&token, command);
+		else if (token->type == TRUNC || token->type == INPUT)
+			handle_truc_input(&token, command);
 		else if (token->type == END)
 			break ;
 	}
+	set_commands_with_no_argv(command);
 	shell->commands = command;
 }
 
-void	handle_truc(t_token **token, t_command *cmd)
+void	set_commands_with_no_argv(t_command *cmd)
 {
-	t_io		*io;
+	while (cmd)
+	{
+		if (!cmd->argv)
+		{
+			cmd->argv = ft_calloc(2, sizeof (char *));
+			cmd->argv[0] = ft_strdup(cmd->name);
+		}
+		cmd = cmd->next;
+	}
+}
+
+void	handle_truc_input(t_token **token, t_command *cmd)
+{
 	t_command	*last;
 
 	last = get_last_command(cmd);
-	io = ft_calloc(1, sizeof(t_io));
-	if (!io)
-		return ;
-	io->outfile = ft_strdup((*token)->next->str);
-	last->io = io;
+	if (!last->io)
+		last->io = ft_calloc(1, sizeof (t_io));
+	if ((*token)->type == TRUNC)
+		last->io->outfile = ft_strdup((*token)->next->str);
+	else
+		last->io->infile = ft_strdup((*token)->next->str);
 	*token = (*token)->next->next;
 }
 
