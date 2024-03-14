@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/13 18:52:33 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:09:35 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	ft_loop(void)
 		shell->user_input = readline(PROMPT);
 		if (!shell->user_input)
 			break ;
+		if (shell->user_input[0] == '\0')
+		{
+			free(shell->user_input);
+			continue ;
+		}
 		add_history(shell->user_input);
 		ft_process(shell);
 		free(shell->user_input);
