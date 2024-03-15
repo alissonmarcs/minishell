@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 12:02:17 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:40:08 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_bool	ft_expand_and_manage(char **line, char *init, char *var, char *end)
 	char	*linha;
 
 	final = getenv(var);
-	// if (!var)
-	//	return (TRUE);
 	if (final)
 	{
 		free(*line);

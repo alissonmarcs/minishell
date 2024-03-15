@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:11:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 14:51:36 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:32:01 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,17 @@ int	ft_flag(char *arg)
 
 void	ft_print_args(char **argv, int i, int flag)
 {
-	int	j;
-
+	if (!argv[i])
+	{
+		if (!flag)
+			ft_printf_fd(STDOUT_FILENO, "\n");
+		return ;
+	}
 	while (argv[i])
 	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] == '\"')
-				j++;
-			if (argv[i][j])
-				write(1, &argv[i][j], 1);
-			j++;
-		}
+		ft_printf_fd(STDOUT_FILENO, "%s", argv[i]);
 		if (argv[i + 1])
-			write(1, " ", 1);
+			ft_printf_fd(STDOUT_FILENO, " ");
 		i++;
 	}
 	if (!flag)
@@ -73,4 +69,3 @@ void	ft_echo_builtin(char **argv)
 	}
 	ft_print_args(argv, i, flag);
 }
-

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 17:16:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:04:44 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,16 @@ void	ft_skip_quotes(char *str, unsigned long *i)
 	}
 }
 
-t_bool	ft_double_separators(char *line)
+t_bool	ft_forbidden_separators(char *line)
 {
-	unsigned long i;
+	unsigned long	i;
 
 	i = 0;
 	while (line[i])
 	{
 		ft_skip_quotes(line, &i);
-		if (line[i] == '&' && line[i + 1] == '&')
+		if ((line[i] == '&' && line[i + 1] == '&') || line[i] == '\\'
+			|| line[i] == ';')
 			return (TRUE);
 		i++;
 	}
