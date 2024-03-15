@@ -38,7 +38,6 @@ t_bool	ft_expand_and_manage(char **line, char *init, char *var, char *end)
 	//	return (TRUE);
 	if (final)
 	{
-		free(*line);
 		*line = NULL;
 		linha = ft_strjoin(init, final);
 		*line = ft_strjoin(linha, end);
