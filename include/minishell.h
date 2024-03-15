@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 14:31:49 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:39:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
 char		*ft_check_syntax(t_token *tokens);
 void		ft_quotes_treatment(char **str);
+char		*ft_getenv(char *env);
+void		ft_clone_env(t_minishell *shell);
+
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/

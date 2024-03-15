@@ -6,16 +6,16 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/08 11:38:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:39:39 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -27,6 +27,7 @@ int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
+int					ft_isvar(char *c);
 int					ft_isprint(int c);
 size_t				ft_strlen(const char *s);
 void				*ft_memset(void *str, int c, size_t n);

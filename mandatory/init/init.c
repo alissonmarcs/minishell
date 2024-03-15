@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:54:16 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/15 14:06:30 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:37:52 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_get_env_list(void)
 	}
 }
 
-void	ft_get_env(t_minishell *shell)
+void	ft_clone_env(t_minishell *shell)
 {
 	int		i;
 	char	**env;
@@ -93,4 +93,10 @@ void	ft_get_env(t_minishell *shell)
 	shell->env = env;
 	ft_get_env_list();
 	ft_delete_matrice(env);
+}
+
+char	*ft_getenv(char *env)
+{
+	(void)env;
+	return ("opa");
 }

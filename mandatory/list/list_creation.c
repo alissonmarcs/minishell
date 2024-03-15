@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 16:28:52 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:36:31 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_token	*ft_create_list(char *str, int type)
 	if (!new)
 		ft_error("malloc error");
 	ft_bzero(new, sizeof(t_token));
-	ft_quotes_treatment(&str);
 	ft_clear_spaces(&str);
+	ft_quotes_treatment(&str);
 	new->str = ft_strdup(str);
 	new->type = type;
 	new->next = NULL;

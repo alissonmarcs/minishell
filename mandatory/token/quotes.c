@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:15:46 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 16:53:54 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:17:51 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_skip_quotes(char *str, unsigned long *i)
 	else if (str[*i] == '\"')
 	{
 		(*i)++;
-		while (str[*i] != '\"')
+		while (str[*i] != '\"' && str[*i] != '\0')
 			(*i)++;
 	}
 }
