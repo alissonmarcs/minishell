@@ -65,6 +65,7 @@ void		handle_pipe(t_token **token, t_command **cmd);
 void		handle_truc_input(t_token **token, t_command *cmd);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
+void		get_env(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/

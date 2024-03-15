@@ -58,8 +58,8 @@ int	main(void)
 	t_minishell	*shell;
 
 	shell = ft_get_shell();
-	// signa
-	ft_bzero(shell, sizeof(t_minishell));
+	get_env(shell);
 	ft_loop();
+	ft_delete_matrice(shell->env);
 	return (0);
 }
