@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 11:45:12 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:31:49 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 /*----------------------------------MAIN-STRUCT----------------------------*/
 t_minishell	*ft_get_shell(void);
-void		ft_receive_signal(void);
-
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------TOKEN--------------------------------*/
@@ -47,7 +45,7 @@ int			ft_is_separator(char *str);
 t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
 char		*ft_check_syntax(t_token *tokens);
-t_bool		ft_handle_cntl_c(int sig);
+void		ft_quotes_treatment(char **str);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/
@@ -65,7 +63,7 @@ void		handle_pipe(t_token **token, t_command **cmd);
 void		handle_truc_input(t_token **token, t_command *cmd);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
-void		get_env(t_minishell *shell);
+void		ft_get_env(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
@@ -75,17 +73,24 @@ void		ft_lstend(t_token **tokens, char *str, int type);
 
 /*------------------------------------LIST--------------------------------*/
 t_token		*ft_create_list(char *str, int type);
-void		ft_free_list(t_minishell *shell);
+void		ft_free_tokens(t_minishell *shell);
+void		ft_free_env(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------DEBUGGING------------------------------*/
 void		ft_print_stack(t_token *stack);
 void		print_cmd_list(t_command *list);
+void		ft_print_env_list(t_env *env_list);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------BUILT-IN------------------------------*/
 void		ft_echo_builtin(char **argv);
 
+/*------------------------------------------------------------------------*/
+
+/*----------------------------------SIGNALS-------------------------------*/
+void		ft_receive_signal(void);
+t_bool		ft_handle_cntl_c(int sig);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/

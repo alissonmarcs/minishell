@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:03 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/07 17:36:21 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:42:39 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,22 @@ void	ft_print_stack(t_token *stack)
 		printf("-----------------------------\n");
 		i++;
 		stack = stack->next;
+	}
+}
+
+void	ft_print_env_list(t_env *env_list)
+{
+	int	i;
+
+	i = 0;
+	while (env_list)
+	{
+		printf("-----------------------------\n");
+		printf("| Key[%d]:%s.\n", i, env_list->key);
+		printf("| Value[%d]:%s.\n", i, env_list->value);
+		printf("| Next [%d]:%p\n", i, env_list->next);
+		printf("-----------------------------\n");
+		i++;
+		env_list = env_list->next;
 	}
 }

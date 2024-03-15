@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/14 17:04:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:55:55 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	ft_loop(void)
 		add_history(shell->user_input);
 		ft_process(shell);
 		free(shell->user_input);
-		ft_free_list(shell);
+		ft_free_tokens(shell);
 		free_cmd_list(&shell->commands);
 	}
+	ft_free_env(shell);
 	rl_clear_history();
 }
 
@@ -58,8 +59,8 @@ int	main(void)
 	t_minishell	*shell;
 
 	shell = ft_get_shell();
-	get_env(shell);
+	ft_get_env(shell);
+	ft_print_env_list(shell->env_list);
 	ft_loop();
-	ft_delete_matrice(shell->env);
 	return (0);
 }

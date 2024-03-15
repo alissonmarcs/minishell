@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/12 12:15:06 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:28:26 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ typedef struct s_token
 	struct s_token		*prev;
 }						t_token;
 
+typedef struct s_env
+{
+	char				*key;
+	char				*value;
+	struct s_env		*next;
+}						t_env;
+
 typedef struct s_minishell
 {
 	char				*user_input;
 	char				**env;
 	t_token				*tokens;
+	t_env				*env_list;
 	t_command			*commands;
 }						t_minishell;
 

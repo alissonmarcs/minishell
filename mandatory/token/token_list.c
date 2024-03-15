@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 12:05:25 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:01:33 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_word(char *word, int start, int end, t_minishell *shell)
 	}
 	str[i] = '\0';
 	ft_lstend(&shell->tokens, str, WORD);
-	free(str);
 }
 
 void	ft_separator(char *separator, t_minishell *shell, int start, int type)
@@ -74,7 +73,6 @@ void	ft_separator(char *separator, t_minishell *shell, int start, int type)
 		str[i] = '\0';
 		ft_lstend(&shell->tokens, str, type);
 	}
-	free(str);
 }
 
 void	ft_words_separators(char *input, t_minishell *shell)
