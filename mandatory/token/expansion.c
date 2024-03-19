@@ -6,81 +6,82 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 19:13:18 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:36:08 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_parse_and_extract(char **line, char **init, char **var, char **end)
+void	ft_parse_and_extract(t_exp *exp)
 {
-	int	i;
-	int	j;
+	int		j;
+	char	*line;
 
-	i = 0;
+	line = exp->line;
 	j = 0;
-	while ((*line)[i] && (*line)[i] != '$')
-		i++;
-	*init = ft_substr(*line, 0, i);
-	if (*line[i] == '$')
-		i++;
-	printf("init: %s\n", *init);
-	while ((*line)[i + j] && ft_isalnum((*line)[i + j]) == 1)
+	exp->init = ft_substr(line, 0, ft_strchr(line, '$') - line);
+	line = ft_strchr(line, '$');
+	if (line)
+		line++;
+	while (line[j] && ft_isalnum(line[j]) == 1)
 		j++;
-	*end = ft_substr(*line, i + j, ft_strlen(*line) - (i + j));
-	printf("end: %s\n", *end);
-	*var = ft_substr(*line, i, j);
-	printf("var: %s\n", *var);
+	exp->var = ft_substr(line, 0, j);
+	line += j;
+	exp->end = ft_substr(line, 0, ft_strlen(line));
+	printf("var: %s\n", exp->var);
+	free(exp->line);
 }
 
-void	ft_expand_and_manage(char **line, char *init, char *var, char *end)
+void	ft_expand_and_manage(t_exp *exp)
 {
-	char	*final;
-	char	*linha;
+	char	*line;
+	char	*result;
+	char	*var;
 
-	final = getenv(var);
-	if (final)
+	result = NULL;
+	var = ft_strdup(getenv(exp->var));
+	if (!exp->var)
+		line = ft_strjoin(exp->init, exp->end);
+	if (exp->var)
 	{
-		linha = ft_strjoin(init, final);
-		*line = ft_strjoin(linha, end);
-		free(linha);
-		free(end);
-		free(var);
-		free(init);
+		line = ft_strjoin(exp->init, var);
+		result = ft_strjoin(line, exp->end);
 	}
-	else if (!final)
-	{
-		*line = ft_strjoin(init, end);
-		free(end);
-		free(init);
-	}
+	free(line);
+	free(exp->init);
+	free(exp->var);
+	free(exp->end);
+	free(var);
+	free(ft_get_shell()->user_input);
+	ft_get_shell()->user_input = ft_strdup(result);
+	if (result)
+		free(result);
 }
 
-t_bool	ft_has_dollar(char *var)
+t_bool	ft_has_dollar(t_exp *exp)
 {
 	int	i;
 
 	i = 0;
-	while (var[i])
+	while (exp->line[i])
 	{
-		if (var[i] == '$')
+		if (exp->line[i] == '$')
 			return (TRUE);
 		i++;
 	}
 	return (FALSE);
 }
 
-t_bool	ft_var_expansion(char **line)
+t_bool	ft_var_expansion(void)
 {
-	char	*init;
-	char	*var;
-	char	*end;
+	static t_exp	exp;
 
-	ft_parse_and_extract(line, &init, &var, &end);
-	if (ft_has_dollar(*line))
-	{
-		ft_expand_and_manage(line, init, var, end);
-		return (ft_var_expansion(line));
-	}
+	exp.line = ft_strdup(ft_get_shell()->user_input);
+	ft_parse_and_extract(&exp);
+	// if (ft_has_dollar(&exp))
+	//{
+	ft_expand_and_manage(&exp);
+	//	return (ft_var_expansion());
+	//}
 	return (FALSE);
 }
