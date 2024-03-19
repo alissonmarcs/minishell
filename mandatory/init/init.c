@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
 t_env	*ft_create_var_list(char *key, char *value)
 {
 	t_env	*new;
@@ -70,7 +57,7 @@ void	ft_get_env_list(void)
 	{
 		split = ft_split(env[i], '=');
 		ft_lstend_var(&shell->env_list, split[0], split[1]);
-		ft_free_split(split);
+		ft_delete_matrice(split);
 		i++;
 	}
 }
