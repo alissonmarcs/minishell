@@ -60,13 +60,17 @@ t_command	*get_last_command(t_command *cmd);
 int			get_len_args(t_token *token);
 void		add_dummy_node(t_command **cmd);
 void		populate_command_list(t_minishell *minishell);
-void		get_args(t_token **token, t_command *last);
+void		get_args(t_token **tokens, t_command *last);
 void		handle_words(t_token **token, t_command **cmd);
 void		handle_pipe(t_token **token, t_command **cmd);
 void		handle_truc_input(t_token **token, t_command *cmd);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
 void		ft_get_env(t_minishell *shell);
+void		create_argv(t_token **tokens, t_command *last);
+void		add_to_argv(t_token **tokens, t_command *last);
+int			array_len(char **array);
+
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
