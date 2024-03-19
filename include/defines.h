@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:49:57 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/12 15:18:10 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:42:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ enum	e_token
 	TRUNC,
 	APPEND,
 	HERE_DOC,
-	END
+	END,
 };
 
 #endif

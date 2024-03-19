@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 12:22:31 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:24:07 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ void	ft_process(t_minishell *shell)
 void	ft_loop(void)
 {
 	t_minishell	*shell;
+	char *line;
 
 	shell = ft_get_shell();
 	while (1)
 	{
 		ft_receive_signal();
-		shell->user_input = readline(PROMPT);
-		if (!shell->user_input)
+		line = readline(PROMPT);
+		if (!line)
 			break ;
+		shell->user_input = ft_strdup(line);
+		free (line);
 		if (shell->user_input[0] == '\0')
 		{
 			free(shell->user_input);
@@ -46,7 +49,7 @@ void	ft_loop(void)
 		}
 		add_history(shell->user_input);
 		ft_process(shell);
-		//free(shell->user_input);
+		free(shell->user_input);
 		ft_free_tokens(shell);
 		// free_cmd_list(&shell->commands);
 	}

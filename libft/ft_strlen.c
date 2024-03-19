@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:51:13 by matesant          #+#    #+#             */
-/*   Updated: 2023/11/13 12:46:45 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:34:33 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	int	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len])
 	{
 		len++;

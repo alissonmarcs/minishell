@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/19 12:50:25 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:58:40 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_minishell
 typedef struct s_exp
 {
 	char				*var;
-	char				*value;
 	char				*init;
 	char				*end;
 	char				*line;
