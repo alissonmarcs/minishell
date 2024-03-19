@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:21:18 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:34:52 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,41 @@ void	ft_expand_and_manage(t_exp *exp)
 	line = NULL;
 	var = NULL;
 	var = ft_strdup(getenv(exp->var));
-	printf("var: %p\n", var);
 	line = ft_strjoin(exp->init, var);
 	result = ft_strjoin(line, exp->end);
 	line = NULL;
 	ft_free((void **)&exp->var);
 	ft_get_shell()->user_input = result;
+}
+
+t_bool	ft_quotes_status(char c, int status)
+{
+	if (c == '\'' && status == 0)
+		status = 2;
+	else if (c == '\'' && status == 2)
+		status = 0;
+	else if (c == '\"' && status == 0)
+		status = 1;
+	else if (c == '\"' && status == 1)
+		status = 0;
+	return (status);
+}
+
+t_bool	ft_dollars_in_my_pocket(char *input)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	status = 0;
+	while (input[i])
+	{
+		status = ft_quotes_status(input[i], status);
+		if (input[i] == '$' && (status == 0 || status == 1))
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }
 
 t_bool	ft_var_expansion(void)
@@ -59,7 +88,7 @@ t_bool	ft_var_expansion(void)
 
 	exp.line = ft_strdup(ft_get_shell()->user_input);
 	shell = ft_get_shell();
-	if (ft_strchr(shell->user_input, '$'))
+	if (ft_dollars_in_my_pocket(shell->user_input))
 	{
 		ft_parse_and_extract(&exp);
 		if (ft_get_shell()->user_input)
