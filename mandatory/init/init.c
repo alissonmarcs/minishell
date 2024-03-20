@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:54:16 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/15 17:37:52 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:40:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,26 @@ void	ft_clone_env(t_minishell *shell)
 
 char	*ft_getenv(char *env)
 {
-	(void)env;
-	return ("opa");
+	t_minishell	*shell;
+	char		*value;
+	t_env		*curr;
+
+	shell = ft_get_shell();
+	curr = shell->env_list;
+	value = NULL;
+	if (!env)
+		return (NULL);
+	while (curr)
+	{
+		if (!ft_strncmp(curr->key, env, ft_strlen(env)))
+			return (value = ft_strdup(curr->value));
+		if (!ft_strncmp(env, "?", ft_strlen(env)))
+			return (value = ft_itoa(shell->exit_status));
+		if (!ft_strncmp(env, "$", ft_strlen(env)))
+			return (value = ft_strdup("$"));
+		curr = curr->next;
+	}
+	if (!curr)
+		return (value = ft_strdup(""));
+	return (value);
 }
