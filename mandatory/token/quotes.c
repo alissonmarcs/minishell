@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:15:46 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 18:33:35 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:06:38 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,16 @@ void	ft_quotes_treatment(char **str)
 	new[j] = '\0';
 	free(*str);
 	*str = new;
+}
+
+void	ft_remove_quotes(void)
+{
+	t_token	*curr;
+
+	curr = ft_get_shell()->tokens;
+	while (curr)
+	{
+		ft_quotes_treatment(&curr->str);
+		curr = curr->next;
+	}
 }

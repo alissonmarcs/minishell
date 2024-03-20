@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 17:38:44 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:18:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char		*ft_check_syntax(t_token *tokens);
 void		ft_quotes_treatment(char **str);
 char		*ft_getenv(char *env);
 void		ft_clone_env(t_minishell *shell);
-
+void		ft_remove_quotes(void);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/

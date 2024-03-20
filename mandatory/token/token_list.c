@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 17:34:55 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:07:47 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_bool	ft_tokenize(t_minishell *shell)
 	ft_words_separators(shell->user_input, shell);
 	if (ft_var_expansion())
 		ft_error("error");
+	ft_remove_quotes();
+	ft_print_stack(ft_get_shell()->tokens);
 	if (ft_error(ft_check_syntax(shell->tokens)))
 		return (TRUE);
 	return (FALSE);

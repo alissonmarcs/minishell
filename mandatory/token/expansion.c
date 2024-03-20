@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 17:47:28 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:21:35 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_expand_and_manage(t_exp *exp)
 	result = NULL;
 	line = NULL;
 	var = NULL;
-	var = ft_strdup(ft_getenv(exp->var));
+	var = ft_getenv(exp->var);
 	line = ft_strjoin(exp->init, var);
 	result = ft_strjoin(line, exp->end);
 	line = NULL;
@@ -105,10 +105,10 @@ t_bool	ft_var_expansion(void)
 		{
 			exp.line = ft_strdup(curr->str);
 			ft_parse_and_extract(&exp);
-			if (ft_get_shell()->user_input)
+			if (curr->str)
 			{
-				free(ft_get_shell()->user_input);
-				ft_get_shell()->user_input = NULL;
+				free(curr->str);
+				curr->str = NULL;
 			}
 			curr->str = ft_expand_and_manage(&exp);
 			continue ;
@@ -116,6 +116,5 @@ t_bool	ft_var_expansion(void)
 		exp = (t_exp){0};
 		curr = curr->next;
 	}
-	ft_print_stack(ft_get_shell()->tokens);
 	return (FALSE);
 }
