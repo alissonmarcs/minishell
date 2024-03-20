@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:34:52 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:56:39 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void	ft_parse_and_extract(t_exp *exp)
 
 	line = exp->line;
 	j = 0;
-	exp->init = ft_substr(line, 0, ft_strchr(line, '$') - line);
-	line = ft_strchr(line, '$');
+	if (exp->i != 0)
+		exp->init = ft_substr(line, 0, exp->i);
+	line += exp->i + 1;
 	if (!line)
 		return ;
-	if (line)
-		line++;
 	while (line[j] && ft_isalnum(line[j]) == 1)
+		j++;
+	if (line[j] == '$')
 		j++;
 	exp->var = ft_substr(line, 0, j);
 	line += j;
@@ -64,19 +65,18 @@ t_bool	ft_quotes_status(char c, int status)
 	return (status);
 }
 
-t_bool	ft_dollars_in_my_pocket(char *input)
+t_bool	ft_dollars_in_my_pocket(char *input, t_exp *exp)
 {
-	int	i;
 	int	status;
 
-	i = 0;
+	exp->i = 0;
 	status = 0;
-	while (input[i])
+	while (input[exp->i])
 	{
-		status = ft_quotes_status(input[i], status);
-		if (input[i] == '$' && (status == 0 || status == 1))
+		status = ft_quotes_status(input[exp->i], status);
+		if (input[exp->i] == '$' && (status == 0 || status == 1))
 			return (TRUE);
-		i++;
+		exp->i++;
 	}
 	return (FALSE);
 }
@@ -88,7 +88,7 @@ t_bool	ft_var_expansion(void)
 
 	exp.line = ft_strdup(ft_get_shell()->user_input);
 	shell = ft_get_shell();
-	if (ft_dollars_in_my_pocket(shell->user_input))
+	if (ft_dollars_in_my_pocket(shell->user_input, &exp))
 	{
 		ft_parse_and_extract(&exp);
 		if (ft_get_shell()->user_input)
