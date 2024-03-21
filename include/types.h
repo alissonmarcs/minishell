@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/20 12:01:53 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:35:34 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ typedef struct s_minishell
 	t_env				*env_list;
 	t_command			*commands;
 	int					exit_status;
+	char				teemo;
+	t_list				*gc;
 }						t_minishell;
 
 typedef struct s_exp
 {
 	char				*var;
-	char				*init;
-	char				*end;
-	char				*line;
 	int					i;
 }						t_exp;
 

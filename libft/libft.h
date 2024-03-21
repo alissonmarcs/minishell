@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:07:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:24:15 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *str1, const void *str2, size_t n);
-char				*ft_strnstr(const char *str, const char *substr);
+char				*ft_strnstr(const char *str, const char *substr, size_t n);
 int					ft_atoi(const char *str);
 void				*ft_calloc(size_t elem, size_t n);
 char				*ft_strdup(const char *str);
@@ -74,6 +74,7 @@ int					ft_issignal(char str);
 long				ft_atol(const char *str);
 int					ft_abs(int n);
 void				ft_free(void **ptr);
+char				*replace_first_occurency(char *old, char *new, char *str);
 
 // GNL
 # ifndef BUFFER_SIZE

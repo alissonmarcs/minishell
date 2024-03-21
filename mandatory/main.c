@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 17:31:34 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:34:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_loop(void)
 		ft_process(shell);
 		free(shell->user_input);
 		ft_free_tokens(shell);
+		ft_garbage_clear(&shell->gc);
 		// free_cmd_list(&shell->commands);
 	}
 	ft_free_env(shell);
@@ -63,7 +64,8 @@ int	main(void)
 
 	shell = ft_get_shell();
 	ft_clone_env(shell);
-	//ft_print_env_list(shell->env_list);
+	shell->teemo = -1;
+	ft_print_env_list(shell->env_list);
 	ft_loop();
 	return (0);
 }

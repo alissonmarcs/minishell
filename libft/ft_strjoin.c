@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 19:51:59 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:18:02 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:38:54 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[++i])
 		join[i + len_s1] = s2[i];
 	join[len_s1 + len_s2] = '\0';
-	free((void **)s1);
-	free((void **)s2);
 	return (join);
 }

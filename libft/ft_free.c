@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:07:21 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:07:31 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:36:42 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	ft_free(void **ptr)
 		free(*ptr);
 		*ptr = NULL;
 	}
+	ptr = NULL;
 }

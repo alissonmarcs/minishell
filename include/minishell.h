@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 18:18:45 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:21:59 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void		ft_quotes_treatment(char **str);
 char		*ft_getenv(char *env);
 void		ft_clone_env(t_minishell *shell);
 void		ft_remove_quotes(void);
+void		ft_replace_teemo(t_token *curr, char c);
+t_bool		ft_quotes_status(char c, int status);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/
@@ -66,13 +68,13 @@ void		handle_pipe(t_token **token, t_command **cmd);
 void		handle_truc_input(t_token **token, t_command *cmd);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
-void		ft_get_env(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
 t_bool		ft_error(char *str);
 void		ft_lstend(t_token **tokens, char *str, int type);
 void		ft_free(void **ptr);
+void		ft_garbage_clear(t_list **garbage);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
