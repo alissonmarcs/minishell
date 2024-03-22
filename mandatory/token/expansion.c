@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/21 17:50:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:54:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,46 +27,72 @@ char	*ft_find_var(char *str)
 	return (ft_substr(line, 0, j));
 }
 
-t_bool	ft_dollars_in_my_pocket(char *input, t_exp *exp)
+void	ft_inflation(char *input, t_exp *exp)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = input;
+	while (input[i])
+	{
+		if (input[i] == '$' && input[i + 1] == '$')
+		{
+			exp->status = 1;
+			line = ft_strchr(line, '$');
+			if (!line)
+				return ;
+			exp->var = (ft_substr(line, 0, 2));
+			break ;
+		}
+		i++;
+		line += 1;
+	}
+}
+
+t_bool	ft_dollars_in_my_pocket(char *input, int *i)
 {
 	static int	status;
 
-	while (input[exp->i])
+	while (input[(*i)])
 	{
-		status = ft_quotes_status(input[exp->i], status);
-		//if (input[i] == '$' && input[i + 1] == '$' && (status == 0
-		//		|| status == 1))
-		//{
-		//	ft_dollar_treatment(input, exp);
-		//	i++;
-		//	return (TRUE);
-		//}
-		if (input[exp->i] == '$' && (status == 0 || status == 1)
-			&& ft_isalpha(input[exp->i + 1]) == 1)
+		status = ft_quotes_status(input[(*i)], status);
+		if (input[(*i)] == '$' && input[(*i) + 1] == '$' && (status == 0
+				|| status == 1))
+		{
+			(*i)++;
 			return (TRUE);
-		exp->i++;
+		}
+		if (input[(*i)] == '$' && (status == 0 || status == 1)
+			&& ft_isalpha(input[(*i) + 1]) == 1)
+			return (TRUE);
+		(*i)++;
 	}
 	return (FALSE);
 }
 
 t_bool	ft_var_expansion(void)
 {
-	static t_exp	exp;
-	t_token			*curr;
+	static int	i;
+	t_exp		exp;
+	t_token		*curr;
 
 	curr = ft_get_shell()->tokens;
 	while (curr && curr->type != END)
 	{
-		if (ft_dollars_in_my_pocket(curr->str, &exp))
+		if (ft_dollars_in_my_pocket(curr->str, &i))
 		{
-			exp.var = ft_find_var(curr->str);
-			curr->str = replace_first_occurency(exp.var, ft_getenv(exp.var + 1),
-				curr->str);
+			exp.status = 0;
+			ft_inflation(curr->str, &exp);
+			if (exp.status == 0)
+				exp.var = ft_find_var(curr->str);
+			curr->str = ft_replace_first_occurency(exp.var, ft_getenv(exp.var
+					+ 1), curr->str);
 			curr->type = VAR;
 			continue ;
 		}
 		ft_replace_teemo(curr, ft_get_shell()->teemo);
-		exp = (t_exp){NULL, 0};
+		i = 0;
 		curr = curr->next;
 	}
 	return (FALSE);

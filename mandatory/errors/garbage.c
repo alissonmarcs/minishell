@@ -6,29 +6,33 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:29:06 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/21 16:53:04 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:40:24 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_get_garbage(void *content)
+void	ft_rlstnew(t_gc **lst, void *content)
 {
-	t_list	*new;
+	t_gc	*new;
 
-	new = ft_lstnew(content);
-	new->next = ft_get_shell()->gc;
+	new = malloc(sizeof(t_gc));
+	if (!new)
+		ft_error("malloc error");
+	new->content = content;
+	new->next = *lst;
+	*lst = new;
 }
 
-void	ft_garbage_clear(t_list **garbage)
+void	ft_garbage_clear(t_gc **garbage)
 {
-	t_list	*tmp;
+	t_gc	*tmp;
 
 	while (*garbage)
 	{
 		tmp = *garbage;
 		*garbage = (*garbage)->next;
-		if (tmp->content)
+		if (tmp->content && *tmp->content)
 			ft_free((void **)&tmp->content);
 		if (tmp)
 			ft_free((void **)&tmp);

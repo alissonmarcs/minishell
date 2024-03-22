@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:54:16 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/21 17:40:19 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:29:20 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,6 @@ void	ft_free_split(char **split)
 		i++;
 	}
 	free(split);
-}
-
-t_env	*ft_create_var_list(char *key, char *value)
-{
-	t_env	*new;
-
-	new = malloc(sizeof(t_env));
-	if (!new)
-		ft_error("malloc error");
-	ft_bzero(new, sizeof(t_env));
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_lstend_var(t_env **env_list, char *key, char *value)
-{
-	t_env	*curr;
-
-	curr = *env_list;
-	if (!*env_list)
-	{
-		*env_list = ft_create_var_list(key, value);
-		return ;
-	}
-	while (curr->next)
-		curr = curr->next;
-	curr->next = ft_create_var_list(key, value);
-	if (!curr->next)
-		ft_error("malloc error");
 }
 
 void	ft_get_env_list(void)
