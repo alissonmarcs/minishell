@@ -123,7 +123,7 @@ t_bool	ft_tokenize(t_minishell *shell)
 	if (ft_var_expansion())
 		ft_error("error");
 	ft_remove_quotes();
-	ft_print_stack(ft_get_shell()->tokens);
+	//ft_print_stack(ft_get_shell()->tokens);
 	if (ft_error(ft_check_syntax(shell->tokens)))
 		return (TRUE);
 	return (FALSE);

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_command	*new_command(char *name, bool pipe)
+t_command	*new_command(char *name, t_bool pipe)
 {
 	t_command	*command;
 
@@ -46,6 +46,10 @@ void	free_io(t_io *io)
 		free(io->infile);
 	if (io->outfile)
 		free(io->outfile);
+	if (io->infile_fd > 0)
+		close(io->infile_fd);
+	if (io->outfile_fd > 0)
+		close(io->outfile_fd);
 	free(io);
 }
 

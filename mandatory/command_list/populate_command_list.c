@@ -16,7 +16,7 @@ void	add_dummy_node(t_command **cmd)
 {
 	t_command	*dummy;
 
-	dummy = new_command(NULL, false);
+	dummy = new_command(NULL, FALSE);
 	append_command(cmd, dummy);
 }
 
@@ -34,8 +34,9 @@ void	populate_command_list(t_minishell *shell)
 			handle_words(&token, &command);
 		else if (token->type == PIPE)
 			handle_pipe(&token, &command);
-		else if (token->type == TRUNC || token->type == INPUT)
-			handle_truc_input(&token, command);
+		else if (token->type == TRUNC || token->type == APPEND
+			|| token->type == INPUT)
+			handle_trunc_append_input(&token, command);
 		else if (token->type == END)
 			break ;
 	}
@@ -54,30 +55,6 @@ void	set_commands_with_no_argv(t_command *cmd)
 		}
 		cmd = cmd->next;
 	}
-}
-
-void	handle_truc_input(t_token **token, t_command *cmd)
-{
-	t_command	*last;
-
-	last = get_last_command(cmd);
-	if (!last->io)
-		last->io = ft_calloc(1, sizeof (t_io));
-	if ((*token)->type == TRUNC)
-		last->io->outfile = ft_strdup((*token)->next->str);
-	else
-		last->io->infile = ft_strdup((*token)->next->str);
-	*token = (*token)->next->next;
-}
-
-void	handle_pipe(t_token **token, t_command **cmd)
-{
-	t_command	*last;
-
-	last = get_last_command(*cmd);
-	last->output_to_pipe = true;
-	append_command(cmd, new_command(NULL, false));
-	*token = (*token)->next;
 }
 
 int	get_len_args(t_token *token)
@@ -152,6 +129,79 @@ void	add_to_argv(t_token **tokens, t_command *last)
 	free(last->argv);
 	last->argv = new_argv;
 	*tokens = tmp;
+}
+
+void	handle_trunc_append_input(t_token **tokens, t_command *cmd)
+{
+	t_command	*last;
+
+	last = get_last_command(cmd);
+	if (!last->io)
+		last->io = ft_calloc(1, sizeof (t_io));
+	if ((*tokens)->type == TRUNC || (*tokens)->type == APPEND)
+		open_output_file(*tokens, last);
+	else
+		open_input_file(*tokens, last);
+	*tokens = (*tokens)->next->next;
+}
+
+void	open_input_file(t_token *tokens, t_command *last)
+{
+	t_io *io;
+
+	io = last->io;
+	if (io->infile_fd < 0 || io->outfile_fd < 0)
+		return ;
+	if (io->infile)
+	{
+		close(io->infile_fd);
+		ft_free((void **)&io->infile);
+	}
+	if (!io->infile)
+		io->infile = ft_strdup(tokens->next->str);
+	io->infile_fd = open(io->infile, O_RDONLY, 0);
+	if (io->infile_fd < 0)
+	{
+		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile, strerror(errno));
+		ft_free((void **)&io->infile);
+	}
+}
+
+void	open_output_file(t_token *tokens, t_command *last)
+{
+	t_io *io;
+
+	io = last->io;
+	if (io->outfile_fd < 0 || io->infile_fd < 0)
+		return ;
+	if (io->outfile)
+	{
+		close(io->outfile_fd);
+		ft_free((void **)&io->outfile);
+	}
+	if (!io->outfile)
+		io->outfile = ft_strdup(tokens->next->str);
+	if (tokens->type == TRUNC)
+		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_TRUNC,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	else
+		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);		
+	if (io->outfile_fd < 0)
+	{
+		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile, strerror(errno));
+		ft_free((void **)&io->outfile);
+	}
+}
+
+void	handle_pipe(t_token **token, t_command **cmd)
+{
+	t_command	*last;
+
+	last = get_last_command(*cmd);
+	last->output_to_pipe = TRUE;
+	append_command(cmd, new_command(NULL, FALSE));
+	*token = (*token)->next;
 }
 
 void	handle_words(t_token **token, t_command **cmd)

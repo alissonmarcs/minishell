@@ -25,6 +25,7 @@ typedef struct s_io
 typedef struct s_command
 {
 	char				*name;
+	char				*path;
 	char				**argv;
 	int					tube[2];
 	t_bool				output_to_pipe;
@@ -56,6 +57,7 @@ typedef struct s_minishell
 	t_env				*env_list;
 	t_command			*commands;
 	int					exit_status;
+	int					standard_fds[2];
 }						t_minishell;
 
 typedef struct s_exp

@@ -107,3 +107,9 @@ char	*ft_getenv(char *env)
 		return (value = ft_strdup(""));
 	return (value);
 }
+
+void	get_standard_fds(t_minishell *shell)
+{
+	shell->standard_fds[0] = dup(STDIN_FILENO);
+	shell->standard_fds[1] = dup(STDOUT_FILENO);
+}

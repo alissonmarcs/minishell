@@ -20,13 +20,14 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <string.h>
+# include <errno.h>
 
 /*----------------------------------MAIN-STRUCT----------------------------*/
 t_minishell	*ft_get_shell(void);
@@ -53,7 +54,7 @@ void		ft_remove_quotes(void);
 
 /*------------------------------------PARSER-------------------------------*/
 void		append_command(t_command **cmd_list, t_command *new);
-t_command	*new_command(char *name, bool pipe);
+t_command	*new_command(char *name, t_bool pipe);
 void		print_cmd_list(t_command *list);
 void		free_cmd_list(t_command **cmd_list);
 t_command	*get_last_command(t_command *cmd);
@@ -63,13 +64,16 @@ void		populate_command_list(t_minishell *minishell);
 void		get_args(t_token **tokens, t_command *last);
 void		handle_words(t_token **token, t_command **cmd);
 void		handle_pipe(t_token **token, t_command **cmd);
-void		handle_truc_input(t_token **token, t_command *cmd);
+void		handle_trunc_append_input(t_token **token, t_command *cmd);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
 void		ft_get_env(t_minishell *shell);
 void		create_argv(t_token **tokens, t_command *last);
 void		add_to_argv(t_token **tokens, t_command *last);
 int			array_len(char **array);
+void		open_output_file(t_token *tokens, t_command *last);
+void		open_input_file(t_token *tokens, t_command *last);
+void		get_standard_fds(t_minishell *shell);
 
 /*------------------------------------------------------------------------*/
 
