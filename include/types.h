@@ -27,7 +27,7 @@ typedef struct s_command
 	char				*name;
 	char				*path;
 	char				**argv;
-	int					tube[2];
+	int					pipe[2];
 	t_bool				output_to_pipe;
 	t_io				*io;
 	struct s_command	*prev;

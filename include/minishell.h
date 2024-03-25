@@ -106,5 +106,9 @@ t_bool		ft_handle_cntl_c(int sig);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/
+void		create_pipes(t_command *cmds);
+t_bool		check_redirect_files(t_command *cmd);
+void		set_pipes(t_command *cmd);
+
 /*------------------------------------------------------------------------*/
 #endif
