@@ -23,9 +23,9 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
-	// ft_print_stack(shell->tokens);
-	// populate_command_list(shell);
-	// print_cmd_list(shell->commands);
+	populate_command_list(shell);
+	executor(shell);
+	//print_cmd_list(shell->commands);
 }
 
 void	ft_loop(void)
@@ -52,7 +52,7 @@ void	ft_loop(void)
 		free(shell->user_input);
 		ft_free_tokens(shell);
 		ft_garbage_clear(&shell->gc);
-		// free_cmd_list(&shell->commands);
+		free_cmd_list(&shell->commands);
 	}
 	ft_free_env(shell);
 	rl_clear_history();
@@ -65,9 +65,7 @@ int	main(void)
 	shell = ft_get_shell();
 	ft_clone_env(shell);
 	shell->teemo = -1;
-	ft_print_env_list(shell->env_list);
 	ft_loop();
-	close(shell->standard_fds[0]);
-	close(shell->standard_fds[1]);
+	ft_delete_matrice(shell->env);
 	return (0);
 }

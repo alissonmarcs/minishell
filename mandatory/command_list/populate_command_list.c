@@ -155,7 +155,7 @@ void	open_input_file(t_token *tokens, t_command *last)
 	if (io->infile)
 	{
 		close(io->infile_fd);
-		ft_free((void **)&io->infile);
+		ft_free_ptr((void **)&io->infile);
 	}
 	if (!io->infile)
 		io->infile = ft_strdup(tokens->next->str);
@@ -163,7 +163,7 @@ void	open_input_file(t_token *tokens, t_command *last)
 	if (io->infile_fd < 0)
 	{
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile, strerror(errno));
-		ft_free((void **)&io->infile);
+		ft_free_ptr((void **)&io->infile);
 	}
 }
 
@@ -177,7 +177,7 @@ void	open_output_file(t_token *tokens, t_command *last)
 	if (io->outfile)
 	{
 		close(io->outfile_fd);
-		ft_free((void **)&io->outfile);
+		ft_free_ptr((void **)&io->outfile);
 	}
 	if (!io->outfile)
 		io->outfile = ft_strdup(tokens->next->str);
@@ -190,7 +190,7 @@ void	open_output_file(t_token *tokens, t_command *last)
 	if (io->outfile_fd < 0)
 	{
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile, strerror(errno));
-		ft_free((void **)&io->outfile);
+		ft_free_ptr((void **)&io->outfile);
 	}
 }
 

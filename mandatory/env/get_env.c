@@ -61,7 +61,6 @@ void	ft_clone_env(t_minishell *shell)
 	}
 	shell->env = env;
 	ft_get_env_list();
-	ft_delete_matrice(env);
 }
 
 char	*ft_getenv(char *env)

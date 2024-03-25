@@ -38,6 +38,7 @@ void	print_cmd_list(t_command *list)
 	while (list)
 	{
 		printf("\t- Name: %s\n", list->name);
+		printf("\t- Path: %s\n", list->path);
 		printf("\t- Argv: %p\n", list->argv);
 		if (list->argv)
 			print_argv(list);

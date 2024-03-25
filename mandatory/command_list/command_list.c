@@ -66,6 +66,7 @@ void	free_cmd_list(t_command **cmd_list)
 			ft_delete_matrice(tmp->argv);
 		free_io(tmp->io);
 		free(tmp->name);
+		free(tmp->path);
 		free(tmp);
 		tmp = next;
 	}

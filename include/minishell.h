@@ -57,7 +57,6 @@ t_bool		ft_quotes_status(char c, int status);
 /*------------------------------------PARSER-------------------------------*/
 void		append_command(t_command **cmd_list, t_command *new);
 t_command	*new_command(char *name, t_bool pipe);
-void		print_cmd_list(t_command *list);
 void		free_cmd_list(t_command **cmd_list);
 t_command	*get_last_command(t_command *cmd);
 int			get_len_args(t_token *token);
@@ -112,6 +111,12 @@ t_bool		ft_handle_cntl_c(int sig);
 void		create_pipes(t_command *cmds);
 t_bool		check_redirect_files(t_command *cmd);
 void		set_pipes(t_command *cmd);
+char		**get_paths(t_minishell *shell);
+char		*find_executable(t_minishell *shell, t_command *cmd);
+void		run_commands(t_minishell *shell, t_command *cmd);
+void		wait_childs(t_minishell *shell);
+void		executor(t_minishell *shell);
+void		exit_builtin(t_minishell *shell);
 
 /*------------------------------------------------------------------------*/
 #endif

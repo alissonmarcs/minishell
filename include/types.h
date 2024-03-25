@@ -66,6 +66,7 @@ typedef struct s_minishell
 	int					standard_fds[2];
 	char				teemo;
 	t_gc				*gc;
+	pid_t				last_child;
 }						t_minishell;
 
 typedef struct s_exp

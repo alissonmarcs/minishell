@@ -74,6 +74,7 @@ int					ft_issignal(char str);
 long				ft_atol(const char *str);
 int					ft_abs(int n);
 void				ft_free(void *ptr);
+void				ft_free_ptr(void **ptr);
 char				*ft_replace_first_occurency(char *old, char *new,
 						char *str);
 
