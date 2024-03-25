@@ -6,114 +6,93 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 18:21:35 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:54:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_parse_and_extract(t_exp *exp)
+char	*ft_find_var(char *str)
 {
 	int		j;
 	char	*line;
 
-	j = 0;
-	if (exp->line[0] == '$' && exp->line[1] == '\0')
-	{
-		exp->var = ft_strdup("$");
-		return ;
-	}
-	line = exp->line;
-	exp->init = ft_substr(line, 0, ft_strchr(line, '$') - line);
+	j = 1;
+	line = str;
 	line = ft_strchr(line, '$');
 	if (!line)
-		return ;
-	if (line)
-		line++;
-	while (line[j] && ft_isalnum(line[j]) == 1)
+		return (NULL);
+	while (line[j] && ft_isalnum(line[j]))
 		j++;
-	if (line[j] == '$')
-		j++;
-	exp->var = ft_substr(line, 0, j);
-	line += j;
-	exp->end = ft_substr(line, 0, ft_strlen(line));
-	free(exp->line);
-	exp->line = NULL;
+	return (ft_substr(line, 0, j));
 }
 
-char	*ft_expand_and_manage(t_exp *exp)
+void	ft_inflation(char *input, t_exp *exp)
 {
+	int		i;
 	char	*line;
-	char	*result;
-	char	*var;
 
-	result = NULL;
-	line = NULL;
-	var = NULL;
-	var = ft_getenv(exp->var);
-	line = ft_strjoin(exp->init, var);
-	result = ft_strjoin(line, exp->end);
-	line = NULL;
-	ft_free((void **)&exp->var);
-	return (result);
+	i = 0;
+	line = input;
+	while (input[i])
+	{
+		if (input[i] == '$' && input[i + 1] == '$')
+		{
+			exp->status = 1;
+			line = ft_strchr(line, '$');
+			if (!line)
+				return ;
+			exp->var = (ft_substr(line, 0, 2));
+			break ;
+		}
+		i++;
+		line += 1;
+	}
 }
 
-t_bool	ft_quotes_status(char c, int status)
-{
-	if (c == '\'' && status == 0)
-		status = 2;
-	else if (c == '\'' && status == 2)
-		status = 0;
-	else if (c == '\"' && status == 0)
-		status = 1;
-	else if (c == '\"' && status == 1)
-		status = 0;
-	return (status);
-}
-
-t_bool	ft_dollars_in_my_pocket(char *input, t_exp *exp)
+t_bool	ft_dollars_in_my_pocket(char *input, int *i)
 {
 	static int	status;
 
-	while (input[exp->i])
+	while (input[(*i)])
 	{
-		status = ft_quotes_status(input[exp->i], status);
-		if (input[exp->i] == '$' && input[exp->i + 1] == '$' && (status == 0
+		status = ft_quotes_status(input[(*i)], status);
+		if (input[(*i)] == '$' && input[(*i) + 1] == '$' && (status == 0
 				|| status == 1))
 		{
-			exp->i += 2;
+			(*i)++;
 			return (TRUE);
 		}
-		if (input[exp->i] == '$' && (status == 0 || status == 1))
+		if (input[(*i)] == '$' && (status == 0 || status == 1)
+			&& ft_isalpha(input[(*i) + 1]) == 1)
 			return (TRUE);
-		exp->i++;
+		(*i)++;
 	}
 	return (FALSE);
 }
 
 t_bool	ft_var_expansion(void)
 {
-	static t_exp	exp;
-	t_minishell		*shell;
-	t_token			*curr;
+	static int	i;
+	t_exp		exp;
+	t_token		*curr;
 
-	shell = ft_get_shell();
-	curr = shell->tokens;
-	while (curr)
+	curr = ft_get_shell()->tokens;
+	while (curr && curr->type != END)
 	{
-		if (ft_dollars_in_my_pocket(curr->str, &exp))
+		if (ft_dollars_in_my_pocket(curr->str, &i))
 		{
-			exp.line = ft_strdup(curr->str);
-			ft_parse_and_extract(&exp);
-			if (curr->str)
-			{
-				free(curr->str);
-				curr->str = NULL;
-			}
-			curr->str = ft_expand_and_manage(&exp);
+			exp.status = 0;
+			ft_inflation(curr->str, &exp);
+			if (exp.status == 0)
+				exp.var = ft_find_var(curr->str);
+			curr->str = ft_replace_first_occurency(exp.var, ft_getenv(exp.var
+					+ 1), curr->str);
+			curr->type = VAR;
 			continue ;
 		}
-		exp = (t_exp){0};
+		ft_replace_teemo(curr, ft_get_shell()->teemo);
+		i = 0;
 		curr = curr->next;
 	}
 	return (FALSE);

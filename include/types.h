@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/20 12:01:53 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:41:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ typedef struct s_env
 	struct s_env		*next;
 }						t_env;
 
+typedef struct s_gc
+{
+	void				**content;
+	struct s_gc			*next;
+}						t_gc;
+
 typedef struct s_minishell
 {
 	char				*user_input;
@@ -58,15 +64,15 @@ typedef struct s_minishell
 	t_command			*commands;
 	int					exit_status;
 	int					standard_fds[2];
+	char				teemo;
+	t_gc				*gc;
 }						t_minishell;
 
 typedef struct s_exp
 {
 	char				*var;
-	char				*init;
-	char				*end;
-	char				*line;
 	int					i;
+	int					status;
 }						t_exp;
 
 #endif

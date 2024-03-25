@@ -6,17 +6,17 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:07:21 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:07:31 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:09:05 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free(void **ptr)
+void	ft_free(void *ptr)
 {
-	if (ptr && *ptr)
+	if (ptr)
 	{
-		free(*ptr);
-		*ptr = NULL;
+		free(ptr);
 	}
+	ptr = NULL;
 }

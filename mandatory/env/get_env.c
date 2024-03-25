@@ -6,41 +6,23 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:54:16 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/20 18:20:06 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:29:20 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_create_var_list(char *key, char *value)
+void	ft_free_split(char **split)
 {
-	t_env	*new;
+	int	i;
 
-	new = malloc(sizeof(t_env));
-	if (!new)
-		ft_error("malloc error");
-	ft_bzero(new, sizeof(t_env));
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_lstend_var(t_env **env_list, char *key, char *value)
-{
-	t_env	*curr;
-
-	curr = *env_list;
-	if (!*env_list)
+	i = 0;
+	while (split[i])
 	{
-		*env_list = ft_create_var_list(key, value);
-		return ;
+		free(split[i]);
+		i++;
 	}
-	while (curr->next)
-		curr = curr->next;
-	curr->next = ft_create_var_list(key, value);
-	if (!curr->next)
-		ft_error("malloc error");
+	free(split);
 }
 
 void	ft_get_env_list(void)
@@ -85,27 +67,25 @@ void	ft_clone_env(t_minishell *shell)
 char	*ft_getenv(char *env)
 {
 	t_minishell	*shell;
-	char		*value;
 	t_env		*curr;
 
 	shell = ft_get_shell();
 	curr = shell->env_list;
-	value = NULL;
 	if (!env)
 		return (NULL);
 	while (curr)
 	{
-		if (!ft_strncmp(curr->key, env, ft_strlen(env)))
-			return (value = ft_strdup(curr->value));
-		if (!ft_strncmp(env, "?", ft_strlen(env)))
-			return (value = ft_itoa(shell->exit_status));
-		if (!ft_strncmp(env, "$", ft_strlen(env)))
-			return (value = ft_strdup("$"));
+		if (!ft_strncmp(curr->key, env, ft_strlen(curr->key)))
+			return (ft_strdup(curr->value));
+		if (!ft_strncmp(env, "?", 1))
+			return (ft_itoa(shell->exit_status));
+		if (!ft_strncmp(env, "$", 1))
+			return (ft_strdup(&shell->teemo));
 		curr = curr->next;
 	}
 	if (!curr)
-		return (value = ft_strdup(""));
-	return (value);
+		return (ft_strdup(""));
+	return (NULL);
 }
 
 void	get_standard_fds(t_minishell *shell)

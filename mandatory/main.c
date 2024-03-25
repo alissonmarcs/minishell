@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 17:31:34 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:28:03 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
-	//ft_print_stack(shell->tokens);
-	populate_command_list(shell);
-	print_cmd_list(shell->commands);
+	// ft_print_stack(shell->tokens);
+	// populate_command_list(shell);
+	// print_cmd_list(shell->commands);
 }
 
 void	ft_loop(void)
 {
 	t_minishell	*shell;
-	char *line;
+	char		*line;
 
 	shell = ft_get_shell();
 	while (1)
@@ -42,7 +42,7 @@ void	ft_loop(void)
 			break ;
 		shell->user_input = ft_strdup(line);
 		add_history(line);
-		free (line);
+		free(line);
 		if (shell->user_input[0] == '\0')
 		{
 			free(shell->user_input);
@@ -51,7 +51,8 @@ void	ft_loop(void)
 		ft_process(shell);
 		free(shell->user_input);
 		ft_free_tokens(shell);
-		free_cmd_list(&shell->commands);
+		ft_garbage_clear(&shell->gc);
+		// free_cmd_list(&shell->commands);
 	}
 	ft_free_env(shell);
 	rl_clear_history();
@@ -63,8 +64,8 @@ int	main(void)
 
 	shell = ft_get_shell();
 	ft_clone_env(shell);
-	get_standard_fds(shell);
-	//ft_print_env_list(shell->env_list);
+	shell->teemo = -1;
+	ft_print_env_list(shell->env_list);
 	ft_loop();
 	close(shell->standard_fds[0]);
 	close(shell->standard_fds[1]);
