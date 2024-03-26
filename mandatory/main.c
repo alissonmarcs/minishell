@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 15:40:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:25:20 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,8 @@ void	ft_process(t_minishell *shell)
 	if (ft_tokenize(shell))
 		return ;
 	ft_print_stack(shell->tokens);
-	populate_command_list(shell);
-	print_cmd_list(shell->commands);
-	if (ft_strncmp(shell->commands->name, "echo", 4) == 0)
-	{
-		ft_echo_builtin(shell->commands->argv);
-	}
-	// else if (ft_strncmp(shell->commands->name, "cd", 2) == 0)
-	//{
-	//	ft_cd_builtin(shell->commands->argv);
-	//}
-	else if (ft_strncmp(shell->commands->name, "pwd", 3) == 0)
-	{
-		ft_pwd_builtin(shell->commands->argv);
-	}
-	// else if (ft_strncmp(shell->commands->name, "export", 6) == 0)
-	//{
-	//	ft_export_builtin(shell->commands->argv);
-	//}
-	// else if (ft_strncmp(shell->commands->name, "unset", 5) == 0)
-	//{
-	//	ft_unset_builtin(shell->commands->argv);
-	//}
-	else if (ft_strncmp(shell->commands->name, "env", 3) == 0)
-	{
-		ft_env_builtin(shell->commands->argv);
-	}
-	// else if (ft_strncmp(shell->commands->name, "exit", 4) == 0)
-	//{
-	//	ft_exit_builtin(shell->commands->argv);
-	//}
-	// else
-	//{
-	//	ft_execve(shell->commands);
-	//}
+	//populate_command_list(shell);
+	//print_cmd_list(shell->commands);
 }
 
 void	ft_loop(void)
@@ -81,9 +49,7 @@ void	ft_loop(void)
 			continue ;
 		}
 		ft_process(shell);
-		free(shell->user_input);
-		ft_free_tokens(shell);
-		free_cmd_list(&shell->commands);
+		ft_clear_all(shell);
 	}
 	ft_free_env(shell);
 	rl_clear_history();
