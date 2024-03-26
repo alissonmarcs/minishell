@@ -16,11 +16,11 @@ void	create_pipes(t_command *cmds)
 	}
 }
 
-void	close_needless_pipes(t_command *cmds, t_command *to_keep)
+void	close_pipes(t_command *cmds, t_command *to_keep)
 {
 	while (cmds)
 	{
-		if (cmds->output_to_pipe && cmds != to_keep)
+		if (cmds != to_keep && cmds->output_to_pipe)
 		{
 			close(cmds->pipe[0]);
 			close(cmds->pipe[1]);
@@ -34,11 +34,11 @@ void	set_pipes(t_command *cmd)
 	if (cmd->output_to_pipe)
 	{
 		dup2(cmd->pipe[1], STDOUT_FILENO);
+		close(cmd->pipe[0]);
+		close(cmd->pipe[1]);
 	}
 	if (cmd->prev && cmd->prev->output_to_pipe)
-	{
 		dup2(cmd->prev->pipe[0], STDIN_FILENO);
-	}
 }
 
 t_bool	check_redirect_files(t_command *cmd)
@@ -76,9 +76,9 @@ void	close_redirect_files(t_command *cmd)
 	io = cmd->io;
 	if (!io)
 		return ;
-	if (io->infile_fd > 0)
+	if (io->infile_fd > 2)
 		close(io->infile_fd);
-	if (io->outfile_fd > 0)
+	if (io->outfile_fd > 2)
 		close(io->outfile_fd);
 }
 
@@ -133,48 +133,55 @@ void	executor(t_minishell *shell)
 	create_pipes(cmds);
 	while (cmds)
 	{
-		shell->last_child = fork();
-		if (shell->last_child == 0)
+		cmds->pid = fork();
+		if (cmds->pid == 0)
 			run_commands(shell, cmds);
 		cmds = cmds->next;
 	}
-	close_needless_pipes(shell->commands, NULL);
+	close_pipes(shell->commands, NULL);
 	wait_childs(shell);
 }
 
-void	exit_builtin(t_minishell *shell)
+void	clear_exit(t_minishell *shell, int exit_status)
 {
 	free(shell->user_input);
 	ft_delete_matrice(shell->env);
 	ft_free_tokens(shell);
 	ft_free_env(shell);
+	close_pipes(shell->commands, NULL);
 	free_cmd_list(&shell->commands);
-	exit(1);
+	exit(exit_status);
 }
 
 void	run_commands(t_minishell *shell, t_command *cmd)
 {
 	if (!check_redirect_files(cmd))
-		exit_builtin(shell);
+		clear_exit(shell, 1);
 	if (!cmd->name)
-		exit_builtin(shell);
+		clear_exit(shell, 0);
+	cmd->path = find_executable(shell, cmd);
+	if (!cmd->path)
+	{
+		ft_printf_fd(2, "%s: %s\n", cmd->name, "command not found");
+		clear_exit(shell, 127);
+	}
 	set_pipes(cmd);
 	set_redirects(cmd);
 	close_redirect_files(cmd);
-	close_needless_pipes(shell->commands, cmd);
-	cmd->path = find_executable(shell, cmd);
-	if (!cmd->path)
-		exit(127);
+	close_pipes(shell->commands, cmd);
 	execve(cmd->path, cmd->argv, shell->env);
 }
 
 void	wait_childs(t_minishell *shell)
 {
-	int		status;
-	pid_t	last_child;
+	int			status;
+	t_command	*cmd;
 
-	last_child = 0;
-	while (last_child != shell->last_child)
-		last_child = waitpid(-1, &status, 0);
+	cmd = shell->commands;
+	while (cmd)
+	{
+		waitpid(cmd->pid, &status, 0);
+		cmd = cmd->next;
+	}
 	shell->exit_status = status;
 }

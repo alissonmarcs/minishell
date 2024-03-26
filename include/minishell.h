@@ -116,7 +116,7 @@ char		*find_executable(t_minishell *shell, t_command *cmd);
 void		run_commands(t_minishell *shell, t_command *cmd);
 void		wait_childs(t_minishell *shell);
 void		executor(t_minishell *shell);
-void		exit_builtin(t_minishell *shell);
+void		clear_exit(t_minishell *shell, int exit_status);
 
 /*------------------------------------------------------------------------*/
 #endif

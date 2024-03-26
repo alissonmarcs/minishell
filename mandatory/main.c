@@ -25,7 +25,6 @@ void	ft_process(t_minishell *shell)
 		return ;
 	populate_command_list(shell);
 	executor(shell);
-	//print_cmd_list(shell->commands);
 }
 
 void	ft_loop(void)

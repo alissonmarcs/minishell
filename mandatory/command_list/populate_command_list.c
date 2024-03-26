@@ -161,10 +161,7 @@ void	open_input_file(t_token *tokens, t_command *last)
 		io->infile = ft_strdup(tokens->next->str);
 	io->infile_fd = open(io->infile, O_RDONLY, 0);
 	if (io->infile_fd < 0)
-	{
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile, strerror(errno));
-		ft_free_ptr((void **)&io->infile);
-	}
 }
 
 void	open_output_file(t_token *tokens, t_command *last)
@@ -188,10 +185,7 @@ void	open_output_file(t_token *tokens, t_command *last)
 		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);		
 	if (io->outfile_fd < 0)
-	{
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile, strerror(errno));
-		ft_free_ptr((void **)&io->outfile);
-	}
 }
 
 void	handle_pipe(t_token **token, t_command **cmd)

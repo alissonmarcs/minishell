@@ -29,6 +29,7 @@ typedef struct s_command
 	char				**argv;
 	int					pipe[2];
 	t_bool				output_to_pipe;
+	pid_t				pid;
 	t_io				*io;
 	struct s_command	*prev;
 	struct s_command	*next;
