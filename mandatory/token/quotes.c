@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:15:46 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 18:06:38 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:16:23 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_quotes_treatment(char **str)
 	tmp = *str;
 	new = malloc(sizeof(char) * ft_strlen(*str) + 1);
 	if (!new)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	while (tmp[++i])
 	{
 		if (ft_set_status(tmp[i]))

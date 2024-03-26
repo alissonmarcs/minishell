@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 14:26:56 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:41:42 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int					ft_issignal(char str);
 long				ft_atol(const char *str);
 int					ft_abs(int n);
 void				ft_free(void *ptr);
-char				*ft_replace_first_occurency(char *old, char *new,
-						char *str);
+char				*ft_replace(char *old, char *new, char *str);
 
 // GNL
 # ifndef BUFFER_SIZE

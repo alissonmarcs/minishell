@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 14:29:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:15:44 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*ft_create_list(char *str, int type)
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	ft_bzero(new, sizeof(t_token));
 	ft_clear_spaces(&str);
 	new->str = ft_strdup(str);
@@ -43,7 +43,7 @@ void	ft_lstend(t_token **tokens, char *str, int type)
 		curr = curr->next;
 	curr->next = ft_create_list(str, type);
 	if (!curr->next)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	curr->next->prev = curr;
 }
 
@@ -53,7 +53,7 @@ t_env	*ft_create_var_list(char *key, char *value)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	ft_bzero(new, sizeof(t_env));
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
@@ -75,5 +75,5 @@ void	ft_lstend_var(t_env **env_list, char *key, char *value)
 		curr = curr->next;
 	curr->next = ft_create_var_list(key, value);
 	if (!curr->next)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 }

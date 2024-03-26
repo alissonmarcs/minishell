@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 14:54:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:22:07 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ char	*ft_find_var(char *str)
 		return (NULL);
 	while (line[j] && ft_isalnum(line[j]))
 		j++;
+	if (line[j] == '?')
+		j++;
 	return (ft_substr(line, 0, j));
 }
 
-void	ft_inflation(char *input, t_exp *exp)
+t_bool	ft_inflation(char *input, char **var)
 {
 	int		i;
 	char	*line;
@@ -38,16 +40,14 @@ void	ft_inflation(char *input, t_exp *exp)
 	{
 		if (input[i] == '$' && input[i + 1] == '$')
 		{
-			exp->status = 1;
 			line = ft_strchr(line, '$');
-			if (!line)
-				return ;
-			exp->var = (ft_substr(line, 0, 2));
-			break ;
+			*var = (ft_substr(line, 0, 2));
+			return (FALSE);
 		}
-		i++;
 		line += 1;
+		i++;
 	}
+	return (TRUE);
 }
 
 t_bool	ft_dollars_in_my_pocket(char *input, int *i)
@@ -66,6 +66,8 @@ t_bool	ft_dollars_in_my_pocket(char *input, int *i)
 		if (input[(*i)] == '$' && (status == 0 || status == 1)
 			&& ft_isalpha(input[(*i) + 1]) == 1)
 			return (TRUE);
+		if (input[(*i)] == '$' && input[(*i) + 1] == '?')
+			return (TRUE);
 		(*i)++;
 	}
 	return (FALSE);
@@ -74,7 +76,7 @@ t_bool	ft_dollars_in_my_pocket(char *input, int *i)
 t_bool	ft_var_expansion(void)
 {
 	static int	i;
-	t_exp		exp;
+	char		*var;
 	t_token		*curr;
 
 	curr = ft_get_shell()->tokens;
@@ -82,12 +84,9 @@ t_bool	ft_var_expansion(void)
 	{
 		if (ft_dollars_in_my_pocket(curr->str, &i))
 		{
-			exp.status = 0;
-			ft_inflation(curr->str, &exp);
-			if (exp.status == 0)
-				exp.var = ft_find_var(curr->str);
-			curr->str = ft_replace_first_occurency(exp.var, ft_getenv(exp.var
-					+ 1), curr->str);
+			if (ft_inflation(curr->str, &var))
+				var = ft_find_var(curr->str);
+			curr->str = ft_replace(var, ft_getenv(var + 1), curr->str);
 			curr->type = VAR;
 			continue ;
 		}

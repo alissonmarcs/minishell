@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:31:34 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 15:32:18 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:30:38 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_pwd_builtin(char **argv)
 
 	(void)argv;
 	pwd = getcwd(NULL, 0);
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\n", 1);
+	ft_printf_fd(STDOUT_FILENO, "%s\n", pwd);
 	free(pwd);
 }

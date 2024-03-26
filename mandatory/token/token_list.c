@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/20 18:07:47 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:08:34 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_word(char *word, int start, int end, t_minishell *shell)
 	i = 0;
 	str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	while (start < end)
 	{
 		str[i++] = word[start++];
@@ -111,20 +111,19 @@ t_bool	ft_tokenize(t_minishell *shell)
 		return (TRUE);
 	if (ft_open_quotes(line))
 	{
-		ft_error("Open quotes");
+		ft_error("Open quotes", 2);
 		return (TRUE);
 	}
 	if (ft_forbidden_separators(line))
 	{
-		ft_error(AND_ERROR);
+		ft_error(AND_ERROR, 2);
 		return (TRUE);
 	}
 	ft_words_separators(shell->user_input, shell);
 	if (ft_var_expansion())
-		ft_error("error");
+		ft_error("error", 2);
 	ft_remove_quotes();
-	ft_print_stack(ft_get_shell()->tokens);
-	if (ft_error(ft_check_syntax(shell->tokens)))
+	if (ft_error(ft_check_syntax(shell->tokens), 2))
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 15:42:02 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:26:17 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ void		set_commands_with_no_argv(t_command *cmd);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
-t_bool		ft_error(char *str);
+t_bool		ft_error(char *str, int exit_code);
 void		ft_lstend(t_token **tokens, char *str, int type);
 void		ft_garbage_clear(t_gc **garbage);
 void		ft_rlstnew(t_gc **lst, void *content);
+void		ft_clear_all(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
@@ -94,6 +95,7 @@ void		ft_print_env_list(t_env *env_list);
 void		ft_echo_builtin(char **argv);
 void		ft_pwd_builtin(char **argv);
 void		ft_env_builtin(char **argv);
+void		ft_cd_builtin(char **argv);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------SIGNALS-------------------------------*/

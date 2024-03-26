@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:29:06 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 12:40:24 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:16:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_rlstnew(t_gc **lst, void *content)
 
 	new = malloc(sizeof(t_gc));
 	if (!new)
-		ft_error("malloc error");
+		ft_error("malloc error", 900);
 	new->content = content;
 	new->next = *lst;
 	*lst = new;
