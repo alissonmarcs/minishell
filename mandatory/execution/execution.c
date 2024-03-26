@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 16:25:03 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:50:51 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,5 +195,5 @@ void	wait_childs(t_minishell *shell)
 		waitpid(cmd->pid, &status, 0);
 		cmd = cmd->next;
 	}
-	shell->exit_status = status;
+	shell->exit_status = WEXITSTATUS(status);
 }

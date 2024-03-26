@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:03:30 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/26 16:24:19 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:47:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	populate_command_list(t_minishell *shell)
 		else if (token->type == END)
 			break ;
 		else if (token->type == VAR)
-			break ;
+			handle_words(&token, &command);
 	}
 	set_commands_with_no_argv(command);
 	shell->commands = command;
