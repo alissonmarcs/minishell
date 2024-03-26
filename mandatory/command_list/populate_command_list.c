@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:03:30 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/12 12:16:09 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:24:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	populate_command_list(t_minishell *shell)
 			handle_trunc_append_input(&token, command);
 		else if (token->type == END)
 			break ;
+		else if (token->type == VAR)
+			break ;
 	}
 	set_commands_with_no_argv(command);
 	shell->commands = command;
@@ -50,7 +52,7 @@ void	set_commands_with_no_argv(t_command *cmd)
 	{
 		if (!cmd->argv)
 		{
-			cmd->argv = ft_calloc(2, sizeof (char *));
+			cmd->argv = ft_calloc(2, sizeof(char *));
 			cmd->argv[0] = ft_strdup(cmd->name);
 		}
 		cmd = cmd->next;
@@ -80,13 +82,13 @@ void	get_args(t_token **tokens, t_command *last)
 
 void	create_argv(t_token **tokens, t_command *last)
 {
-	int			count_args;
-	t_token		*tmp;
-	int			i;
+	int		count_args;
+	t_token	*tmp;
+	int		i;
 
 	tmp = *tokens;
 	count_args = get_len_args(*tokens);
-	last->argv = ft_calloc(count_args + 2, sizeof (char *));
+	last->argv = ft_calloc(count_args + 2, sizeof(char *));
 	last->argv[0] = ft_strdup(last->name);
 	i = 1;
 	while (tmp->type == WORD)
@@ -98,7 +100,7 @@ void	create_argv(t_token **tokens, t_command *last)
 	*tokens = tmp;
 }
 
-int		array_len(char **array)
+int	array_len(char **array)
 {
 	int	i;
 
@@ -110,15 +112,15 @@ int		array_len(char **array)
 
 void	add_to_argv(t_token **tokens, t_command *last)
 {
-	char		**new_argv;
-	int			argv_len;
-	int			count_new_args;
-	t_token		*tmp;
+	char	**new_argv;
+	int		argv_len;
+	int		count_new_args;
+	t_token	*tmp;
 
 	argv_len = array_len(last->argv);
 	count_new_args = get_len_args(*tokens);
-	new_argv = ft_calloc(argv_len + count_new_args + 1, sizeof (char *));
-	ft_memmove(new_argv, last->argv, argv_len * sizeof (char *));
+	new_argv = ft_calloc(argv_len + count_new_args + 1, sizeof(char *));
+	ft_memmove(new_argv, last->argv, argv_len * sizeof(char *));
 	tmp = *tokens;
 	while (tmp->type == WORD)
 	{
@@ -137,7 +139,7 @@ void	handle_trunc_append_input(t_token **tokens, t_command *cmd)
 
 	last = get_last_command(cmd);
 	if (!last->io)
-		last->io = ft_calloc(1, sizeof (t_io));
+		last->io = ft_calloc(1, sizeof(t_io));
 	if ((*tokens)->type == TRUNC || (*tokens)->type == APPEND)
 		open_output_file(*tokens, last);
 	else
@@ -147,7 +149,7 @@ void	handle_trunc_append_input(t_token **tokens, t_command *cmd)
 
 void	open_input_file(t_token *tokens, t_command *last)
 {
-	t_io *io;
+	t_io	*io;
 
 	io = last->io;
 	if (io->infile_fd < 0 || io->outfile_fd < 0)
@@ -161,12 +163,13 @@ void	open_input_file(t_token *tokens, t_command *last)
 		io->infile = ft_strdup(tokens->next->str);
 	io->infile_fd = open(io->infile, O_RDONLY, 0);
 	if (io->infile_fd < 0)
-		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile, strerror(errno));
+		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile,
+			strerror(errno));
 }
 
 void	open_output_file(t_token *tokens, t_command *last)
 {
-	t_io *io;
+	t_io	*io;
 
 	io = last->io;
 	if (io->outfile_fd < 0 || io->infile_fd < 0)
@@ -180,12 +183,13 @@ void	open_output_file(t_token *tokens, t_command *last)
 		io->outfile = ft_strdup(tokens->next->str);
 	if (tokens->type == TRUNC)
 		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else
 		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);		
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (io->outfile_fd < 0)
-		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile, strerror(errno));
+		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile,
+			strerror(errno));
 }
 
 void	handle_pipe(t_token **token, t_command **cmd)

@@ -6,17 +6,18 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 19:06:58 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:16:14 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool	ft_error(char *str)
+t_bool	ft_error(char *str, int exit_code)
 {
 	if (str != NULL)
 	{
-		ft_printf_fd(2, "%sminishell: %s%s\n", RED, str, RESET);
+		ft_printf_fd(STDOUT_FILENO, "%sminishell: %s%s\n", RED, str, RESET);
+		ft_get_shell()->exit_status = exit_code;
 		ft_free_tokens(ft_get_shell());
 		return (TRUE);
 	}

@@ -6,13 +6,13 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:54:59 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 13:07:44 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:41:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_replace_first_occurency(char *old, char *new, char *str)
+char	*ft_replace(char *old, char *new, char *str)
 {
 	char	*result;
 	char	*ptr;

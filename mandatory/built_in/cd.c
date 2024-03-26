@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage.c                                          :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 15:29:06 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:16:29 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/26 15:46:07 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_rlstnew(t_gc **lst, void *content)
+void	ft_cd_builtin(char **argv)
 {
-	t_gc	*new;
+	char	*path;
 
-	new = malloc(sizeof(t_gc));
-	if (!new)
-		ft_error("malloc error", 900);
-	new->content = content;
-	new->next = *lst;
-	*lst = new;
-}
-
-void	ft_garbage_clear(t_gc **garbage)
-{
-	t_gc	*tmp;
-
-	while (*garbage)
+	if (!argv || !argv[1] || !argv[1][0] || !ft_strncmp(argv[1], " ", 1)
+		|| !ft_strncmp(argv[1], "--", 3))
 	{
-		tmp = *garbage;
-		*garbage = (*garbage)->next;
-		if (tmp->content && *tmp->content)
-			ft_free((void **)&tmp->content);
-		if (tmp)
-			ft_free((void **)&tmp);
+		path = ft_getenv("HOME");
+		printf("cd: %s\n", path);
+		// if (!path)
 	}
+	else
+		path = argv[1];
+	if (chdir(path) != 0)
+		perror("cd");
+	else
+		printf("cd: %s\n", path);
 }

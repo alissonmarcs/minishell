@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage.c                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 15:29:06 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:16:29 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/22 15:31:34 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/26 12:30:38 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_rlstnew(t_gc **lst, void *content)
+void	ft_pwd_builtin(char **argv)
 {
-	t_gc	*new;
+	char	*pwd;
 
-	new = malloc(sizeof(t_gc));
-	if (!new)
-		ft_error("malloc error", 900);
-	new->content = content;
-	new->next = *lst;
-	*lst = new;
-}
-
-void	ft_garbage_clear(t_gc **garbage)
-{
-	t_gc	*tmp;
-
-	while (*garbage)
-	{
-		tmp = *garbage;
-		*garbage = (*garbage)->next;
-		if (tmp->content && *tmp->content)
-			ft_free((void **)&tmp->content);
-		if (tmp)
-			ft_free((void **)&tmp);
-	}
+	(void)argv;
+	pwd = getcwd(NULL, 0);
+	ft_printf_fd(STDOUT_FILENO, "%s\n", pwd);
+	free(pwd);
 }

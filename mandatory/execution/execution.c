@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/26 16:25:03 by matesant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	restore_standard_fds(t_minishell *shell)
@@ -50,8 +62,8 @@ t_bool	check_redirect_files(t_command *cmd)
 		return (TRUE);
 	if (!io->infile && !io->outfile)
 		return (TRUE);
-	if ((io->infile && (io->infile_fd < 0)) ||
-		(io->outfile && (io->outfile_fd < 0)))
+	if ((io->infile && (io->infile_fd < 0)) || (io->outfile
+			&& (io->outfile_fd < 0)))
 		return (FALSE);
 	return (TRUE);
 }
@@ -117,7 +129,7 @@ char	*find_executable(t_minishell *shell, t_command *cmd)
 		if (access(executable, X_OK) == 0)
 		{
 			ft_delete_matrice(paths);
-			return(executable);
+			return (executable);
 		}
 		free(executable);
 	}

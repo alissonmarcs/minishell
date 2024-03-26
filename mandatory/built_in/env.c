@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 15:29:06 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:16:29 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/22 15:38:01 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/26 11:51:36 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_rlstnew(t_gc **lst, void *content)
+void	ft_env_builtin(char **argv)
 {
-	t_gc	*new;
+	t_env	*env;
 
-	new = malloc(sizeof(t_gc));
-	if (!new)
-		ft_error("malloc error", 900);
-	new->content = content;
-	new->next = *lst;
-	*lst = new;
-}
-
-void	ft_garbage_clear(t_gc **garbage)
-{
-	t_gc	*tmp;
-
-	while (*garbage)
+	(void)argv;
+	env = ft_get_shell()->env_list;
+	while (env)
 	{
-		tmp = *garbage;
-		*garbage = (*garbage)->next;
-		if (tmp->content && *tmp->content)
-			ft_free((void **)&tmp->content);
-		if (tmp)
-			ft_free((void **)&tmp);
+		if (env->value)
+			ft_printf_fd(STDOUT_FILENO, "%s=%s\n", env->key, env->value);
+		else if (!env->value)
+			ft_printf_fd(STDOUT_FILENO, "%s=\n", env->key);
+		env = env->next;
 	}
 }

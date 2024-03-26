@@ -5,8 +5,8 @@ RFLAGS 		:= -lreadline -lhistory
 BIN			:= ./bin/
 HEADER		:= ./include/
 SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c \
-				populate_command_list.c debug.c echo_n.c expansion.c signals.c get_env.c quotes.c execution.c expansion_treatments.c \
-				garbage.c
+				populate_command_list.c debug.c echo_n.c expansion.c signals.c get_env.c quotes.c expansion_treatments.c \
+				garbage.c pwd.c env.c cd.c ft_clear_all.c execution.c
 OBJECTS		:= $(addprefix $(BIN),$(SOURCE:.c=.o))
 PRINTF		:= ./libft/Printf/libftprintf.a
 LIBFT		:= ./libft/libft.a
