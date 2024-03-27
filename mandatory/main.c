@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/27 13:12:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:32:30 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ void	ft_process(t_minishell *shell)
 	if (ft_tokenize(shell))
 		return ;
 	populate_command_list(shell);
-	if (ft_strncmp(shell->tokens->str, "cd", 3) == 0)
+	if (ft_strcmp(shell->tokens->str, "cd") == 0)
 	{
 		ft_cd_builtin(shell->commands->argv);
+		return ;
+	}
+	if (ft_strcmp(shell->tokens->str, "env") == 0)
+	{
+		ft_env_builtin(shell->commands->argv);
 		return ;
 	}
 	executor(shell);

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 16:08:59 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:32:12 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int					ft_abs(int n);
 void				ft_free(void *ptr);
 void				ft_free_ptr(void **ptr);
 char				*ft_replace(char *old, char *new, char *str);
+int					ft_strcmp(const char *s1, const char *s2);
 
 // GNL
 # ifndef BUFFER_SIZE

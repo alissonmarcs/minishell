@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:39:11 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/19 18:37:37 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:31:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,19 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	if (i == n)
 		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (1);
+	while (s1[i] != '\0' && s1[i] == s2[i])
+	{
+		i++;
+	}
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
