@@ -37,10 +37,10 @@ void	populate_command_list(t_minishell *shell)
 		else if (token->type == TRUNC || token->type == APPEND
 			|| token->type == INPUT)
 			handle_trunc_append_input(&token, command);
-		else if (token->type == END)
-			break ;
 		else if (token->type == VAR)
 			handle_words(&token, &command);
+		else if (token->type == END)
+			break ;
 	}
 	set_commands_with_no_argv(command);
 	shell->commands = command;
@@ -64,7 +64,7 @@ int	get_len_args(t_token *token)
 	int	i;
 
 	i = 0;
-	while (token->type == WORD)
+	while (token->type == WORD || token->type == VAR)
 	{
 		i++;
 		token = token->next;
@@ -91,7 +91,7 @@ void	create_argv(t_token **tokens, t_command *last)
 	last->argv = ft_calloc(count_args + 2, sizeof(char *));
 	last->argv[0] = ft_strdup(last->name);
 	i = 1;
-	while (tmp->type == WORD)
+	while (tmp->type == WORD || tmp->type == VAR)
 	{
 		last->argv[i] = ft_strdup(tmp->str);
 		tmp = tmp->next;
