@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_matrice.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 12:45:24 by matesant          #+#    #+#             */
-/*   Updated: 2023/11/14 23:32:35 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:08:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,14 @@ void	ft_delete_matrice(char **matrice)
 	}
 	free(matrice);
 	matrice = NULL;
+}
+
+int	ft_matrice_len(char **matrice)
+{
+	int	i;
+
+	i = 0;
+	while (matrice[i])
+		i++;
+	return (i);
 }

@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clear_all.c                                     :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 17:06:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 12:38:16 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
+/*   Updated: 2024/03/28 11:42:19 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_clear_all(t_minishell *shell)
+void	ft_exit(char **argv)
 {
-	free(shell->user_input);
-	ft_free_tokens(shell);
-	free_cmd_list(&shell->commands);
-	ft_free_env(shell);
-	ft_delete_matrice(shell->env);
-	ft_garbage_clear(&shell->gc);
-}
-
-void	ft_clear(t_minishell *shell)
-{
-	free(shell->user_input);
-	ft_free_tokens(shell);
-	free_cmd_list(&shell->commands);
-	ft_garbage_clear(&shell->gc);
+	(void)argv;
+	ft_clear_all(ft_get_shell());
+	exit(ft_get_shell()->exit_status);
 }
