@@ -169,7 +169,7 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 {
 	if (!check_redirect_files(cmd))
 		clear_exit(shell, 1);
-	if (!cmd->name)
+	if (!cmd->name || !cmd->name[0])
 		clear_exit(shell, 0);
 	cmd->path = find_executable(shell, cmd);
 	if (!cmd->path)
@@ -182,6 +182,8 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 	close_redirect_files(cmd);
 	close_pipes(shell->commands, cmd);
 	execve(cmd->path, cmd->argv, shell->env);
+	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, strerror(errno));
+	clear_exit(shell, 5);
 }
 
 void	wait_childs(t_minishell *shell)

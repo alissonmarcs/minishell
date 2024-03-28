@@ -38,12 +38,89 @@ void	populate_command_list(t_minishell *shell)
 			|| token->type == INPUT)
 			handle_trunc_append_input(&token, command);
 		else if (token->type == VAR)
-			handle_words(&token, &command);
+			handle_vars(&token, &command);
 		else if (token->type == END)
 			break ;
 	}
 	set_commands_with_no_argv(command);
 	shell->commands = command;
+}
+
+t_bool		have_spaces(char *str)
+{
+	while (*str)
+	{
+		if (ft_isspace(*str))
+			return (TRUE);
+		str++;
+	}
+	return (FALSE);
+}
+
+void	handle_vars(t_token **tokens, t_command **cmd)
+{
+	t_command	*last;
+
+	last = get_last_command(*cmd);
+	if (!last->name)
+	{
+		if (have_spaces((*tokens)->str))
+			handle_vars_spaces(*tokens, last);
+		else
+			last->name = ft_strdup((*tokens)->str);
+		*tokens = (*tokens)->next;
+		return ;
+	}
+	handle_var_argument(tokens, last);
+}
+
+void	handle_vars_spaces(t_token *tokens, t_command *last)
+{
+	char	**split;
+
+	split = ft_split(tokens->str, ' ');
+	last->name = ft_strdup(split[0]);
+	last->argv = split;
+}
+
+void	handle_var_argument(t_token **tokens, t_command *last)
+{
+	char	**split;
+	char	**argv;
+	int		len_args;
+	int		new_args_count;
+
+	if (have_spaces((*tokens)->str))
+	{
+		split = ft_split((*tokens)->str, ' ');
+		if (!last->argv)
+		{
+			last->argv = ft_calloc(array_len(split) + 2, sizeof(char *));
+			last->argv[0] = ft_strdup(last->name);
+			ft_memmove(last->argv + 1, split, array_len(split) * sizeof(char *));
+		}
+		else
+		{
+			len_args = array_len(last->argv);
+			new_args_count = array_len(split);
+			argv = ft_calloc(len_args + new_args_count + 1, sizeof(char *));
+			ft_memmove(argv, last->argv, len_args * sizeof(char *));
+			ft_memmove(argv + len_args, split, new_args_count * sizeof (char *));
+			free(last->argv);
+			last->argv = argv;
+		}
+		free(split);
+	}
+	else
+	{
+		if (!last->argv)
+		{
+			last->argv = ft_calloc(3, sizeof(char *));
+			last->argv[0] = ft_strdup(last->name);
+			last->argv[1] = ft_strdup((*tokens)->str);
+		}
+	}
+	*tokens = (*tokens)->next;
 }
 
 void	set_commands_with_no_argv(t_command *cmd)
@@ -64,7 +141,7 @@ int	get_len_args(t_token *token)
 	int	i;
 
 	i = 0;
-	while (token->type == WORD || token->type == VAR)
+	while (token->type == WORD)
 	{
 		i++;
 		token = token->next;
@@ -91,7 +168,7 @@ void	create_argv(t_token **tokens, t_command *last)
 	last->argv = ft_calloc(count_args + 2, sizeof(char *));
 	last->argv[0] = ft_strdup(last->name);
 	i = 1;
-	while (tmp->type == WORD || tmp->type == VAR)
+	while (tmp->type == WORD)
 	{
 		last->argv[i] = ft_strdup(tmp->str);
 		tmp = tmp->next;

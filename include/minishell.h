@@ -120,6 +120,11 @@ void		run_commands(t_minishell *shell, t_command *cmd);
 void		wait_childs(t_minishell *shell);
 void		executor(t_minishell *shell);
 void		clear_exit(t_minishell *shell, int exit_status);
+void		handle_vars(t_token **tokens, t_command **cmd);
+void		handle_var_argument(t_token **tokens, t_command *last);
+t_bool		have_spaces(char *str);
+void		handle_vars_spaces(t_token *tokens, t_command *last);
+
 
 /*------------------------------------------------------------------------*/
 #endif
