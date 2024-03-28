@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 16:17:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:47:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void	ft_process(t_minishell *shell)
 		return ;
 	//ft_print_stack(shell->tokens);
 	populate_command_list(shell);
+	if (ft_strcmp(shell->tokens->str, "cd") == 0)
+	{
+		ft_cd_builtin(shell->commands->argv);
+		return ;
+	}
+	if (ft_strcmp(shell->tokens->str, "env") == 0)
+	{
+		ft_env_builtin(shell->commands->argv);
+		return ;
+	}
+	if (ft_strcmp(shell->tokens->str, "exit") == 0)
+		ft_exit(shell->commands->argv);
 	executor(shell);
 }
 
@@ -49,7 +61,7 @@ void	ft_loop(void)
 			continue ;
 		}
 		ft_process(shell);
-		ft_clear_all(shell);
+		ft_clear(shell);
 	}
 	ft_free_env(shell);
 	rl_clear_history();

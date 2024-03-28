@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:22:07 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:22:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,22 @@ t_bool	ft_inflation(char *input, char **var)
 	return (TRUE);
 }
 
-t_bool	ft_dollars_in_my_pocket(char *input, int *i)
+t_bool	ft_dollars_in_my_pocket(char *input, int *i, int *status)
 {
-	static int	status;
-
 	while (input[(*i)])
 	{
-		status = ft_quotes_status(input[(*i)], status);
-		if (input[(*i)] == '$' && input[(*i) + 1] == '$' && (status == 0
-				|| status == 1))
+		(*status) = ft_quotes_status(input[(*i)], (*status));
+		if (input[(*i)] == '$' && input[(*i) + 1] == '$' && ((*status) == 0
+				|| (*status) == 1))
 		{
 			(*i)++;
 			return (TRUE);
 		}
-		if (input[(*i)] == '$' && (status == 0 || status == 1)
+		if (input[(*i)] == '$' && ((*status) == 0 || (*status) == 1)
 			&& ft_isalpha(input[(*i) + 1]) == 1)
 			return (TRUE);
-		if (input[(*i)] == '$' && input[(*i) + 1] == '?')
+		if (input[(*i)] == '$' && input[(*i) + 1] == '?' && ((*status) == 0
+				|| (*status) == 1))
 			return (TRUE);
 		(*i)++;
 	}
@@ -76,13 +75,14 @@ t_bool	ft_dollars_in_my_pocket(char *input, int *i)
 t_bool	ft_var_expansion(void)
 {
 	static int	i;
+	static int	status;
 	char		*var;
 	t_token		*curr;
 
 	curr = ft_get_shell()->tokens;
 	while (curr && curr->type != END)
 	{
-		if (ft_dollars_in_my_pocket(curr->str, &i))
+		if (ft_dollars_in_my_pocket(curr->str, &i, &status))
 		{
 			if (ft_inflation(curr->str, &var))
 				var = ft_find_var(curr->str);
@@ -92,6 +92,7 @@ t_bool	ft_var_expansion(void)
 		}
 		ft_replace_teemo(curr, ft_get_shell()->teemo);
 		i = 0;
+		status = 0;
 		curr = curr->next;
 	}
 	return (FALSE);

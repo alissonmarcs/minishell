@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 16:08:59 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:08:32 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int					ft_abs(int n);
 void				ft_free(void *ptr);
 void				ft_free_ptr(void **ptr);
 char				*ft_replace(char *old, char *new, char *str);
+int					ft_strcmp(const char *s1, const char *s2);
+int					ft_matrice_len(char **matrice);
 
 // GNL
 # ifndef BUFFER_SIZE

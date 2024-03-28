@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:26:17 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:36:56 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 # include "../libft/libft.h"
 # include "defines.h"
 # include "types.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <string.h>
-# include <errno.h>
 
 /*----------------------------------MAIN-STRUCT----------------------------*/
 t_minishell	*ft_get_shell(void);
@@ -81,8 +81,9 @@ void		get_standard_fds(t_minishell *shell);
 t_bool		ft_error(char *str, int exit_code);
 void		ft_lstend(t_token **tokens, char *str, int type);
 void		ft_garbage_clear(t_gc **garbage);
-void		ft_rlstnew(t_gc **lst, void *content);
+void		ft_rlstnew(void *content);
 void		ft_clear_all(t_minishell *shell);
+void		ft_clear(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
@@ -103,6 +104,7 @@ void		ft_echo_builtin(char **argv);
 void		ft_pwd_builtin(char **argv);
 void		ft_env_builtin(char **argv);
 void		ft_cd_builtin(char **argv);
+void		ft_exit(char **argv);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------SIGNALS-------------------------------*/
