@@ -23,6 +23,7 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
+	//ft_print_stack(shell->tokens);
 	populate_command_list(shell);
 	if (ft_strcmp(shell->tokens->str, "cd") == 0)
 	{
