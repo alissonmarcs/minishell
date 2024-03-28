@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:05:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 19:06:46 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:37:26 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,12 @@ void	ft_add_var(char **argv)
 		value = ft_strchr(argv[i], '=');
 		if (value)
 			value++;
-		if (!ft_valid_key(key))
+		if (!ft_valid_key(key) && !ft_already_exists(key))
 			ft_lstend_var(&ft_get_shell()->env_list, key, value);
+		else if (!ft_valid_key(key) && ft_already_exists(key))
+			ft_change_value(key, value);
 		else
-		{
 			ft_invalid_key(key, value);
-			free(key);
-			return ;
-		}
 		free(key);
 		i++;
 	}

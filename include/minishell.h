@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 19:06:53 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:39:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void		ft_cd_builtin(char **argv);
 void		ft_exit(char **argv);
 void		ft_export(char **argv);
 void		ft_print_in_order(char **env);
+t_bool		ft_already_exists(char *key);
+void		ft_change_value(char *key, char *value);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------SIGNALS-------------------------------*/
@@ -131,7 +133,6 @@ void		handle_vars(t_token **tokens, t_command **cmd);
 void		handle_var_argument(t_token **tokens, t_command *last);
 t_bool		have_spaces(char *str);
 void		handle_vars_spaces(t_token *tokens, t_command *last);
-
 
 /*------------------------------------------------------------------------*/
 #endif
