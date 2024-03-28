@@ -6,7 +6,7 @@ BIN			:= ./bin/
 HEADER		:= ./include/
 SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c \
 				populate_command_list.c debug.c echo_n.c expansion.c signals.c get_env.c quotes.c expansion_treatments.c \
-				garbage.c pwd.c env.c cd.c ft_clear_all.c execution.c exit.c
+				garbage.c pwd.c env.c cd.c ft_clear_all.c execution.c exit.c export.c print_order.c
 OBJECTS		:= $(addprefix $(BIN),$(SOURCE:.c=.o))
 PRINTF		:= ./libft/Printf/libftprintf.a
 LIBFT		:= ./libft/libft.a
@@ -89,6 +89,12 @@ $(BIN)%.o: ./mandatory/debug/%.c $(HEADER)minishell.h
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 $(BIN)%.o: ./mandatory/built_in/%.c $(HEADER)minishell.h
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
+	@printf "$(BLUE)Compiling $<...$(END)\n"
+	@printf "$(BLUE)-----------------------------------------------$(END)\n"
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
+
+$(BIN)%.o: ./mandatory/built_in/export/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"

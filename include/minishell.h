@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 12:36:56 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:06:53 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		ft_garbage_clear(t_gc **garbage);
 void		ft_rlstnew(void *content);
 void		ft_clear_all(t_minishell *shell);
 void		ft_clear(t_minishell *shell);
+void		ft_invalid_key(char *key, char *value);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
@@ -91,12 +92,14 @@ t_token		*ft_create_list(char *str, int type);
 void		ft_free_tokens(t_minishell *shell);
 void		ft_free_env(t_minishell *shell);
 void		ft_lstend_var(t_env **env_list, char *key, char *value);
+int			ft_envsize(t_env *env);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------DEBUGGING------------------------------*/
 void		ft_print_stack(t_token *stack);
 void		print_cmd_list(t_command *list);
 void		ft_print_env_list(t_env *env_list);
+void		ft_print_matrice(char **matrice);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------BUILT-IN------------------------------*/
@@ -105,6 +108,8 @@ void		ft_pwd_builtin(char **argv);
 void		ft_env_builtin(char **argv);
 void		ft_cd_builtin(char **argv);
 void		ft_exit(char **argv);
+void		ft_export(char **argv);
+void		ft_print_in_order(char **env);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------SIGNALS-------------------------------*/

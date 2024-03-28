@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   errors_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 13:16:14 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:15:23 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_invalid_key(char *key, char *value)
+{
+	if (value)
+		ft_printf_fd(STDOUT_FILENO,
+		"%sminishell: export: `%s=%s': not a valid identifier%s\n", RED, key, value, RESET);
+	else
+		ft_printf_fd(STDOUT_FILENO,
+		"%sminishell: export: `%s': not a valid identifier%s\n", RED, key, RESET);
+	ft_get_shell()->exit_status = 1;
+}
 
 t_bool	ft_error(char *str, int exit_code)
 {
@@ -46,7 +57,7 @@ void	ft_free_env(t_minishell *shell)
 		tmp = shell->env_list;
 		shell->env_list = shell->env_list->next;
 		free(tmp->key);
-		free(tmp->value);
+		ft_free_ptr((void **)&tmp->value);
 		free(tmp);
 	}
 }

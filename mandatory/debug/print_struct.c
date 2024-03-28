@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:03 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 13:42:39 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:27:28 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,19 @@ void	ft_print_env_list(t_env *env_list)
 		printf("-----------------------------\n");
 		i++;
 		env_list = env_list->next;
+	}
+}
+
+void	ft_print_matrice(char **matrice)
+{
+	int	i;
+
+	i = 0;
+	while (matrice[i])
+	{
+		printf("-----------------------------\n");
+		printf("| Matrice[%d]:%s.\n", i, matrice[i]);
+		printf("-----------------------------\n");
+		i++;
 	}
 }
