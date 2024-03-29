@@ -104,7 +104,7 @@ $(NAME): $(OBJECTS) $(HEADER)minishell.h
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $(NAME)...$(END)\n"
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
-	@$(CC) $(RFLAGS) $(CFLAGS) $(OBJECTS) $(42LIBS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(42LIBS) -o $(NAME) $(RFLAGS)
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(GREEN)--$(NAME) compiled!-$(END)\n"
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"

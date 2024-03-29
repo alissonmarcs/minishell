@@ -87,12 +87,10 @@ void	ft_quotes_treatment(char **str)
 	int		i;
 	int		j;
 	char	*new;
-	int		status;
 	char	*tmp;
 
 	i = -1;
 	j = 0;
-	status = 0;
 	tmp = *str;
 	new = malloc(sizeof(char) * ft_strlen(*str) + 1);
 	if (!new)
