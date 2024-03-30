@@ -8,3 +8,4 @@ minishell2
 .vscode
 tmp
 .nfs*
+script.sh

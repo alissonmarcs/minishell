@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_creation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 17:34:17 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:51:17 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_env	*ft_create_var_list(char *key, char *value)
 	new->key = ft_strdup(key);
 	new->value = ft_nullstrdup(value);
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
@@ -74,6 +75,9 @@ void	ft_lstend_var(t_env **env_list, char *key, char *value)
 	while (curr->next)
 		curr = curr->next;
 	curr->next = ft_create_var_list(key, value);
+	if (!curr->next)
+		ft_error("malloc error", 900);
+	curr->next->prev = curr;
 	if (!curr->next)
 		ft_error("malloc error", 900);
 }

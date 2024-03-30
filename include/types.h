@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/22 12:41:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:50:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_env
 	char				*key;
 	char				*value;
 	struct s_env		*next;
+	struct s_env		*prev;
 }						t_env;
 
 typedef struct s_gc
