@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:37:29 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/29 20:30:08 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:25:00 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_print_in_order(char **env)
 			if (!ft_strcmp(env[i], key))
 			{
 				if (envl->value && ft_strlen(envl->value) > 0)
-					ft_printf_fd(STDOUT_FILENO, "declare -x %s=%s\n", envl->key,
+					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"%s\"\n", envl->key,
 						envl->value);
 				else if (!envl->value)
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", envl->key);
