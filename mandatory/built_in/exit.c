@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/30 23:34:47 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/30 23:38:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	ft_exit(char **argv)
 	if (ft_matrice_len(argv) > 2)
 		if(ft_exit_msg(argv, "too many arguments", NULL, 1))
 			return ;
-    if (argv[1])
-        ft_get_shell()->exit_status = ft_atoi(argv[1]);
-	
-    exit(ft_get_shell()->exit_status);
+	if (argv[1])
+		ft_get_shell()->exit_status = ft_atoi(argv[1]);
+	exit(ft_get_shell()->exit_status);
 }
