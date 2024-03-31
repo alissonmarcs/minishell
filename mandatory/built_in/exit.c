@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/30 23:38:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/30 23:40:21 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 	}
 	else
 	{
-		ft_printf_fd(STDERR_FILENO, "%sexit\nminishell: %s: %s%s\n", RED, argv[0], msg, RESET);
+		ft_printf_fd(STDERR_FILENO, "exit\n%sminishell: %s: %s%s\n", RED, argv[0], msg, RESET);
 		ft_get_shell()->exit_status = ecode;
 		return (TRUE);
 	}
