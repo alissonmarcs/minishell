@@ -58,7 +58,7 @@ $(BIN)%.o: ./mandatory/errors/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
-$(BIN)%.o: ./mandatory/parsing/%.c $(HEADER)minishell.h
+$(BIN)%.o: ./mandatory/signal/%.c $(HEADER)minishell.h
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"
 	@printf "$(BLUE)Compiling $<...$(END)\n"
 	@printf "$(BLUE)-----------------------------------------------$(END)\n"

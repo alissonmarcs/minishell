@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/29 21:50:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/31 15:05:49 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,5 @@ typedef struct s_minishell
 	t_gc				*gc;
 	pid_t				last_child;
 }						t_minishell;
-
-typedef struct s_exp
-{
-	char				*var;
-	int					i;
-	int					status;
-}						t_exp;
 
 #endif
