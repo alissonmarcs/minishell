@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/31 23:23:47 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/31 23:29:39 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_bool ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 	return (FALSE);
 }
 
-
 t_bool ft_check_max_min(char *arg)
 {
 	if ((ft_atol(arg) > 2147483647) || (ft_atol(arg) < -2147483648))
@@ -39,14 +38,14 @@ t_bool ft_check_max_min(char *arg)
 
 void	ft_exit(char **argv)
 {
-	if (argv[1] && ft_isalpha(argv[1][0]))
+	if ((argv[1] && ft_isalpha(argv[1][0])) || (ft_check_max_min(argv[1])))
 		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
-	if (ft_matrice_len(argv) > 2)
-		if(ft_exit_msg(argv, "too many arguments", NULL, 1))
+	else if (ft_matrice_len(argv) > 2)
+	{
+		if (ft_exit_msg(argv, "too many arguments", NULL, 1))
 			return ;
-	if (ft_check_max_min(argv[1]))
-		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
-	if (argv[1])
-		ft_get_shell()->exit_status = ft_atoi(argv[1]);
+	}
+	else if (argv[1])
+		ft_get_shell()->exit_status = ft_atol(argv[1]);
 	exit(ft_get_shell()->exit_status);
 }
