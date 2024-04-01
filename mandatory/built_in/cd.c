@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 12:43:18 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/31 23:16:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,16 @@ void	ft_cd_builtin(char **argv)
 		ft_error("cd: too many arguments", 1);
 		return ;
 	}
-	if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
+    if (!ft_strcmp(argv[1], "-"))
+    {
+        path = ft_getenv("OLDPWD");
+        if (!path)
+        {
+            ft_error("cd: OLDPWD not set", 1);
+            return ;
+        } 
+    }
+	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
 		|| !ft_strcmp(argv[1], "--") || !ft_strcmp(argv[1], "~"))
 	{
 		ft_rlstnew(path = ft_getenv("HOME"));
@@ -94,9 +103,7 @@ void	ft_cd_builtin(char **argv)
 		}
 	}
 	else
-	{
 		path = argv[1];
-	}
 	if (ft_isdir(path))
 		ft_chdir(path);
 }

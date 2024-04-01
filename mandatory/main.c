@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/29 22:00:09 by matesant         ###   ########.fr       */
+/*   Updated: 2024/03/31 22:39:44 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(void)
 	shell = ft_get_shell();
 	ft_clone_env(shell);
 	shell->teemo = -1;
+    ft_print_env_list(shell->env_list);
 	ft_loop();
 	ft_delete_matrice(shell->env);
 	return (0);
