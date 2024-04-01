@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/15 14:16:13 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:08:49 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_clear_spaces(char **str)
 	(*str)[i - start] = '\0';
 }
 
-t_bool	ft_forbidden_separators(char *line)
+char	*ft_forbidden_separators(char *line)
 {
 	unsigned long	i;
 
@@ -41,9 +41,18 @@ t_bool	ft_forbidden_separators(char *line)
 	while (line[i])
 	{
 		ft_skip_quotes(line, &i);
-		if ((line[i] == '&' && line[i + 1] == '&') || line[i] == '\\'
-			|| line[i] == ';')
-			return (TRUE);
+		if ((line[i] == '&' && line[i + 1] == '&'))
+			return ("syntax error near unexpected token `&&'");
+        else if (line[0] == ';' && !line[1])
+            return ("syntax error near unexpected token `;'");
+        else if (line[0] == '.' && !line[1])
+            return (".: filename argument required\n.: usage: . filename [arguments]");
+        //else if (line[0] == '/' && !line[1])
+            //return ("/: Is a directory");
+        else if (line[0] == '[' && !line[1])
+            return ("[: missing `]'");
+        //else if (line[0] == '~' && !line[1])
+           // return (ft_);
 		i++;
 	}
 	return (FALSE);

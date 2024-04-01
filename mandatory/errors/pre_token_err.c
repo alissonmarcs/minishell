@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pre_token_err.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 00:26:26 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/01 00:26:53 by matesant         ###   ########.fr       */
+/*   Created: 2024/04/01 00:48:30 by matesant          #+#    #+#             */
+/*   Updated: 2024/04/01 00:58:01 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
-int main(int ac, char **av, char **env)
+t_bool ft_pre_token_err(char *line)
 {
-    int i = 0;
-    while (env[i])
-    {
-        printf("%s\n", env[i]);
-        i++;
-    }
-    return (0);
+	if (ft_only_spaces(line))
+		return (TRUE);
+	if (ft_open_quotes(line))
+	{
+		ft_error("Open quotes", 2);
+		return (TRUE);
+	}
+	if (ft_error(ft_forbidden_separators(line), 2))
+		return (TRUE);
+	return (FALSE);
 }
