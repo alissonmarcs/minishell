@@ -6,11 +6,19 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/31 23:16:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/01 00:41:42 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void ft_oldpwd_exist(t_env *cur)
+{
+	if (!ft_strncmp(cur->key, "OLDPWD", 6))
+		return ;
+	else
+		ft_lstend_var(&ft_get_shell()->env_list, "OLDPWD", "");
+}
 
 void	ft_set_env(void)
 {
@@ -21,14 +29,14 @@ void	ft_set_env(void)
 	cur = ft_get_shell()->env_list;
 	oldpwd = ft_getenv("PWD");
 	pwd = getcwd(NULL, 0);
+	ft_oldpwd_exist(cur);
 	while (cur)
 	{
 		if (!ft_strncmp(cur->key, "OLDPWD", 6))
 		{
 			free(cur->value);
 			cur->value = ft_strdup(oldpwd);
-			free(oldpwd);
-			oldpwd = NULL;
+			ft_free_ptr((void **)&oldpwd);
 		}
 		if (!ft_strncmp(cur->key, "PWD", 3))
 		{
@@ -83,15 +91,15 @@ void	ft_cd_builtin(char **argv)
 		ft_error("cd: too many arguments", 1);
 		return ;
 	}
-    if (!ft_strcmp(argv[1], "-"))
-    {
-        path = ft_getenv("OLDPWD");
-        if (!path)
-        {
-            ft_error("cd: OLDPWD not set", 1);
-            return ;
-        } 
-    }
+	if (!ft_strcmp(argv[1], "-"))
+	{
+		path = ft_getenv("OLDPWD");
+		if (!path || path[0] == '\0')
+		{
+			ft_error("cd: OLDPWD not set", 1);
+			return ;
+		} 
+	}
 	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
 		|| !ft_strcmp(argv[1], "--") || !ft_strcmp(argv[1], "~"))
 	{
