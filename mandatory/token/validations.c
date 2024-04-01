@@ -55,7 +55,7 @@ char	*ft_forbidden_separators(char *line)
            // return (ft_);
 		i++;
 	}
-	return (FALSE);
+	return (NULL);
 }
 
 t_bool	ft_only_spaces(char *line)
