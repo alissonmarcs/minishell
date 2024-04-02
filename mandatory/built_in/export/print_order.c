@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:37:29 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 17:10:00 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:37:03 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,28 @@
 void	ft_print_in_order(char **env)
 {
 	int		i;
-	t_env	*envl;
+	t_env	*e;
 
 	i = 0;
-	envl = ft_get_shell()->env_list;
+	e = ft_get_shell()->env_list;
 	while (env[i])
 	{
-		while (envl)
+		while (e)
 		{
-			if (!ft_strcmp(env[i], envl->key))
+			if (!ft_strcmp(env[i], e->key))
 			{
-				if (envl->value && ft_strlen(envl->value) > 0)
+				if (e->value && ft_strlen(e->value) > 0)
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
-						envl->key, envl->value);
-				else if (envl->value && envl->equal == 0)
-					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", envl->key);
+						e->key, e->value);
+				else if (e->value && e->equal == 0)
+					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", e->key);
 				else
-					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"\"\n",
-						envl->key);
+					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"\"\n", e->key);
 				break ;
 			}
-			envl = envl->next;
+			e = e->next;
 		}
-		envl = ft_get_shell()->env_list;
+		e = ft_get_shell()->env_list;
 		i++;
 	}
 }
