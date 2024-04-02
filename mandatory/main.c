@@ -83,8 +83,8 @@ int	main(void)
 
 	shell = ft_get_shell();
 	ft_clone_env(shell);
+	ft_print_env_list(shell->env_list);
 	shell->teemo = -1;
-    ft_print_env_list(shell->env_list);
 	ft_loop();
 	ft_delete_matrice(shell->env);
 	return (0);

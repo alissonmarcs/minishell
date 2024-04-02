@@ -63,9 +63,9 @@ int			get_len_args(t_token *token);
 void		add_dummy_node(t_command **cmd);
 void		populate_command_list(t_minishell *minishell);
 void		get_args(t_token **tokens, t_command *last);
-void		handle_words(t_token **token, t_command **cmd);
+void		handle_words(t_token **token, t_command *last);
 void		handle_pipe(t_token **token, t_command **cmd);
-void		handle_trunc_append_input(t_token **token, t_command *cmd);
+void		handle_trunc_append_input(t_token **token, t_command *last);
 void		free_io(t_io *io);
 void		set_commands_with_no_argv(t_command *cmd);
 void		create_argv(t_token **tokens, t_command *last);
@@ -74,6 +74,7 @@ int			array_len(char **array);
 void		open_output_file(t_token *tokens, t_command *last);
 void		open_input_file(t_token *tokens, t_command *last);
 void		get_standard_fds(t_minishell *shell);
+void		update_argv(t_command *last, char **split);
 
 /*------------------------------------------------------------------------*/
 
@@ -131,10 +132,8 @@ void		run_commands(t_minishell *shell, t_command *cmd);
 void		wait_childs(t_minishell *shell);
 void		executor(t_minishell *shell);
 void		clear_exit(t_minishell *shell, int exit_status);
-void		handle_vars(t_token **tokens, t_command **cmd);
-void		handle_var_argument(t_token **tokens, t_command *last);
+void		handle_vars(t_token **tokens, t_command *last);
 t_bool		have_spaces(char *str);
-void		handle_vars_spaces(t_token *tokens, t_command *last);
 
 /*------------------------------------------------------------------------*/
 #endif
