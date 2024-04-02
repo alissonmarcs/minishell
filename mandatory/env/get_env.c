@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:54:16 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/26 16:24:38 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:30:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_get_env_list(void)
 	while (env[i])
 	{
 		split = ft_split(env[i], '=');
-		ft_lstend_var(&shell->env_list, split[0], split[1]);
+		ft_lstend_var(&shell->env_list, split[0], split[1], 0);
 		ft_delete_matrice(split);
 		i++;
 	}
@@ -74,11 +74,11 @@ char	*ft_getenv(char *env)
 		return (NULL);
 	while (curr)
 	{
-		if (!ft_strncmp(curr->key, env, ft_strlen(curr->key)))
+		if (!ft_strcmp(curr->key, env))
 			return (ft_strdup(curr->value));
-		if (!ft_strncmp(env, "?", 1))
+		if (!ft_strcmp(env, "?"))
 			return (ft_itoa(shell->exit_status));
-		if (!ft_strncmp(env, "$", 1))
+		if (!ft_strcmp(env, "$"))
 			return (ft_strdup(&shell->teemo));
 		curr = curr->next;
 	}

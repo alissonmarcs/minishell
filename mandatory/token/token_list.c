@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:31:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/01 00:56:53 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:03:06 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,9 @@ t_bool	ft_tokenize(t_minishell *shell)
 	char	*line;
 
 	line = shell->user_input;
-    if (ft_pre_token_err(line))
-        return (TRUE);
-	
-    ft_words_separators(shell->user_input, shell);
+	if (ft_pre_token_err(line))
+		return (TRUE);
+	ft_words_separators(shell->user_input, shell);
 	if (ft_var_expansion())
 		ft_error("error", 2);
 	ft_remove_quotes();

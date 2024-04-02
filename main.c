@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 07:49:57 by almarcos          #+#    #+#             */
-/*   Updated: 2024/04/02 12:06:54 by matesant         ###   ########.fr       */
+/*   Created: 2024/03/06 17:19:56 by matesant          #+#    #+#             */
+/*   Updated: 2024/04/02 12:57:21 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
+#include <stdio.h>
 
-# define DEFINES_H
+// t_minishell	*ft_get_shell(void)
+// {
+// 	static t_minishell	shell;
 
-# define PROMPT "\001\e[0m\002\e[33m\nCarlitoShell$ \001\e[0m\002"
-
-# define RED "\001\e[0m\002\e[31m"
-
-# define RESET "\001\e[0m\002"
-
-# define AND_ERROR "syntax error near unexpected token `&&'"
-
-typedef enum e_bool
+// 	return (&shell);
+// }
+int	main(void)
 {
-	FALSE,
-	TRUE
-}		t_bool;
+	char	*line;
 
-enum	e_token
-{
-	SPACES = 1,
-	VAR,
-	WORD,
-	PIPE,
-	INPUT,
-	TRUNC,
-	APPEND,
-	HERE_DOC,
-	END,
-};
-
-#endif
+	line = "=";
+	line++;
+	printf("%p\n", line);
+	return (0);
+}

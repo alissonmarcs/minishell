@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_creation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/29 21:51:17 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:56:23 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_env	*ft_create_var_list(char *key, char *value)
 	return (new);
 }
 
-void	ft_lstend_var(t_env **env_list, char *key, char *value)
+void	ft_lstend_var(t_env **env_list, char *key, char *value, int equal)
 {
 	t_env	*curr;
 
@@ -78,6 +78,6 @@ void	ft_lstend_var(t_env **env_list, char *key, char *value)
 	if (!curr->next)
 		ft_error("malloc error", 900);
 	curr->next->prev = curr;
-	if (!curr->next)
-		ft_error("malloc error", 900);
+	curr = curr->next;
+	curr->equal = equal;
 }

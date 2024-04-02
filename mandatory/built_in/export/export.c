@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:05:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 19:37:26 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:18:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,29 @@ t_bool	ft_valid_key(char *key)
 
 void	ft_add_var(char **argv)
 {
-	int		i;
-	char	*key;
-	char	*value;
+	int			i;
+	t_v			*v;
+	static int	equal;
 
 	i = 1;
-	value = NULL;
-	key = NULL;
 	while (argv[i])
 	{
-		key = ft_substr(argv[i], 0, ft_strchr(argv[i], '=') - argv[i]);
-		value = ft_strchr(argv[i], '=');
-		if (value)
-			value++;
-		if (!ft_valid_key(key) && !ft_already_exists(key))
-			ft_lstend_var(&ft_get_shell()->env_list, key, value);
-		else if (!ft_valid_key(key) && ft_already_exists(key))
-			ft_change_value(key, value);
+		v = malloc(sizeof(t_v));
+		v->key = ft_substr(argv[i], 0, ft_strchr(argv[i], '=') - argv[i]);
+		v->value = ft_strchr(argv[i], '=');
+		if (v->value)
+		{
+			v->value++;
+			equal = 1;
+		}
+		if (!ft_valid_key(v->key) && !ft_already_exists(v->key))
+			ft_lstend_var(&ft_get_shell()->env_list, v->key, v->value, equal);
+		else if (!ft_valid_key(v->key) && ft_already_exists(v->key))
+			ft_change_value(v->key, v->value, equal);
 		else
-			ft_invalid_key(key, value);
-		free(key);
+			ft_invalid_key(v->key, v->value);
+		ft_reset_v(&v);
+		equal = 0;
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/31 15:05:49 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:04:09 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,17 @@ typedef struct s_env
 {
 	char				*key;
 	char				*value;
+	int					equal;
 	struct s_env		*next;
 	struct s_env		*prev;
 }						t_env;
+
+typedef struct s_v
+{
+	char				*key;
+	char				*value;
+	int					equal;
+}						t_v;
 
 typedef struct s_gc
 {

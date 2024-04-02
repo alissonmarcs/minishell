@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/01 00:41:42 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:30:39 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_oldpwd_exist(t_env *cur)
 	if (!ft_strncmp(cur->key, "OLDPWD", 6))
 		return ;
 	else
-		ft_lstend_var(&ft_get_shell()->env_list, "OLDPWD", "");
+		ft_lstend_var(&ft_get_shell()->env_list, "OLDPWD", "", 0);
 }
 
 void	ft_set_env(void)
