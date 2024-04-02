@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/04/02 16:04:09 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:21 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_v
 {
 	char				*key;
 	char				*value;
-	int					equal;
 }						t_v;
 
 typedef struct s_gc
