@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 17:33:49 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:37:48 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	ft_process(t_minishell *shell)
 		ft_export(shell->commands->argv);
 		return ;
 	}
-    else if (ft_strcmp(shell->tokens->str, "unset") == 0)
-    {
-        ft_unset(shell->commands->argv);
-        return ;
-    }
+	else if (ft_strcmp(shell->tokens->str, "unset") == 0)
+	{
+		ft_unset(shell->commands->argv);
+		return ;
+	}
 	executor(shell);
 }
 

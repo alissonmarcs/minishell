@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/31 23:29:39 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:22:16 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
+t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 {
 	if (arg)
 	{
-		ft_printf_fd(STDERR_FILENO, "exit\n%sminishell: %s: %s: %s%s\n", RED, argv[0], arg, msg, RESET);
+		ft_printf_fd(STDERR_FILENO, "exit\n%sminishell: %s: %s: %s%s\n", RED,
+			argv[0], arg, msg, RESET);
 		ft_clear_all(ft_get_shell());
 		exit(ecode);
 	}
 	else
 	{
-		ft_printf_fd(STDERR_FILENO, "exit\n%sminishell: %s: %s%s\n", RED, argv[0], msg, RESET);
+		ft_printf_fd(STDERR_FILENO, "exit\n%sminishell: %s: %s%s\n", RED,
+			argv[0], msg, RESET);
 		ft_get_shell()->exit_status = ecode;
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-t_bool ft_check_max_min(char *arg)
+t_bool	ft_check_max_min(char *arg)
 {
 	if ((ft_atol(arg) > 2147483647) || (ft_atol(arg) < -2147483648))
 		return (TRUE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/01 01:08:49 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:22:03 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ char	*ft_forbidden_separators(char *line)
 		ft_skip_quotes(line, &i);
 		if ((line[i] == '&' && line[i + 1] == '&'))
 			return ("syntax error near unexpected token `&&'");
-        else if (line[0] == ';' && !line[1])
-            return ("syntax error near unexpected token `;'");
-        else if (line[0] == '.' && !line[1])
-            return (".: filename argument required\n.: usage: . filename [arguments]");
-        //else if (line[0] == '/' && !line[1])
-            //return ("/: Is a directory");
-        else if (line[0] == '[' && !line[1])
-            return ("[: missing `]'");
-        //else if (line[0] == '~' && !line[1])
-           // return (ft_);
+		else if (line[0] == ';' && !line[1])
+			return ("syntax error near unexpected token `;'");
+		else if (line[0] == '.' && !line[1])
+			return (".: filename argument required\n.: usage: . filename [arguments]");
 		i++;
 	}
 	return (NULL);

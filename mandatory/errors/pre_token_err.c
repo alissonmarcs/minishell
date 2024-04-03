@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pre_token_err.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 00:48:30 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/01 00:58:01 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:19:14 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool ft_pre_token_err(char *line)
+t_bool	ft_pre_token_err(char *line)
 {
 	if (ft_only_spaces(line))
 		return (TRUE);

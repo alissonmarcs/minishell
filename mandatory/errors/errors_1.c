@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/28 19:15:23 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:16:44 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void	ft_invalid_key(char *key, char *value)
 {
 	if (value)
 		ft_printf_fd(STDOUT_FILENO,
-		"%sminishell: export: `%s=%s': not a valid identifier%s\n", RED, key, value, RESET);
+			"%sminishell: export: `%s=%s': not a valid identifier%s\n", RED,
+			key, value, RESET);
 	else
 		ft_printf_fd(STDOUT_FILENO,
-		"%sminishell: export: `%s': not a valid identifier%s\n", RED, key, RESET);
+			"%sminishell: export: `%s': not a valid identifier%s\n", RED, key,
+			RESET);
 	ft_get_shell()->exit_status = 1;
 }
 

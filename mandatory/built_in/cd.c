@@ -6,13 +6,13 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 16:30:39 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:37:11 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_oldpwd_exist(t_env *cur)
+void	ft_oldpwd_exist(t_env *cur)
 {
 	if (!ft_strncmp(cur->key, "OLDPWD", 6))
 		return ;
@@ -98,7 +98,7 @@ void	ft_cd_builtin(char **argv)
 		{
 			ft_error("cd: OLDPWD not set", 1);
 			return ;
-		} 
+		}
 	}
 	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
 		|| !ft_strcmp(argv[1], "--") || !ft_strcmp(argv[1], "~"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   populate_command_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:03:30 by almarcos          #+#    #+#             */
-/*   Updated: 2024/03/26 16:47:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 06:19:02 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	populate_command_list(t_minishell *shell)
 	shell->commands = command;
 }
 
-t_bool		have_spaces(char *str)
+t_bool	have_spaces(char *str)
 {
 	while (*str)
 	{
@@ -75,7 +75,8 @@ void	handle_vars(t_token **tokens, t_command *last)
 		{
 			last->argv = ft_calloc(array_len(split) + 2, sizeof(char *));
 			last->argv[0] = ft_strdup(split[0]);
-			ft_memmove(last->argv + 1, split, array_len(split) * sizeof(char *));
+			ft_memmove(last->argv + 1, split, array_len(split)
+				* sizeof(char *));
 			free(split);
 		}
 		else if (!last->name && !last->argv && !have_spaces((*tokens)->str))
@@ -236,10 +237,10 @@ void	open_output_file(t_token *tokens, t_command *last)
 		io->outfile = ft_strdup(tokens->next->str);
 	if (tokens->type == TRUNC)
 		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_TRUNC,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else
 		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (io->outfile_fd < 0)
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile,
 			strerror(errno));
@@ -257,7 +258,7 @@ void	handle_pipe(t_token **token, t_command **cmd)
 
 void	handle_words(t_token **token, t_command *last)
 {
-	t_token		*tmp;
+	t_token	*tmp;
 
 	tmp = *token;
 	if (!last->name)
