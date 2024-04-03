@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/03 06:37:11 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:57:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,19 @@ void	ft_set_env(void)
 	}
 }
 
-void	ft_chdir(char *path)
+char	*ft_basic_errors(char **path, char **argv)
 {
-	if (!chdir(path))
-		ft_set_env();
-	else
+	if (ft_matrice_len(argv) > 2)
+		return ("cd: too many arguments");
+	else if (!ft_strcmp(argv[1], "-"))
 	{
-		ft_error("cd: no such file or directory", 1);
-		return ;
+		*path = ft_getenv("OLDPWD");
+		if (!path || *path[0] == '\0')
+			return ("cd: OLDPWD not set");
 	}
+	else
+		*path = argv[1];
+	return (NULL);
 }
 
 t_bool	ft_isdir(char *path)
@@ -86,20 +90,8 @@ void	ft_cd_builtin(char **argv)
 {
 	char	*path;
 
-	if (ft_matrice_len(argv) > 2)
-	{
-		ft_error("cd: too many arguments", 1);
+	if (ft_error(ft_basic_errors(&path, argv), 2))
 		return ;
-	}
-	if (!ft_strcmp(argv[1], "-"))
-	{
-		path = ft_getenv("OLDPWD");
-		if (!path || path[0] == '\0')
-		{
-			ft_error("cd: OLDPWD not set", 1);
-			return ;
-		}
-	}
 	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
 		|| !ft_strcmp(argv[1], "--") || !ft_strcmp(argv[1], "~"))
 	{
@@ -110,8 +102,14 @@ void	ft_cd_builtin(char **argv)
 			return ;
 		}
 	}
-	else
-		path = argv[1];
 	if (ft_isdir(path))
-		ft_chdir(path);
+	{
+		if (!chdir(path))
+			ft_set_env();
+		else
+		{
+			ft_error("cd: no such file or directory", 1);
+			return ;
+		}
+	}
 }
