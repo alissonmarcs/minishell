@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/03 06:16:44 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:43:59 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	ft_error(char *str, int exit_code)
 {
 	if (str != NULL)
 	{
-		ft_printf_fd(STDOUT_FILENO, "%sminishell: %s%s\n", RED, str, RESET);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s\n", str);
 		ft_get_shell()->exit_status = exit_code;
 		ft_free_tokens(ft_get_shell());
 		return (TRUE);

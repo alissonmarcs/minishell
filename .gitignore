@@ -10,3 +10,4 @@ tmp
 .nfs*
 script.sh
 doom
+minishell_tester
