@@ -94,21 +94,23 @@ void	close_redirect_files(t_command *cmd)
 		close(io->outfile_fd);
 }
 
-char	**get_paths(t_minishell *shell)
+char	**get_paths(void)
 {
 	char	**paths;
 	char	*path;
-	char	**env;
 
-	env = shell->env;
-	while (ft_strncmp(*env, "PATH=", 5) != 0)
-		env++;
-	path = *env + 5;
+	path = ft_getenv("PATH");
+	if (path[0] == '\0')
+	{
+		free(path);
+		return (NULL);
+	}
 	paths = ft_split(path, ':');
+	free(path);
 	return (paths);
 }
 
-char	*find_executable(t_minishell *shell, t_command *cmd)
+char	*find_executable(t_command *cmd)
 {
 	char	*executable;
 	char	**paths;
@@ -119,7 +121,9 @@ char	*find_executable(t_minishell *shell, t_command *cmd)
 		return (NULL);
 	if (access(cmd->name, X_OK) == 0)
 		return (ft_strdup(cmd->name));
-	paths = get_paths(shell);
+	paths = get_paths();
+	if (!paths)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -171,7 +175,7 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 		clear_exit(shell, 1);
 	if (!cmd->name || !cmd->name[0])
 		clear_exit(shell, 0);
-	cmd->path = find_executable(shell, cmd);
+	cmd->path = find_executable(cmd);
 	if (!cmd->path)
 	{
 		ft_printf_fd(2, "%s: %s\n", cmd->name, "command not found");
