@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:50:05 by almarcos          #+#    #+#             */
-/*   Updated: 2024/04/02 17:34:21 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:57:45 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_command
 typedef struct s_token
 {
 	char				*str;
-	enum e_bool			type;
+	enum e_token		type;
 	struct s_token		*next;
 	struct s_token		*prev;
 }						t_token;
