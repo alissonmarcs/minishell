@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:30:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/03 09:00:02 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:34:09 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	ft_clear_spaces(char **str)
 char	*ft_forbidden_separators(char *line)
 {
 	unsigned long	i;
+	char			*dot;
 
 	i = 0;
+	dot = ".: filename argument required\n.: usage: . filename [arguments]";
 	while (line[i])
 	{
 		ft_skip_quotes(line, &i);
@@ -46,7 +48,7 @@ char	*ft_forbidden_separators(char *line)
 		else if (line[0] == ';' && !line[1])
 			return ("syntax error near unexpected token `;'");
 		else if (line[0] == '.' && !line[1])
-			return (".: filename argument required\n.: usage: . filename [arguments]");
+			return (dot);
 		i++;
 	}
 	return (NULL);

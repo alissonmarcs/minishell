@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 16:30:54 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:40:02 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_bool		ft_open_quotes(char *str);
 void		ft_skip_quotes(char *str, unsigned long *i);
 char		*ft_forbidden_separators(char *line);
 t_bool		ft_only_spaces(char *line);
-t_bool		ft_var_expansion(void);
 
 //#Tokenization
 int			ft_is_separator(char *str);
@@ -47,9 +46,13 @@ t_bool		ft_tokenize(t_minishell *shell);
 void		ft_clear_spaces(char **str);
 char		*ft_check_syntax(t_token *tokens);
 void		ft_quotes_treatment(char **str);
-char		*ft_getenv(char *env);
-void		ft_clone_env(t_minishell *shell);
 void		ft_remove_quotes(void);
+/*-------------------------------------------------------------------------*/
+
+/*-----------------------------------EXPANSION-----------------------------*/
+void		ft_clone_env(t_minishell *shell);
+char		*ft_getenv(char *env);
+t_bool		ft_var_expansion(void);
 void		ft_replace_teemo(t_token *curr, char c);
 t_bool		ft_quotes_status(char c, int status);
 /*-------------------------------------------------------------------------*/
