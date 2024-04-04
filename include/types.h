@@ -38,7 +38,7 @@ typedef struct s_command
 typedef struct s_token
 {
 	char				*str;
-	int					type;
+	enum e_bool			type;
 	struct s_token		*next;
 	struct s_token		*prev;
 }						t_token;
