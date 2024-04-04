@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:07:21 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/26 15:49:57 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:11:36 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,12 @@ void	ft_free(void *ptr)
 		free(ptr);
 	}
 	ptr = NULL;
+}
+
+void	ft_free_char(char **ptr)
+{
+	if (!ptr || !*ptr)
+		return ;
+	free(*ptr);
+	*ptr = NULL;
 }

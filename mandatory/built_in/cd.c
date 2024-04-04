@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/03 09:02:55 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:19:05 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_basic_errors(char **path, char **argv)
 		return ("cd: too many arguments");
 	else if (!ft_strcmp(argv[1], "-"))
 	{
-		*path = ft_getenv("OLDPWD");
+		ft_rlstnew(*path = ft_getenv("OLDPWD"));
 		if (!path || *path[0] == '\0')
 			return ("cd: OLDPWD not set");
 	}
@@ -107,9 +107,6 @@ void	ft_cd_builtin(char **argv)
 		if (!chdir(path))
 			ft_set_env();
 		else
-		{
 			ft_error("cd: no such file or directory", 1);
-			return ;
-		}
 	}
 }
