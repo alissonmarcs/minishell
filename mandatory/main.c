@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 14:23:37 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:24:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ void	ft_process(t_minishell *shell)
 	else if (ft_strcmp(shell->tokens->str, "unset") == 0)
 	{
 		ft_unset(shell->commands->argv);
+		return ;
+	}
+	else if (ft_strcmp(shell->tokens->str, "echo") == 0)
+	{
+		ft_echo_builtin(shell->commands->argv);
+		return ;
+	}
+	else if (ft_strcmp(shell->tokens->str, "pwd") == 0)
+	{
+		ft_pwd_builtin(shell->commands->argv);
 		return ;
 	}
 	executor(shell);
