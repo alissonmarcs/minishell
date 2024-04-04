@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 15:24:29 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:04:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
-	ft_print_stack(shell->tokens);
 	populate_command_list(shell);
+	print_cmd_list(shell->commands);
 	if (ft_strcmp(shell->tokens->str, "cd") == 0)
 	{
 		ft_cd_builtin(shell->commands->argv);
@@ -96,5 +96,6 @@ int	main(void)
 	shell->teemo = -1;
 	ft_loop();
 	ft_delete_matrice(shell->env);
+	exit(ft_get_shell()->exit_status);
 	return (0);
 }
