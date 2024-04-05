@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/27 13:22:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:17:56 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ t_bool	ft_var_expansion(void)
 	curr = ft_get_shell()->tokens;
 	while (curr && curr->type != END)
 	{
+		if (curr->prev && curr->prev->type == HERE_DOC)
+		{
+			curr = curr->next;
+			continue ;
+		}
 		if (ft_dollars_in_my_pocket(curr->str, &i, &status))
 		{
 			if (ft_inflation(curr->str, &var))
@@ -90,9 +95,7 @@ t_bool	ft_var_expansion(void)
 			curr->type = VAR;
 			continue ;
 		}
-		ft_replace_teemo(curr, ft_get_shell()->teemo);
-		i = 0;
-		status = 0;
+		ft_replace_teemo(curr, ft_get_shell()->teemo, &i, &status);
 		curr = curr->next;
 	}
 	return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 14:40:02 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:18:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include "types.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
@@ -53,7 +53,7 @@ void		ft_remove_quotes(void);
 void		ft_clone_env(t_minishell *shell);
 char		*ft_getenv(char *env);
 t_bool		ft_var_expansion(void);
-void		ft_replace_teemo(t_token *curr, char c);
+void		ft_replace_teemo(t_token *curr, char c, int *i, int *status);
 t_bool		ft_quotes_status(char c, int status);
 /*-------------------------------------------------------------------------*/
 
