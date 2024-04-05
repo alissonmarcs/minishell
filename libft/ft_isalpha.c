@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:22:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/21 14:39:59 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:38:44 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,18 @@ int	ft_isalpha(int c)
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_has_alpha(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isalpha(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
