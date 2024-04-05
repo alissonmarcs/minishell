@@ -64,25 +64,21 @@ void	handle_vars(t_token **tokens, t_command *last)
 	if ((*tokens)->str && (*tokens)->str[0])
 	{
 		split = ft_split((*tokens)->str, ' ');
-		if (!last->name && !last->argv && have_spaces((*tokens)->str))
+		if (!last->name && !last->argv)
 		{
 			last->name = ft_strdup(split[0]);
 			last->argv = split;
 		}
-		else if (last->name && last->argv && have_spaces((*tokens)->str))
+		else if (last->name && last->argv)
 			update_argv(last, split);
-		else if (last->name && !last->argv && have_spaces((*tokens)->str))
+		else if (last->name && !last->argv)
 		{
 			last->argv = ft_calloc(array_len(split) + 2, sizeof(char *));
-			last->argv[0] = ft_strdup(split[0]);
+			last->argv[0] = ft_strdup(last->name);
 			ft_memmove(last->argv + 1, split, array_len(split)
 				* sizeof(char *));
 			free(split);
 		}
-		else if (!last->name && !last->argv && !have_spaces((*tokens)->str))
-			last->name = ft_strdup((*tokens)->str);
-		else if (last->name && !last->argv && !have_spaces((*tokens)->str))
-			last->argv = split;
 	}
 	*tokens = (*tokens)->next;
 }
