@@ -150,4 +150,3 @@ void free_hd(t_heredoc *hd)
 	free(hd->array);
 	free(hd);
 }
-
