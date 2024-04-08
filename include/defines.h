@@ -14,13 +14,19 @@
 
 # define DEFINES_H
 
-# define PROMPT "\001\e[0m\002\e[33m\nCarlitoShell$ \001\e[0m\002"
+# define YELLOW "\001\x1B[1;33m\002"
+
+# define RESET "\033[0m"
+
+# define PROMPT YELLOW"CarlitoShell$ "RESET
 
 # define RED "\001\e[0m\002\e[31m"
 
-# define RESET "\001\e[0m\002"
+# define PROMPT2 "\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell>$ \001\e[0m\002"
 
 # define AND_ERROR "syntax error near unexpected token `&&'"
+
+# define HERE_DOC_FILE "/tmp/minishell_heredoc_"
 
 typedef enum e_bool
 {

@@ -14,6 +14,18 @@
 
 # define TYPES_H
 
+typedef struct s_hd_node
+{
+	char				*file;
+	struct s_hd_node	*next;
+} t_hd_node;
+
+typedef struct s_heredoc
+{
+	t_hd_node			**array;
+	unsigned			size;
+} t_heredoc;
+
 typedef struct s_io
 {
 	char				*infile;
@@ -76,6 +88,7 @@ typedef struct s_minishell
 	char				teemo;
 	t_gc				*gc;
 	pid_t				last_child;
+	t_heredoc			*heredocs;
 }						t_minishell;
 
 #endif
