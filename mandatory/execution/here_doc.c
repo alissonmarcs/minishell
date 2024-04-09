@@ -77,11 +77,28 @@ void	populate_file(char *file, char *delimiter)
 			free(line);
 			break ;
 		}
+		line = expand_vars(line);
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
 	close(fd);
 	clear_exit(ft_get_shell(), 0);
+}
+
+char	*expand_vars(char *line)
+{
+	char	*before;
+	//char	*var;
+	//char	*after;
+	char	*ptr;
+
+	if (!ft_strchr(line, '$'))
+		return (line);
+	while ((ptr = ft_strchr(line, '$')))
+	{
+		before = ft_substr(line, 0, ptr - line);
+	}
+	return (NULL);
 }
 
 char *get_file_name(t_bool is_first)

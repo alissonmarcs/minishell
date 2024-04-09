@@ -90,6 +90,7 @@ t_bool		execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd, t_bool 
 void		init_heredocs(t_token *tokens);
 void		handle_heredoc(t_token **tokens, t_command *last, unsigned command_index);
 void		populate_file(char *file, char *delimiter);
+char		*expand_vars(char *line);
 
 /*------------------------------------------------------------------------*/
 
