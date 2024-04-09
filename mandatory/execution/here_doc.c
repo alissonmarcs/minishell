@@ -1,20 +1,21 @@
 #include "minishell.h"
 
-t_bool	populate_heredocs(t_minishell *shell)
+t_bool	check_here_docs(t_minishell *shell)
 {
-	unsigned	index;
+	unsigned	command_index;
 	t_token		*tokens;
 
-	index = 0;
+	command_index = 0;
 	tokens = shell->tokens;
 	init_heredocs(tokens);
 	while (tokens)
 	{
 		if (tokens->type == PIPE)
-			index++;
+			command_index++;
 		else if (tokens->type == HERE_DOC)
 		{
-			if (!here_doc_loop(tokens->next->str, index, shell->heredocs, tokens->prev == NULL))
+			if (!execute_here_doc(tokens->next->str, command_index,
+					shell->heredocs, tokens->prev == NULL))
 				return (FALSE);
 		}
 		tokens = tokens->next;
@@ -28,57 +29,59 @@ void	init_heredocs(t_token *tokens)
 
 	hd = ft_calloc(1, sizeof(t_heredoc));
 	hd->size = count_commands(tokens);
-	hd->array = ft_calloc(hd->size, sizeof(t_hd_node *));
+	hd->array = ft_calloc(hd->size, sizeof(t_herdoc_file *));
 	ft_get_shell()->heredocs = hd;
 }
 
-t_bool	here_doc_loop(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_first)
+t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
+		t_bool is_first)
 {
-	char	*line;
-	int		fd;
-	char	*file_name;
-	int		exit_status;
-	int		tmp;
+	char	*file;
 	pid_t	pid;
+	int		exit_status;
 
-	file_name = get_file_name(is_first);
-	append_hd(&hd->array[index], new_hd(file_name));
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	file = get_file_name(is_first);
+	append_file(&hd->array[index], new_file(file));
 	pid = fork();
 	if (pid == 0)
-	{
-		signal(SIGINT, ctrl_c_heredoc);
-		signal(SIGQUIT, SIG_IGN);
-		fd = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		while (TRUE)
-		{
-			line = readline("> ");
-			if (!line)
-			{
-				ft_printf_fd(2, "terminated by EOF\n");
-				break ;
-			}
-			if (ft_strcmp(line, delimiter) == 0)
-			{
-				free(line);
-				break ;
-			}
-			ft_putendl_fd(line, fd);
-			free(line);
-		}
-		close(fd);
-		clear_exit(ft_get_shell(), 42);
-	}
-	waitpid(pid, &tmp, WUNTRACED);
-	printf("direto: %d\n", tmp);
-	printf("exitado: %d\n", WIFEXITED(tmp));
-	printf("convertido %d\n", WEXITSTATUS(tmp));
-	printf("terminated by signal: %d\n", WIFSIGNALED(tmp));
-	printf("what signal not handled causes termination: %d\n", WTERMSIG(tmp));
-	exit_status = WEXITSTATUS(tmp);
+		populate_file(file, delimiter);
+	waitpid(pid, &exit_status, 0);
+	exit_status = WEXITSTATUS(exit_status);
 	ft_get_shell()->exit_status = exit_status;
 	if (exit_status == 130)
 		return (FALSE);
 	return (TRUE);
+}
+
+void	populate_file(char *file, char *delimiter)
+{
+	char	*line;
+	int		fd;
+
+	signal(SIGINT, ctrl_c_heredoc);
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	while (TRUE)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			ft_printf_fd(2, "%s %s %s (wanted `%s')\n", "Minishell:",
+				"warning:", "here-document delimited by end-of-file",
+				delimiter);
+			break ;
+		}
+		if (!ft_strcmp(line, delimiter))
+		{
+			free(line);
+			break ;
+		}
+		ft_putendl_fd(line, fd);
+		free(line);
+	}
+	close(fd);
+	clear_exit(ft_get_shell(), 0);
 }
 
 char *get_file_name(t_bool is_first)
@@ -110,36 +113,38 @@ unsigned count_commands(t_token *token)
 	return (count + 1);
 }
 
-t_hd_node *new_hd(char *file_name)
+t_herdoc_file *new_file(char *file_name)
 {
-	t_hd_node	*node;
+	t_herdoc_file	*node;
 
-	node = ft_calloc(1, sizeof(t_hd_node));
+	node = ft_calloc(1, sizeof(t_herdoc_file));
 	node->file = file_name;
 	return (node);
 }
 
-t_hd_node *get_last_hd(t_hd_node *head)
+t_herdoc_file *get_last_file(t_herdoc_file *head)
 {
 	while (head->next)
 		head = head->next;
 	return (head);
 }
 
-void append_hd(t_hd_node **head, t_hd_node *new)
+void append_file(t_herdoc_file **head, t_herdoc_file *new)
 {
 	if (!*head)
 		*head = new;
 	else
-		get_last_hd(*head)->next = new;
+		get_last_file(*head)->next = new;
 }
 
-void free_hd(t_heredoc *hd)
+void free_here_docs(t_heredoc *hd)
 {
 	unsigned 	i;
-	t_hd_node	*next;
-	t_hd_node	*current;
+	t_herdoc_file	*next;
+	t_herdoc_file	*current;
 
+	if (!hd)
+		return ;
 	i = 0;
 	while (i < hd->size)
 	{
