@@ -23,6 +23,8 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
+	if (!check_here_docs(shell))
+		return ;
 	populate_command_list(shell);
 	//print_cmd_list(shell->commands);
 	if (ft_strcmp(shell->tokens->str, "cd") == 0)
@@ -63,18 +65,15 @@ void	ft_process(t_minishell *shell)
 void	ft_loop(void)
 {
 	t_minishell	*shell;
-	char		*line;
 
 	shell = ft_get_shell();
-	while (1)
+	while (TRUE)
 	{
 		ft_receive_signal();
-		line = readline(PROMPT);
-		if (!line)
+		shell->user_input = readline(YELLOW"CarlitoShell$ "RESET);
+		if (!shell->user_input)
 			break ;
-		shell->user_input = ft_strdup(line);
-		add_history(line);
-		free(line);
+		add_history(shell->user_input);
 		if (shell->user_input[0] == '\0')
 		{
 			free(shell->user_input);

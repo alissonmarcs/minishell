@@ -35,3 +35,9 @@ void	ft_receive_signal(void)
 	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGQUIT, &ign, NULL);
 }
+
+void	ctrl_c_heredoc(int sig)
+{
+	if (sig == SIGINT)
+		clear_exit(ft_get_shell(), 130);
+}

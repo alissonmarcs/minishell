@@ -24,7 +24,9 @@ void	populate_command_list(t_minishell *shell)
 {
 	t_token		*token;
 	t_command	*command;
+	unsigned	command_index;
 
+	command_index = 0;
 	token = shell->tokens;
 	command = shell->commands;
 	add_dummy_node(&command);
@@ -33,17 +35,46 @@ void	populate_command_list(t_minishell *shell)
 		if (token->type == WORD)
 			handle_words(&token, get_last_command(command));
 		else if (token->type == PIPE)
-			handle_pipe(&token, &command);
+			handle_pipe(&token, &command, &command_index);
 		else if (token->type == TRUNC || token->type == APPEND
 			|| token->type == INPUT)
 			handle_trunc_append_input(&token, get_last_command(command));
 		else if (token->type == VAR)
 			handle_vars(&token, get_last_command(command));
+		else if (token->type == HERE_DOC)
+			handle_heredoc(&token, get_last_command(command), command_index);
 		else if (token->type == END)
 			break ;
 	}
 	set_commands_with_no_argv(command);
 	shell->commands = command;
+}
+
+void	handle_heredoc(t_token **tokens, t_command *last, unsigned command_index)
+{
+	t_io			*io;
+	t_herdoc_file	**array;
+	t_herdoc_file	*current;
+
+	if (!last->io)
+		last->io = ft_calloc(1, sizeof(t_io));
+	io = last->io;
+	array = ft_get_shell()->heredocs->array;
+	if (check_redirect_files(last))
+	{
+		if (io->infile)
+		{
+			free(io->infile);
+			close(io->infile_fd);
+		}
+		io->infile = ft_strdup(array[command_index]->file);
+		io->infile_fd = open(io->infile, O_RDONLY | O_CLOEXEC, 0);
+		current = array[command_index];
+		array[command_index] = array[command_index]->next;
+		free(current->file);
+		free(current);
+	}
+	*tokens = (*tokens)->next->next;
 }
 
 t_bool	have_spaces(char *str)
@@ -211,7 +242,7 @@ void	open_input_file(t_token *tokens, t_command *last)
 	}
 	if (!io->infile)
 		io->infile = ft_strdup(tokens->next->str);
-	io->infile_fd = open(io->infile, O_RDONLY, 0);
+	io->infile_fd = open(io->infile, O_RDONLY | O_CLOEXEC, 0);
 	if (io->infile_fd < 0)
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->infile,
 			strerror(errno));
@@ -232,17 +263,17 @@ void	open_output_file(t_token *tokens, t_command *last)
 	if (!io->outfile)
 		io->outfile = ft_strdup(tokens->next->str);
 	if (tokens->type == TRUNC)
-		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_TRUNC,
+		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else
-		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND,
+		io->outfile_fd = open(io->outfile, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (io->outfile_fd < 0)
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", io->outfile,
 			strerror(errno));
 }
 
-void	handle_pipe(t_token **token, t_command **cmd)
+void	handle_pipe(t_token **token, t_command **cmd, unsigned *command_index)
 {
 	t_command	*last;
 
@@ -250,6 +281,7 @@ void	handle_pipe(t_token **token, t_command **cmd)
 	last->output_to_pipe = TRUE;
 	append_command(cmd, new_command(NULL, FALSE));
 	*token = (*token)->next;
+	(*command_index)++;
 }
 
 void	handle_words(t_token **token, t_command *last)

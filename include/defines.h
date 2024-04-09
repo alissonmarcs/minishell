@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:49:57 by almarcos          #+#    #+#             */
-/*   Updated: 2024/04/09 17:10:22 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:41:15 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 # define DEFINES_H
 
-# define PROMPT "CarlitoShell$ "
+# define YELLOW "\001\033[33m\002"
+
+# define RESET "\001\033[0m\002"
 
 # define RED "\001\e[0m\002\e[31m"
 
-# define RESET "\001\e[0m\002"
-
 # define AND_ERROR "syntax error near unexpected token `&&'"
+
+# define HERE_DOC_FILE "/tmp/minishell_heredoc_"
 
 typedef enum e_bool
 {
