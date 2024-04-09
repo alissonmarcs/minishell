@@ -81,14 +81,16 @@ void		get_standard_fds(t_minishell *shell);
 void		update_argv(t_command *last, char **split);
 char		*get_file_name(t_bool is_first);
 unsigned	count_commands(t_token *token);
-t_hd_node	*new_hd(char *file_name);
-t_hd_node	*get_last_hd(t_hd_node *head);
-void		append_hd(t_hd_node **head, t_hd_node *new);
-void		free_hd(t_heredoc *hd);
-t_bool		populate_heredocs(t_minishell *shell);
-t_bool		here_doc_loop(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_first);
+t_herdoc_file	*new_file(char *file_name);
+t_herdoc_file	*get_last_file(t_herdoc_file *head);
+void		append_file(t_herdoc_file **head, t_herdoc_file *new);
+void		free_here_docs(t_heredoc *hd);
+t_bool		check_here_docs(t_minishell *shell);
+t_bool		execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_first);
 void		init_heredocs(t_token *tokens);
 void		handle_heredoc(t_token **tokens, t_command *last, unsigned command_index);
+void		populate_file(char *file, char *delimiter);
+
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/

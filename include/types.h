@@ -14,15 +14,15 @@
 
 # define TYPES_H
 
-typedef struct s_hd_node
+typedef struct s_herdoc_file
 {
-	char				*file;
-	struct s_hd_node	*next;
-} t_hd_node;
+	char					*file;
+	struct s_herdoc_file	*next;
+} t_herdoc_file;
 
 typedef struct s_heredoc
 {
-	t_hd_node			**array;
+	t_herdoc_file		**array;
 	unsigned			size;
 } t_heredoc;
 

@@ -52,9 +52,9 @@ void	populate_command_list(t_minishell *shell)
 
 void	handle_heredoc(t_token **tokens, t_command *last, unsigned command_index)
 {
-	t_io		*io;
-	t_hd_node	**array;
-	t_hd_node	*current;
+	t_io			*io;
+	t_herdoc_file	**array;
+	t_herdoc_file	*current;
 
 	if (!last->io)
 		last->io = ft_calloc(1, sizeof(t_io));

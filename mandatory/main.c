@@ -23,7 +23,7 @@ void	ft_process(t_minishell *shell)
 {
 	if (ft_tokenize(shell))
 		return ;
-	if (!populate_heredocs(shell))
+	if (!check_here_docs(shell))
 		return ;
 	populate_command_list(shell);
 	//print_cmd_list(shell->commands);

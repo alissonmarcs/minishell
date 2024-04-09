@@ -166,7 +166,8 @@ void	clear_exit(t_minishell *shell, int exit_status)
 	ft_free_env(shell);
 	close_pipes(shell->commands, NULL);
 	free_cmd_list(&shell->commands);
-	free_hd(shell->heredocs);
+	free_here_docs(shell->heredocs);
+	shell->exit_status = exit_status;
 	exit(exit_status);
 }
 
@@ -176,8 +177,6 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 		clear_exit(shell, 1);
 	if (!cmd->name || !cmd->name[0])
 		clear_exit(shell, 0);
-	if (ft_strcmp(cmd->name, "pare_aqui") == 0)
-		exit(42);
 	cmd->path = find_executable(cmd);
 	if (!cmd->path)
 	{
