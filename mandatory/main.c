@@ -70,7 +70,7 @@ void	ft_loop(void)
 	while (TRUE)
 	{
 		ft_receive_signal();
-		shell->user_input = readline(PROMPT);
+		shell->user_input = readline(YELLOW"CarlitoShell$ "RESET);
 		if (!shell->user_input)
 			break ;
 		add_history(shell->user_input);

@@ -14,15 +14,11 @@
 
 # define DEFINES_H
 
-# define YELLOW "\001\x1B[1;33m\002"
+# define YELLOW "\001\033[33m\002"
 
-# define RESET "\033[0m"
-
-# define PROMPT YELLOW"CarlitoShell$ "RESET
+# define RESET "\001\033[0m\002"
 
 # define RED "\001\e[0m\002\e[31m"
-
-# define PROMPT2 "\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell>$ \001\e[0m\002"
 
 # define AND_ERROR "syntax error near unexpected token `&&'"
 

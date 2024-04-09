@@ -38,6 +38,7 @@ t_bool	here_doc_loop(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_f
 	int		fd;
 	char	*file_name;
 	int		exit_status;
+	int		tmp;
 	pid_t	pid;
 
 	file_name = get_file_name(is_first);
@@ -65,10 +66,15 @@ t_bool	here_doc_loop(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_f
 			free(line);
 		}
 		close(fd);
-		clear_exit(ft_get_shell(), 0);
+		clear_exit(ft_get_shell(), 42);
 	}
-	waitpid(pid, &exit_status, 0);
-	exit_status = WEXITSTATUS(exit_status);
+	waitpid(pid, &tmp, WUNTRACED);
+	printf("direto: %d\n", tmp);
+	printf("exitado: %d\n", WIFEXITED(tmp));
+	printf("convertido %d\n", WEXITSTATUS(tmp));
+	printf("terminated by signal: %d\n", WIFSIGNALED(tmp));
+	printf("what signal not handled causes termination: %d\n", WTERMSIG(tmp));
+	exit_status = WEXITSTATUS(tmp);
 	ft_get_shell()->exit_status = exit_status;
 	if (exit_status == 130)
 		return (FALSE);

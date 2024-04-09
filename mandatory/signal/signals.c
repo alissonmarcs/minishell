@@ -38,6 +38,6 @@ void	ft_receive_signal(void)
 
 void	ctrl_c_heredoc(int sig)
 {
-	if (sig == 130)
+	if (sig == SIGINT)
 		clear_exit(ft_get_shell(), 130);
 }
