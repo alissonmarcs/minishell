@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/09 17:07:54 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:32 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,18 @@ t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 
 t_bool	ft_check_max_min(char *arg)
 {
-	if ((ft_atol(arg) > 2147483647) || (ft_atol(arg) < -2147483648))
+	if (ft_strlen(arg) > 20)
+		return (TRUE);
+	else if (strlen(arg) == 19 && ft_strcmp(arg, "9223372036854775807") > 0)
+		return (TRUE);
+	else if (ft_strlen(arg) == 20 && ft_strcmp(arg, "-9223372036854775808") > 0)
 		return (TRUE);
 	return (FALSE);
 }
 
 void	ft_exit(char **argv)
 {
+	ft_get_shell()->exit_status = 0;
 	if ((argv[1] && ft_has_alpha(argv[1])) || (ft_check_max_min(argv[1])))
 		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
 	else if (ft_matrice_len(argv) > 2)

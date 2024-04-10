@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:11:27 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/09 17:14:36 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:20 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_echo_builtin(char **argv)
 	int	i;
 	int	flag;
 
+	ft_get_shell()->exit_status = 0;
 	i = 1;
 	flag = 0;
 	while (argv[i] && ft_flag(argv[i]))

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 15:19:05 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:12 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_cd_builtin(char **argv)
 {
 	char	*path;
 
+	ft_get_shell()->exit_status = 0;
 	if (ft_error(ft_basic_errors(&path, argv), 1))
 		return ;
 	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")

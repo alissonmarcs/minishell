@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:05:22 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 17:18:45 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:00 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_add_var(char **argv)
 
 void	ft_export(char **argv)
 {
+	ft_get_shell()->exit_status = 0;
 	if (ft_matrice_len(argv) == 1)
 	{
 		ft_clonenvlst();

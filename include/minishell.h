@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/05 15:36:28 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:49:41 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void		ft_print_in_order(char **env);
 t_bool		ft_already_exists(char *key);
 void		ft_change_value(char *key, char *value, int equal);
 void		ft_unset(char **argv);
+t_bool		ft_valid_key(char *key);
 /*------------------------------------------------------------------------*/
 
 /*----------------------------------SIGNALS-------------------------------*/

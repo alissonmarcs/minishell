@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:38:01 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 13:46:32 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:27 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_env_builtin(char **argv)
 {
 	t_env	*env;
 
+	ft_get_shell()->exit_status = 0;
 	env = ft_get_shell()->env_list;
 	while (env)
 	{
