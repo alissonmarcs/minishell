@@ -85,20 +85,63 @@ void	populate_file(char *file, char *delimiter)
 	clear_exit(ft_get_shell(), 0);
 }
 
+int	len_next_alphanum(char *str)
+{
+	int	len;
+
+	len = 1;
+	while (str[len] && ft_isalnum(str[len]))
+		len++;
+	return (len);
+}
+
 char	*expand_vars(char *line)
 {
 	char	*before;
-	//char	*var;
-	//char	*after;
+	char	*var_name;
+	char	*var_value;
+	char	*after;
 	char	*ptr;
+	int		len;
 
 	if (!ft_strchr(line, '$'))
 		return (line);
 	while ((ptr = ft_strchr(line, '$')))
 	{
 		before = ft_substr(line, 0, ptr - line);
+		len = len_next_alphanum(ptr);
+		var_name = ft_substr(ptr, 0, len);
+		after = ft_strdup(ptr + len);
+		var_value = ft_getenv(var_name + 1);
+		if (var_value[0] == '\0' || !ft_strcmp(var_name, "$"))
+		{
+			free(line);
+			line = ft_strjoin(before, after);
+			free(before);
+			free(after);
+			free(var_name);
+			free(var_value);
+			continue ;
+		}
+		free(var_name);
+		free(line);
+		line = ft_strjoin_tree(before, var_value, after);
 	}
-	return (NULL);
+	return (line);
+}
+
+char *ft_strjoin_tree(char *one, char *two, char *three)
+{
+	char *tmp;
+	char *joined;
+
+	tmp = ft_strjoin(one, two);
+	joined = ft_strjoin(tmp, three);
+	free(one);
+	free(two);
+	free(three);
+	free(tmp);
+	return (joined);
 }
 
 char *get_file_name(t_bool is_first)
