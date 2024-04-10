@@ -84,7 +84,7 @@ void	populate_file(char *file, char *delimiter)
 	clear_exit(ft_get_shell(), 0);
 }
 
-char *get_file_name(t_bool is_first)
+char	*get_file_name(t_bool is_first)
 {
 	char			*file_name;
 	char			*tmp;
@@ -99,7 +99,7 @@ char *get_file_name(t_bool is_first)
 	return (file_name);
 }
 
-unsigned count_commands(t_token *token)
+unsigned	count_commands(t_token *token)
 {
 	unsigned	count;
 
@@ -113,7 +113,7 @@ unsigned count_commands(t_token *token)
 	return (count + 1);
 }
 
-t_herdoc_file *new_file(char *file_name)
+t_herdoc_file	*new_file(char *file_name)
 {
 	t_herdoc_file	*node;
 
@@ -122,14 +122,14 @@ t_herdoc_file *new_file(char *file_name)
 	return (node);
 }
 
-t_herdoc_file *get_last_file(t_herdoc_file *head)
+t_herdoc_file	*get_last_file(t_herdoc_file *head)
 {
 	while (head->next)
 		head = head->next;
 	return (head);
 }
 
-void append_file(t_herdoc_file **head, t_herdoc_file *new)
+void	append_file(t_herdoc_file **head, t_herdoc_file *new)
 {
 	if (!*head)
 		*head = new;
@@ -137,9 +137,9 @@ void append_file(t_herdoc_file **head, t_herdoc_file *new)
 		get_last_file(*head)->next = new;
 }
 
-void free_here_docs(t_heredoc *hd)
+void	free_here_docs(t_heredoc *hd)
 {
-	unsigned 	i;
+	unsigned		i;
 	t_herdoc_file	*next;
 	t_herdoc_file	*current;
 
