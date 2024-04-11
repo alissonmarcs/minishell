@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/10 13:54:12 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:11:52 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_bool	ft_isdir(char *path)
 
 	if (access(path, F_OK) == -1)
 	{
-		ft_error("cd: no such file or directory", 1);
+		ft_error("cd: No such file or directory", 1);
 		return (FALSE);
 	}
 	if (lstat(path, &statbuf) == 0)

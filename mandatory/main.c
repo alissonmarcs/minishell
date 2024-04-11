@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:36:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/09 17:09:58 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:13:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_process(t_minishell *shell)
 	if (!check_here_docs(shell))
 		return ;
 	populate_command_list(shell);
-	//print_cmd_list(shell->commands);
+	// print_cmd_list(shell->commands);
 	if (ft_strcmp(shell->tokens->str, "cd") == 0)
 	{
 		ft_cd_builtin(shell->commands->argv);
@@ -38,7 +38,10 @@ void	ft_process(t_minishell *shell)
 		return ;
 	}
 	if (ft_strcmp(shell->tokens->str, "exit") == 0)
+	{
 		ft_exit(shell->commands->argv);
+		return ;
+	}
 	else if (ft_strcmp(shell->tokens->str, "export") == 0)
 	{
 		ft_export(shell->commands->argv);
@@ -70,7 +73,7 @@ void	ft_loop(void)
 	while (TRUE)
 	{
 		ft_receive_signal();
-		shell->user_input = readline(YELLOW"CarlitoShell$ "RESET);
+		shell->user_input = readline(YELLOW "CarlitoShell$ " RESET);
 		if (!shell->user_input)
 			break ;
 		add_history(shell->user_input);
