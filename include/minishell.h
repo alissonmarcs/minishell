@@ -84,15 +84,18 @@ unsigned	count_commands(t_token *token);
 t_herdoc_file	*new_file(char *file_name);
 t_herdoc_file	*get_last_file(t_herdoc_file *head);
 void		append_file(t_herdoc_file **head, t_herdoc_file *new);
-void		free_here_docs(t_heredoc *hd);
+void		free_here_docs(t_heredoc **hd);
 t_bool		check_here_docs(t_minishell *shell);
 t_bool		execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd, t_bool is_first);
 void		init_heredocs(t_token *tokens);
 void		handle_heredoc(t_token **tokens, t_command *last, unsigned command_index);
-void		populate_file(char *file, char *delimiter);
+void		populate_file(char *file, t_bool var, char *delimiter);
 char		*expand_vars(char *line);
 int			len_next_alphanum(char *str);
 char		*ft_strjoin_tree(char *one, char *two, char *three);
+char		*get_var(char *line);
+t_bool		have_quotes(char *delimiter);
+char		*remove_quotes(char *delimiter);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/

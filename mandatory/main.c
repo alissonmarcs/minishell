@@ -81,6 +81,7 @@ void	ft_loop(void)
 		}
 		ft_process(shell);
 		ft_clear(shell);
+		shell->heredocs = NULL;
 	}
 	ft_free_env(shell);
 	rl_clear_history();

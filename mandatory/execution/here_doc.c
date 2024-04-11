@@ -46,7 +46,7 @@ t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
 	append_file(&hd->array[index], new_file(file));
 	pid = fork();
 	if (pid == 0)
-		populate_file(file, delimiter);
+		populate_file(file, have_quotes(delimiter), remove_quotes(delimiter));
 	waitpid(pid, &exit_status, 0);
 	exit_status = WEXITSTATUS(exit_status);
 	ft_get_shell()->exit_status = exit_status;
@@ -55,7 +55,39 @@ t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
 	return (TRUE);
 }
 
-void	populate_file(char *file, char *delimiter)
+t_bool	have_quotes(char *delimiter)
+{
+	while (*delimiter)
+	{
+		if (*delimiter == '\'' || *delimiter == '\"')
+			return (TRUE);
+		delimiter++;
+	}
+	return (FALSE);
+}
+
+char	*remove_quotes(char *delimiter)
+{
+	int		len;
+	char	*new;
+	char	*tmp;
+
+	len = ft_strlen(delimiter);
+	new = ft_calloc(len + 1, sizeof(char));
+	tmp = new;
+	while (*delimiter)
+	{
+		if (*delimiter != '\'' && *delimiter != '\"')
+		{
+			*tmp = *delimiter;
+			tmp++;
+		}
+		delimiter++;
+	}
+	return (new);
+}
+
+void	populate_file(char *file, t_bool have_quotes, char *delimiter)
 {
 	char	*line;
 	int		fd;
@@ -77,22 +109,51 @@ void	populate_file(char *file, char *delimiter)
 			free(line);
 			break ;
 		}
-		line = expand_vars(line);
+		if (!have_quotes)
+			line = expand_vars(line);
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
 	close(fd);
+	free(delimiter);
 	clear_exit(ft_get_shell(), 0);
 }
 
-int	len_next_alphanum(char *str)
+int	len_next_non_alphanum(char *str)
 {
 	int	len;
 
 	len = 1;
+	if (str[len] == '?')
+		return (len + 1);
 	while (str[len] && ft_isalnum(str[len]))
 		len++;
 	return (len);
+}
+
+char	*get_var(char *line)
+{
+	int		i;
+	char	*ptr;
+	int		num_dolars;
+
+	i = -1;
+	num_dolars = 0;
+	while (line[++i])
+	{
+		if (line[i] == '$')
+			num_dolars++;
+	}
+	ptr = line;
+	while (num_dolars)
+	{
+		ptr = ft_strchr(ptr, '$');
+		if (ft_isalnum(ptr[1]) || ptr[1] == '?')
+			return (ptr);
+		num_dolars--;
+		ptr++;
+	}
+	return (NULL);
 }
 
 char	*expand_vars(char *line)
@@ -101,24 +162,21 @@ char	*expand_vars(char *line)
 	char	*var_name;
 	char	*var_value;
 	char	*after;
-	char	*ptr;
+	char	*tmp;
 	int		len;
 
-	if (!ft_strchr(line, '$'))
-		return (line);
-	while ((ptr = ft_strchr(line, '$')))
+	while (get_var(line))
 	{
-		before = ft_substr(line, 0, ptr - line);
-		len = len_next_alphanum(ptr);
-		var_name = ft_substr(ptr, 0, len);
-		after = ft_strdup(ptr + len);
+		tmp = get_var(line);
+		before = ft_substr(line, 0, tmp - line);
+		len = len_next_non_alphanum(tmp);
+		var_name = ft_substr(tmp, 0, len);
 		var_value = ft_getenv(var_name + 1);
-		if (var_value[0] == '\0' || !ft_strcmp(var_name, "$"))
+		after = ft_strdup(tmp + len);
+		if (var_value[0] == '\0')
 		{
 			free(line);
-			line = ft_strjoin(before, after);
-			free(before);
-			free(after);
+			line = ft_strjoin_tree(before, after, NULL);
 			free(var_name);
 			free(var_value);
 			continue ;
@@ -136,12 +194,16 @@ char *ft_strjoin_tree(char *one, char *two, char *three)
 	char *joined;
 
 	tmp = ft_strjoin(one, two);
-	joined = ft_strjoin(tmp, three);
 	free(one);
 	free(two);
-	free(three);
-	free(tmp);
-	return (joined);
+	if (three)
+	{
+		joined = ft_strjoin(tmp, three);
+		free(three);
+		free(tmp);
+		return (joined);
+	}
+	return (tmp);
 }
 
 char *get_file_name(t_bool is_first)
@@ -197,18 +259,18 @@ void append_file(t_herdoc_file **head, t_herdoc_file *new)
 		get_last_file(*head)->next = new;
 }
 
-void free_here_docs(t_heredoc *hd)
+void free_here_docs(t_heredoc **hd)
 {
 	unsigned 	i;
 	t_herdoc_file	*next;
 	t_herdoc_file	*current;
 
-	if (!hd)
+	if (!*hd)
 		return ;
 	i = 0;
-	while (i < hd->size)
+	while (i < (*hd)->size)
 	{
-		current = hd->array[i];
+		current = (*hd)->array[i];
 		while (current)
 		{
 			next = current->next;
@@ -218,6 +280,7 @@ void free_here_docs(t_heredoc *hd)
 		}
 		i++;
 	}
-	free(hd->array);
-	free(hd);
+	free((*hd)->array);
+	free(*hd);
+	*hd = NULL;
 }

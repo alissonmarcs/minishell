@@ -166,7 +166,7 @@ void	clear_exit(t_minishell *shell, int exit_status)
 	ft_free_env(shell);
 	close_pipes(shell->commands, NULL);
 	free_cmd_list(&shell->commands);
-	free_here_docs(shell->heredocs);
+	free_here_docs(&shell->heredocs);
 	shell->exit_status = exit_status;
 	exit(exit_status);
 }
