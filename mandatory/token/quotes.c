@@ -114,7 +114,8 @@ void	ft_remove_quotes(void)
 	curr = ft_get_shell()->tokens;
 	while (curr)
 	{
-		ft_quotes_treatment(&curr->str);
+		if (curr->prev && curr->prev->type != HERE_DOC)
+			ft_quotes_treatment(&curr->str);
 		curr = curr->next;
 	}
 }

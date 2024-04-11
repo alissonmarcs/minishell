@@ -28,7 +28,6 @@ void	ft_clear(t_minishell *shell)
 		free(shell->user_input);
 	ft_free_tokens(shell);
 	free_cmd_list(&shell->commands);
-	free_here_docs
-(shell->heredocs);
+	free_here_docs(&shell->heredocs);
 	ft_garbage_clear(&shell->gc);
 }
