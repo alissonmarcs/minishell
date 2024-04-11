@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/11 13:12:14 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:39:12 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	ft_check_max_min(char *arg)
 {
 	if (ft_strlen(arg) > 20)
 		return (TRUE);
-	else if (strlen(arg) == 19 && ft_strcmp(arg, "9223372036854775807") > 0)
+	else if (ft_strlen(arg) == 19 && ft_strcmp(arg, "9223372036854775807") > 0)
 		return (TRUE);
 	else if (ft_strlen(arg) == 20 && ft_strcmp(arg, "-9223372036854775808") > 0)
 		return (TRUE);
@@ -53,5 +53,6 @@ void	ft_exit(char **argv)
 	}
 	else if (argv[1])
 		ft_get_shell()->exit_status = ft_atol(argv[1]);
+	ft_clear_all(ft_get_shell());
 	exit(ft_get_shell()->exit_status);
 }
