@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/05 15:17:56 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:27:25 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_find_var(char *str)
+char	*ft_find_var(char *str, int *i)
 {
 	int		j;
 	char	*line;
 
 	j = 1;
 	line = str;
-	line = ft_strchr(line, '$');
+	line += (*i);
 	if (!line)
 		return (NULL);
 	while (line[j] && ft_isalnum(line[j]))
@@ -90,8 +90,8 @@ t_bool	ft_var_expansion(void)
 		if (ft_dollars_in_my_pocket(curr->str, &i, &status))
 		{
 			if (ft_inflation(curr->str, &var))
-				var = ft_find_var(curr->str);
-			curr->str = ft_replace(var, ft_getenv(var + 1), curr->str);
+				var = ft_find_var(curr->str, &i);
+			curr->str = ft_replace(var, ft_getenv(var + 1), curr->str, &i);
 			curr->type = VAR;
 			continue ;
 		}

@@ -6,20 +6,21 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:54:59 by matesant          #+#    #+#             */
-/*   Updated: 2024/03/22 16:41:29 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:28:22 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_replace(char *old, char *new, char *str)
+char	*ft_replace(char *old, char *new, char *str, int *i)
 {
 	char	*result;
 	char	*ptr;
 	char	*igor;
 	char	*klb;
 
-	ptr = ft_strnstr(str, old, ft_strlen(str));
+	ptr = str;
+    ptr += (*i);
 	if (!ptr)
 		return (str);
 	igor = ft_substr(str, 0, ptr - str);
