@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:51:04 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/04 14:35:57 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:08:08 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,15 @@ void	ft_receive_signal(void)
 {
 	struct sigaction	act;
 	struct sigaction	ign;
+	struct sigaction    stp;
 
 	ft_memset(&act, 0, sizeof(act));
 	ft_memset(&ign, 0, sizeof(act));
+	ft_memset(&stp, 0, sizeof(act));
 	act.sa_sigaction = ft_reset_promp;
 	ign.sa_handler = SIG_IGN;
+	stp.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGQUIT, &ign, NULL);
-}
-
-void	ctrl_c_heredoc(int sig)
-{
-	if (sig == SIGINT)
-		clear_exit(ft_get_shell(), 130);
+	sigaction(SIGTSTP, &stp, NULL);
 }

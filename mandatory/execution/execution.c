@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/10 13:57:48 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:12:04 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,8 @@ void	executor(t_minishell *shell)
 	create_pipes(cmds);
 	while (cmds)
 	{
-		cmds->pid = fork();
+        cmd_signal();
+        cmds->pid = fork();
 		if (cmds->pid == 0)
 			run_commands(shell, cmds);
 		cmds = cmds->next;
@@ -173,7 +174,7 @@ void	clear_exit(t_minishell *shell, int exit_status)
 
 void	run_commands(t_minishell *shell, t_command *cmd)
 {
-	if (!check_redirect_files(cmd))
+    if (!check_redirect_files(cmd))
 		clear_exit(shell, 1);
 	if (!cmd->name || !cmd->name[0])
 		clear_exit(shell, 0);

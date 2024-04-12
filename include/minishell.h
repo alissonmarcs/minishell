@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:34:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/10 13:49:41 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 11:14:08 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ t_bool		ft_valid_key(char *key);
 /*----------------------------------SIGNALS-------------------------------*/
 void		ft_receive_signal(void);
 t_bool		ft_handle_cntl_c(int sig);
+void cmd_signal(void);
+void	ft_reset_promp(int signal, siginfo_t *info, void *context);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/
