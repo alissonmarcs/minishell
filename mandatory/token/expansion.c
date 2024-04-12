@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:35:49 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 10:27:25 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:31:12 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ t_bool	ft_dollars_in_my_pocket(char *input, int *i, int *status)
 		(*status) = ft_quotes_status(input[(*i)], (*status));
 		if (input[(*i)] == '$' && input[(*i) + 1] == '$' && ((*status) == 0
 				|| (*status) == 1))
-		{
-			(*i)++;
 			return (TRUE);
-		}
 		if (input[(*i)] == '$' && ((*status) == 0 || (*status) == 1)
 			&& ft_isalpha(input[(*i) + 1]) == 1)
 			return (TRUE);
