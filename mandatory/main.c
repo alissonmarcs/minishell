@@ -26,42 +26,6 @@ void	ft_process(t_minishell *shell)
 	if (!check_here_docs(shell))
 		return ;
 	populate_command_list(shell);
-	// print_cmd_list(shell->commands);
-	if (ft_strcmp(shell->tokens->str, "cd") == 0)
-	{
-		ft_cd_builtin(shell->commands->argv);
-		return ;
-	}
-	if (ft_strcmp(shell->tokens->str, "env") == 0)
-	{
-		ft_env_builtin(shell->commands->argv);
-		return ;
-	}
-	if (ft_strcmp(shell->tokens->str, "exit") == 0)
-	{
-		ft_exit(shell->commands->argv);
-		return ;
-	}
-	else if (ft_strcmp(shell->tokens->str, "export") == 0)
-	{
-		ft_export(shell->commands->argv);
-		return ;
-	}
-	else if (ft_strcmp(shell->tokens->str, "unset") == 0)
-	{
-		ft_unset(shell->commands->argv);
-		return ;
-	}
-	else if (ft_strcmp(shell->tokens->str, "echo") == 0)
-	{
-		ft_echo_builtin(shell->commands->argv);
-		return ;
-	}
-	else if (ft_strcmp(shell->tokens->str, "pwd") == 0)
-	{
-		ft_pwd_builtin(shell->commands->argv);
-		return ;
-	}
 	executor(shell);
 }
 
@@ -90,15 +54,24 @@ void	ft_loop(void)
 	rl_clear_history();
 }
 
+void	copy_standard_fds(t_minishell *shell)
+{
+	shell->standard_fds[0] = dup(STDIN_FILENO);
+	shell->standard_fds[1] = dup(STDOUT_FILENO);
+}
+
 int	main(void)
 {
 	t_minishell	*shell;
 
 	shell = ft_get_shell();
+	copy_standard_fds(shell);
 	ft_clone_env(shell);
 	shell->teemo = -1;
 	ft_loop();
 	ft_delete_matrice(shell->env);
+	close(shell->standard_fds[0]);
+	close(shell->standard_fds[1]);
 	exit(ft_get_shell()->exit_status);
 	return (0);
 }
