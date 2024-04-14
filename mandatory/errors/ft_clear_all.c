@@ -31,4 +31,6 @@ void	ft_clear(t_minishell *shell)
 	free_cmd_list(&shell->commands);
 	free_here_docs(&shell->heredocs);
 	ft_garbage_clear(&shell->gc);
+	ft_delete_matrice(shell->env);
+	shell->env = NULL;
 }

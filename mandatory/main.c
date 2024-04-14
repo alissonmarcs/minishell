@@ -46,9 +46,9 @@ void	ft_loop(void)
 			free(shell->user_input);
 			continue ;
 		}
+		shell->env = list_to_array(shell->env_list);
 		ft_process(shell);
 		ft_clear(shell);
-		shell->heredocs = NULL;
 	}
 	ft_free_env(shell);
 	rl_clear_history();

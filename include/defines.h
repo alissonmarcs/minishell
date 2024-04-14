@@ -24,12 +24,6 @@
 
 # define HERE_DOC_FILE "/tmp/minishell_heredoc_"
 
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}		t_bool;
-
 enum	e_token
 {
 	SPACES = 1,

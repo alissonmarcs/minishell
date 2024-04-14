@@ -176,30 +176,34 @@ char	*expand_vars(char *line)
 		if (var_value[0] == '\0')
 		{
 			free(line);
-			line = ft_strjoin_tree(before, after, NULL);
+			line = ft_strjoin_three(before, after, NULL, TRUE);
 			free(var_name);
 			free(var_value);
 			continue ;
 		}
 		free(var_name);
 		free(line);
-		line = ft_strjoin_tree(before, var_value, after);
+		line = ft_strjoin_three(before, var_value, after, TRUE);
 	}
 	return (line);
 }
 
-char *ft_strjoin_tree(char *one, char *two, char *three)
+char *ft_strjoin_three(char *one, char *two, char *three, t_bool to_free)
 {
 	char *tmp;
 	char *joined;
 
 	tmp = ft_strjoin(one, two);
-	free(one);
-	free(two);
+	if (to_free)
+	{
+		free(one);
+		free(two);
+	}
 	if (three)
 	{
 		joined = ft_strjoin(tmp, three);
-		free(three);
+		if (to_free)
+			free(three);
 		free(tmp);
 		return (joined);
 	}
