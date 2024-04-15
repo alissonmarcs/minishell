@@ -263,6 +263,32 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 	clear_exit(shell, 5);
 }
 
+char	**list_to_array(t_env *vars)
+{
+	char			**array;
+	t_env			*tmp;
+	unsigned	int	len;
+	unsigned	int	i;
+
+	len = 0;
+	tmp = vars;
+	while (tmp)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	array = ft_calloc(len + 1, sizeof(char *));
+	tmp = vars;
+	i = 0;
+	while (tmp)
+	{
+		array[i] = ft_strjoin_three(tmp->key, "=", tmp->value, FALSE);
+		i++;
+		tmp = tmp->next;
+	}
+	return (array);
+}
+
 void	wait_childs(t_minishell *shell)
 {
 	int			status;

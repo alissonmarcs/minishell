@@ -16,6 +16,8 @@ void	ft_delete_matrice(char **matrice)
 {
 	int	i;
 
+	if (!matrice || !*matrice)
+		return ;
 	i = 0;
 	while (matrice[i])
 	{

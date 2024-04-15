@@ -47,20 +47,7 @@ void	ft_get_env_list(void)
 
 void	ft_clone_env(t_minishell *shell)
 {
-	int		i;
-	char	**env;
-
-	i = 0;
-	while (__environ[i])
-		i++;
-	env = ft_calloc(i + 1, sizeof(char *));
-	i = 0;
-	while (__environ[i])
-	{
-		env[i] = ft_strdup(__environ[i]);
-		i++;
-	}
-	shell->env = env;
+	shell->env = __environ;
 	ft_get_env_list();
 }
 

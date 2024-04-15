@@ -92,7 +92,6 @@ void		handle_heredoc(t_token **tokens, t_command *last, unsigned command_index);
 void		populate_file(char *file, t_bool var, char *delimiter);
 char		*expand_vars(char *line);
 int			len_next_alphanum(char *str);
-char		*ft_strjoin_tree(char *one, char *two, char *three);
 t_bool		have_quotes(char *delimiter);
 char		*remove_quotes(char *delimiter);
 /*------------------------------------------------------------------------*/
@@ -158,5 +157,6 @@ void		clear_exit(t_minishell *shell, int exit_status);
 void		handle_vars(t_token **tokens, t_command *last);
 t_bool		have_spaces(char *str);
 void		ctrl_c_heredoc(int sig);
+char		**list_to_array(t_env *vars);
 /*------------------------------------------------------------------------*/
 #endif

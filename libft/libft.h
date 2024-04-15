@@ -17,6 +17,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}		t_bool;
+
 typedef struct s_list
 {
 	void			*content;
@@ -81,6 +87,7 @@ int					ft_matrice_len(char **matrice);
 char				*ft_nullstrdup(const char *str);
 void				ft_free_char(char **ptr);
 int					ft_has_alpha(char *str);
+char				*ft_strjoin_three(char *one, char *two, char *three, t_bool to_free);
 
 // GNL
 # ifndef BUFFER_SIZE
