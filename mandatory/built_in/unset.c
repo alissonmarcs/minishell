@@ -19,31 +19,29 @@ void	ft_free_env_token(t_env *env)
 	free(env);
 }
 
-void	ft_change_lane(t_env **env, t_env *prev, t_env *next)
+void	ft_change_lane(t_env **head, t_env *to_delete)
 {
-	if (prev)
-		(*env)->prev->next = next;
-	if (next)
-		(*env)->next->prev = prev;
-	ft_free_env_token(*env);
+	if (to_delete->prev)
+		to_delete->prev->next = to_delete->next;
+	if (to_delete->next)
+		to_delete->next->prev = to_delete->prev;
+	if (!to_delete->prev)
+		*head = to_delete->next;
+	ft_free_env_token(to_delete);
+
 }
 
 void	ft_unset_env(char *argv)
 {
 	t_env	*env;
-	t_env	*prev;
-	t_env	*next;
 
 	env = ft_get_shell()->env_list;
-	prev = NULL;
 	while (env)
 	{
 		if (!ft_strcmp(env->key, argv))
 		{
-			prev = env->prev;
-			next = env->next;
-			ft_change_lane(&env, prev, next);
-			env = ft_get_shell()->env_list;
+			ft_change_lane(&ft_get_shell()->env_list, env);
+			break ;
 		}
 		env = env->next;
 	}

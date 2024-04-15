@@ -27,20 +27,21 @@ void	ft_free_split(char **split)
 
 void	ft_get_env_list(void)
 {
-	t_minishell	*shell;
+	char		*key;
+	char		*value;
+	char		*ptr;
 	char		**env;
-	int			i;
-	char		**split;
 
-	shell = ft_get_shell();
-	i = 0;
-	env = shell->env;
-	while (env[i])
+	env = ft_get_shell()->env;
+	while (*env)
 	{
-		split = ft_split(env[i], '=');
-		ft_lstend_var(&shell->env_list, split[0], split[1], 0);
-		ft_delete_matrice(split);
-		i++;
+		ptr = ft_strchr(*env, '=');
+		key = ft_substr(*env, 0, ptr - *env);
+		value = ft_strdup(ptr + 1);
+		ft_lstend_var(&ft_get_shell()->env_list, key, value, 0);
+		free(key);
+		free(value);
+		env++;
 	}
 }
 

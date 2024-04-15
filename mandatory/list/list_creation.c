@@ -51,14 +51,9 @@ t_env	*ft_create_var_list(char *key, char *value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env));
-	if (!new)
-		ft_error("malloc error", 900);
-	ft_bzero(new, sizeof(t_env));
+	new = ft_calloc(1, sizeof(t_env));
 	new->key = ft_strdup(key);
-	new->value = ft_nullstrdup(value);
-	new->next = NULL;
-	new->prev = NULL;
+	new->value = ft_strdup(value);
 	return (new);
 }
 
@@ -75,8 +70,6 @@ void	ft_lstend_var(t_env **env_list, char *key, char *value, int equal)
 	while (curr->next)
 		curr = curr->next;
 	curr->next = ft_create_var_list(key, value);
-	if (!curr->next)
-		ft_error("malloc error", 900);
 	curr->next->prev = curr;
 	curr = curr->next;
 	curr->equal = equal;

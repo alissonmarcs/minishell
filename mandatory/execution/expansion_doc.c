@@ -12,53 +12,72 @@
 
 #include "minishell.h"
 
-char	*get_var(char *line)
-{
-	int		i;
-	char	*ptr;
-
-	i = 1;
-	ptr = ft_strchr(line, '$');
-	if (!ptr)
-		return (NULL);
-	
-	while (ptr[i] && ft_isalnum(ptr[i]))
-		i++;
-	
-	if (ptr[i] == '?')
-		i++;
-
-	return (ft_substr(ptr, 0, i));
-}
-
-t_bool ft_has_dolar(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			if (line[i + 1] == '?')
-				return (1);
-			if (ft_isalnum(line[i + 1]))
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
+static	char	*get_var(char *line);
+static	char	*has_var(char *line);
+static	char	*replace(char *old, char *new, char *str);
 
 char	*expand_vars(char *line)
 {
 	char	*var;
 
-	while (ft_has_dolar(line))
+	while (has_var(line))
 	{
 		var = get_var(line);
-		line = ft_replace_noi(var, ft_getenv(var + 1), line);
+		line = replace(var, ft_getenv(var + 1), line);
 		continue ;
 	}
 	return (line);
+}
+
+static char	*get_var(char *line)
+{
+	int		i;
+	char	*ptr;
+
+	i = 1;
+	ptr = has_var(line);
+	while (ptr[i] && ft_isalnum(ptr[i]))
+		i++;
+	if (ptr[i] == '?')
+		i++;
+	return (ft_substr(ptr, 0, i));
+}
+
+static char	*has_var(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '$' && line[i + 1])
+		{
+			if (line[i + 1] == '?' || ft_isalnum(line[i + 1]))
+				return (line + i);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+static	char	*replace(char *old, char *new, char *str)
+{
+	char	*result;
+	char	*ptr;
+	char	*before;
+	char	*with_var;
+
+	ptr = ft_strnstr(str, old, ft_strlen(str));
+	before = ft_substr(str, 0, ptr - str);
+	with_var = ft_strjoin(before, new);
+	free(new);
+	free(before);
+	before = ft_substr(str, ptr - str + ft_strlen(old), ft_strlen(str));
+	free(old);
+	free(str);
+	old = NULL;
+	result = ft_strjoin(with_var, before);
+	free(before);
+	free(with_var);
+	return (result);
 }

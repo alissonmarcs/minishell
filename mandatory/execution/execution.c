@@ -144,7 +144,10 @@ char	*find_executable(t_command *cmd)
 void	execute_builtin(t_command *cmd, t_bool is_piped)
 {
 	if (!check_redirect_files(cmd))
+	{
+		ft_get_shell()->exit_status = 1;
 		return ;
+	}
 	set_redirects(cmd);
 	close_redirect_files(cmd);
 	if (ft_strcmp(cmd->name, "cd") == 0)

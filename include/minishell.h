@@ -93,7 +93,6 @@ void		populate_file(char *file, t_bool var, char *delimiter);
 char		*expand_vars(char *line);
 int			len_next_alphanum(char *str);
 char		*ft_strjoin_tree(char *one, char *two, char *three);
-char		*get_var(char *line);
 t_bool		have_quotes(char *delimiter);
 char		*remove_quotes(char *delimiter);
 /*------------------------------------------------------------------------*/
