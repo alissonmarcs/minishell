@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+void	handle_execve_error(t_minishell *shell, t_command *cmd);
+
 void	restore_standard_fds(t_minishell *shell)
 {
 	dup2(shell->standard_fds[0], STDIN_FILENO);
@@ -119,6 +121,12 @@ char	*find_executable(t_command *cmd)
 
 	if (!cmd->name)
 		return (NULL);
+	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
+	{
+		if (access(cmd->name, X_OK) == 0)
+			return (ft_strdup(cmd->name));
+		return (NULL);
+	}
 	if (access(cmd->name, X_OK) == 0)
 		return (ft_strdup(cmd->name));
 	paths = get_paths();
@@ -226,6 +234,7 @@ void	clear_exit(t_minishell *shell, int exit_status)
 	shell->exit_status = exit_status;
 	close(shell->standard_fds[0]);
 	close(shell->standard_fds[1]);
+	ft_garbage_clear(&shell->gc);
 	exit(exit_status);
 }
 
@@ -253,14 +262,30 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 	close_pipes(shell->commands, cmd);
 	execute_piped_builtins(cmd);
 	cmd->path = find_executable(cmd);
-	if (!cmd->path)
+	if (cmd->path)
+		execve(cmd->path, cmd->argv, shell->env);
+	execve(cmd->name, cmd->argv, shell->env);
+	handle_execve_error(shell, cmd);
+}
+
+void	handle_execve_error(t_minishell *shell, t_command *cmd)
+{
+	t_io	tmp;
+
+	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
 	{
-		ft_printf_fd(2, "%s: %s\n", cmd->name, "command not found");
-		clear_exit(shell, 127);
+		if (access(cmd->name, F_OK))
+			tmp = (t_io){.infile_fd = 127,
+				.infile = "No such file or directory"};
+		else if (!access(cmd->name, X_OK))
+			tmp = (t_io){.infile_fd = 126, .infile = "Is a directory"};
+		else
+			tmp = (t_io){.infile_fd = 126, .infile = "Permission denied"};
 	}
-	execve(cmd->path, cmd->argv, shell->env);
-	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, strerror(errno));
-	clear_exit(shell, 5);
+	else
+		tmp = (t_io){.infile_fd = 127, .infile = "command not found"};
+	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, tmp.infile);
+	clear_exit(shell, tmp.infile_fd);
 }
 
 char	**list_to_array(t_env *vars)

@@ -93,6 +93,7 @@ void	populate_file(char *file, t_bool have_quotes, char *delimiter)
 	int		fd;
 
 	signal(SIGINT, ctrl_c_heredoc);
+	ft_rlstnew(delimiter);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (TRUE)
 	{
@@ -115,7 +116,6 @@ void	populate_file(char *file, t_bool have_quotes, char *delimiter)
 		free(line);
 	}
 	close(fd);
-	free(delimiter);
 	clear_exit(ft_get_shell(), 0);
 }
 
