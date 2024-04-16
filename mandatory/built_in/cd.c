@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:57:33 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 17:08:52 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:29:20 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ void	ft_cd_builtin(char **argv)
 	else if (!argv || !argv[1] || !argv[1][0] || !ft_strcmp(argv[1], " ")
 		|| !ft_strcmp(argv[1], "--") || !ft_strcmp(argv[1], "~"))
 	{
-		path = ft_getenv("HOME");
+		ft_rlstnew(path = ft_getenv("HOME"));
 		if (!path || path[0] == '\0')
 		{
+
 			ft_error("cd: HOME not set", 1);
 			return ;
 		}
