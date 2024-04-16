@@ -104,9 +104,9 @@ void	handle_vars(t_token **tokens, t_command *last)
 			update_argv(last, split);
 		else if (last->name && !last->argv)
 		{
-			last->argv = ft_calloc(array_len(split) + 2, sizeof(char *));
+			last->argv = ft_calloc(ft_matrice_len(split) + 2, sizeof(char *));
 			last->argv[0] = ft_strdup(last->name);
-			ft_memmove(last->argv + 1, split, array_len(split)
+			ft_memmove(last->argv + 1, split, ft_matrice_len(split)
 				* sizeof(char *));
 			free(split);
 		}
@@ -120,8 +120,8 @@ void	update_argv(t_command *last, char **split)
 	int		split_len;
 	int		old_len;
 
-	old_len = array_len(last->argv);
-	split_len = array_len(split);
+	old_len = ft_matrice_len(last->argv);
+	split_len = ft_matrice_len(split);
 	new_argv = ft_calloc(old_len + split_len + 1, sizeof(char *));
 	ft_memmove(new_argv, last->argv, old_len * sizeof(char *));
 	ft_memmove(new_argv + old_len, split, split_len * sizeof(char *));
@@ -184,16 +184,6 @@ void	create_argv(t_token **tokens, t_command *last)
 	*tokens = tmp;
 }
 
-int	array_len(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
 void	add_to_argv(t_token **tokens, t_command *last)
 {
 	char	**new_argv;
@@ -201,7 +191,7 @@ void	add_to_argv(t_token **tokens, t_command *last)
 	int		count_new_args;
 	t_token	*tmp;
 
-	argv_len = array_len(last->argv);
+	argv_len = ft_matrice_len(last->argv);
 	count_new_args = get_len_args(*tokens);
 	new_argv = ft_calloc(argv_len + count_new_args + 1, sizeof(char *));
 	ft_memmove(new_argv, last->argv, argv_len * sizeof(char *));
