@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 10:44:03 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:00:10 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 
 t_bool	ft_check_max_min(char *arg)
 {
-	while (*arg == '0')
+	while (arg && *arg == '0')
 		arg++;
 	if (ft_strlen(arg) == 19 && ft_strcmp(arg, "9223372036854775807") > 0)
 		return (TRUE);
