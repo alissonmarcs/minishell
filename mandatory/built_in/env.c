@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:38:01 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/10 13:54:27 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:44:54 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env_builtin(char **argv)
 	{
 		if (ft_matrice_len(argv) > 1)
 		{
-			ft_printf_fd(STDERR_FILENO, "env: %s: No such file or directory\n",
+			ft_printf_fd(STDERR_FILENO, "env: ‘%s’: No such file or directory\n",
 				argv[1]);
 			ft_get_shell()->exit_status = 127;
 			return ;
