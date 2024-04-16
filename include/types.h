@@ -18,13 +18,13 @@ typedef struct s_herdoc_file
 {
 	char					*file;
 	struct s_herdoc_file	*next;
-}							t_herdoc_file;
+}	t_herdoc_file;
 
 typedef struct s_heredoc
 {
-	t_herdoc_file			**array;
-	unsigned				size;
-}							t_heredoc;
+	t_herdoc_file		**array;
+	int unsigned		size;
+}	t_heredoc;
 
 typedef struct s_io
 {
@@ -72,7 +72,6 @@ typedef struct s_v
 
 typedef struct s_gc
 {
-
 	void				*content;
 	struct s_gc			*next;
 }						t_gc;

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: almarcos <almarcos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/16 14:42:56 by almarcos          #+#    #+#             */
+/*   Updated: 2024/04/16 14:42:57 by almarcos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_bool	check_here_docs(t_minishell *shell)
 {
-	unsigned	command_index;
-	t_token		*tokens;
+	unsigned int	command_index;
+	t_token			*tokens;
 
 	command_index = 0;
 	tokens = shell->tokens;
@@ -33,7 +45,7 @@ void	init_heredocs(t_token *tokens)
 	ft_get_shell()->heredocs = hd;
 }
 
-t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
+t_bool	execute_here_doc(char *delimiter, int unsigned index, t_heredoc *hd,
 		t_bool is_first)
 {
 	char	*file;
@@ -46,7 +58,7 @@ t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
 	append_file(&hd->array[index], new_file(file));
 	pid = fork();
 	if (pid == 0)
-		populate_file(file, have_quotes(delimiter), remove_quotes(delimiter));
+		populate_file(file, has_quotes(delimiter), remove_quotes(delimiter));
 	waitpid(pid, &exit_status, 0);
 	exit_status = WEXITSTATUS(exit_status);
 	ft_get_shell()->exit_status = exit_status;
@@ -55,48 +67,23 @@ t_bool	execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
 	return (TRUE);
 }
 
-t_bool	have_quotes(char *delimiter)
+void	populate_file(char *file, t_bool quotes, char *delimiter)
 {
-	while (*delimiter)
-	{
-		if (*delimiter == '\'' || *delimiter == '\"')
-			return (TRUE);
-		delimiter++;
-	}
-	return (FALSE);
-}
-
-char	*remove_quotes(char *delimiter)
-{
-	int		len;
-	char	*new;
-	char	*tmp;
-
-	if (!ft_strchr(delimiter, '\'') && !ft_strchr(delimiter, '\"'))
-		return (ft_strdup(delimiter));
-	len = ft_strlen(delimiter);
-	new = ft_calloc(len + 1, sizeof(char));
-	tmp = new;
-	while (*delimiter)
-	{
-		if (*delimiter != '\'' && *delimiter != '\"')
-		{
-			*tmp = *delimiter;
-			tmp++;
-		}
-		delimiter++;
-	}
-	return (new);
-}
-
-void	populate_file(char *file, t_bool have_quotes, char *delimiter)
-{
-	char	*line;
 	int		fd;
 
 	signal(SIGINT, ctrl_c_heredoc);
 	ft_rlstnew(delimiter);
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	here_doc_loop(fd, quotes, delimiter);
+	close(fd);
+	ft_get_shell()->exit_status = 0;
+	clear_exit(ft_get_shell(), TRUE);
+}
+
+void	here_doc_loop(int fd, t_bool quotes, char *delimiter)
+{
+	char	*line;
+
 	while (TRUE)
 	{
 		line = readline("> ");
@@ -112,91 +99,9 @@ void	populate_file(char *file, t_bool have_quotes, char *delimiter)
 			free(line);
 			break ;
 		}
-		if (!have_quotes)
+		if (!quotes)
 			line = expand_vars(line);
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
-	close(fd);
-	ft_get_shell()->exit_status = 0;
-	clear_exit(ft_get_shell(), TRUE);
-}
-
-char *get_file_name(t_bool is_first)
-{
-	char			*file_name;
-	char			*tmp;
-	static unsigned	number;
-
-	if (is_first)
-		number = 0;
-	tmp = ft_itoa(number);
-	file_name = ft_strjoin(HERE_DOC_FILE, tmp);
-	free(tmp);
-	number++;
-	return (file_name);
-}
-
-unsigned	count_commands(t_token *token)
-{
-	unsigned	count;
-
-	count = 0;
-	while (token)
-	{
-		if (token->type == PIPE)
-			count++;
-		token = token->next;
-	}
-	return (count + 1);
-}
-
-t_herdoc_file	*new_file(char *file_name)
-{
-	t_herdoc_file	*node;
-
-	node = ft_calloc(1, sizeof(t_herdoc_file));
-	node->file = file_name;
-	return (node);
-}
-
-t_herdoc_file	*get_last_file(t_herdoc_file *head)
-{
-	while (head->next)
-		head = head->next;
-	return (head);
-}
-
-void	append_file(t_herdoc_file **head, t_herdoc_file *new)
-{
-	if (!*head)
-		*head = new;
-	else
-		get_last_file(*head)->next = new;
-}
-
-void free_here_docs(t_heredoc **hd)
-{
-	unsigned		i;
-	t_herdoc_file	*next;
-	t_herdoc_file	*current;
-
-	if (!*hd)
-		return ;
-	i = 0;
-	while (i < (*hd)->size)
-	{
-		current = (*hd)->array[i];
-		while (current)
-		{
-			next = current->next;
-			free(current->file);
-			free(current);
-			current = next;
-		}
-		i++;
-	}
-	free((*hd)->array);
-	free(*hd);
-	*hd = NULL;
 }

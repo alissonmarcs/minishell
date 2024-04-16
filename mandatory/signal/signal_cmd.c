@@ -52,7 +52,7 @@ void	cmd_signal(void)
 
 void	ctrl_c_heredoc(int sig)
 {
-	t_minishell *shell;
+	t_minishell	*shell;
 
 	shell = ft_get_shell();
 	if (sig == SIGINT)

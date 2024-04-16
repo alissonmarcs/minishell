@@ -30,7 +30,7 @@ void	ft_get_env_list(void)
 		free(value);
 		env++;
 	}
-	ft_get_shell()->env = NULL;	
+	ft_get_shell()->env = NULL;
 }
 
 void	ft_clone_env(t_minishell *shell)

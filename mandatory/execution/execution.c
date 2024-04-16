@@ -12,193 +12,6 @@
 
 #include "minishell.h"
 
-void	handle_execve_error(t_minishell *shell, t_command *cmd);
-
-void	restore_standard_fds(t_minishell *shell)
-{
-	dup2(shell->standard_fds[0], STDIN_FILENO);
-	dup2(shell->standard_fds[1], STDOUT_FILENO);
-}
-
-void	create_pipes(t_command *cmds)
-{
-	while (cmds)
-	{
-		if (cmds->output_to_pipe)
-			pipe(cmds->pipe);
-		cmds = cmds->next;
-	}
-}
-
-void	close_pipes(t_command *cmds, t_command *to_keep)
-{
-	while (cmds)
-	{
-		if (cmds != to_keep && cmds->output_to_pipe)
-		{
-			close(cmds->pipe[0]);
-			close(cmds->pipe[1]);
-		}
-		cmds = cmds->next;
-	}
-}
-
-void	set_pipes(t_command *cmd)
-{
-	if (cmd->output_to_pipe)
-	{
-		dup2(cmd->pipe[1], STDOUT_FILENO);
-		close(cmd->pipe[0]);
-		close(cmd->pipe[1]);
-	}
-	if (cmd->prev && cmd->prev->output_to_pipe)
-		dup2(cmd->prev->pipe[0], STDIN_FILENO);
-}
-
-t_bool	check_redirect_files(t_command *cmd)
-{
-	t_io	*io;
-
-	io = cmd->io;
-	if (!io)
-		return (TRUE);
-	if (!io->infile && !io->outfile)
-		return (TRUE);
-	if ((io->infile && (io->infile_fd < 0)) || (io->outfile
-			&& (io->outfile_fd < 0)))
-		return (FALSE);
-	return (TRUE);
-}
-
-void	set_redirects(t_command *cmd)
-{
-	t_io	*io;
-
-	io = cmd->io;
-	if (!io)
-		return ;
-	if (io->infile_fd > 0)
-		dup2(io->infile_fd, STDIN_FILENO);
-	if (io->outfile_fd > 0)
-		dup2(io->outfile_fd, STDOUT_FILENO);
-}
-
-void	close_redirect_files(t_command *cmd)
-{
-	t_io	*io;
-
-	io = cmd->io;
-	if (!io)
-		return ;
-	if (io->infile_fd > 2)
-		close(io->infile_fd);
-	if (io->outfile_fd > 2)
-		close(io->outfile_fd);
-}
-
-char	**get_paths(void)
-{
-	char	**paths;
-	char	*path;
-
-	path = ft_getenv("PATH");
-	if (path[0] == '\0')
-	{
-		free(path);
-		return (NULL);
-	}
-	paths = ft_split(path, ':');
-	free(path);
-	return (paths);
-}
-
-char	*find_executable(t_command *cmd)
-{
-	char	*executable;
-	char	**paths;
-	char	*tmp;
-	int		i;
-
-	if (!cmd->name)
-		return (NULL);
-	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
-	{
-		if (access(cmd->name, X_OK) == 0)
-			return (ft_strdup(cmd->name));
-		return (NULL);
-	}
-	if (access(cmd->name, X_OK) == 0)
-		return (ft_strdup(cmd->name));
-	paths = get_paths();
-	if (!paths)
-		return (NULL);
-	i = -1;
-	while (paths[++i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		executable = ft_strjoin(tmp, cmd->name);
-		free(tmp);
-		if (access(executable, X_OK) == 0)
-		{
-			ft_delete_matrice(paths);
-			return (executable);
-		}
-		free(executable);
-	}
-	ft_delete_matrice(paths);
-	return (NULL);
-}
-
-void	execute_builtin(t_command *cmd, t_bool is_piped)
-{
-	if (!check_redirect_files(cmd))
-	{
-		ft_get_shell()->exit_status = 1;
-		return ;
-	}
-	set_redirects(cmd);
-	close_redirect_files(cmd);
-	if (ft_strcmp(cmd->name, "cd") == 0)
-		ft_cd_builtin(cmd->argv);
-	else if (ft_strcmp(cmd->name, "env") == 0)
-		ft_env_builtin(cmd->argv);
-	else if (ft_strcmp(cmd->name, "exit") == 0)
-		ft_exit(cmd->argv);
-	else if (ft_strcmp(cmd->name, "export") == 0)
-		ft_export(cmd->argv);
-	else if (ft_strcmp(cmd->name, "unset") == 0)
-		ft_unset(cmd->argv);
-	else if (ft_strcmp(cmd->name, "echo") == 0)
-		ft_echo_builtin(cmd->argv);
-	else if (ft_strcmp(cmd->name, "pwd") == 0)
-		ft_pwd_builtin(cmd->argv);
-	if (!is_piped)
-		restore_standard_fds(ft_get_shell());
-}
-
-t_bool	is_builtin(t_command *cmds, t_bool check_if_alone)
-{
-	t_bool	is_builtin;
-
-	is_builtin = FALSE;
-	if (ft_strcmp(cmds->name, "cd") == 0
-			|| ft_strcmp(cmds->name, "env") == 0
-			|| ft_strcmp(cmds->name, "exit") == 0
-			|| ft_strcmp(cmds->name, "export") == 0
-			|| ft_strcmp(cmds->name, "unset") == 0
-			|| ft_strcmp(cmds->name, "echo") == 0
-			|| ft_strcmp(cmds->name, "pwd") == 0)
-		is_builtin = TRUE;
-	if (check_if_alone)
-	{
-		if (!cmds->next && is_builtin)
-			return (TRUE);
-		return (FALSE);
-
-	}
-	return (is_builtin);
-}
-
 void	executor(t_minishell *shell)
 {
 	t_command	*cmds;
@@ -212,8 +25,8 @@ void	executor(t_minishell *shell)
 	create_pipes(cmds);
 	while (cmds)
 	{
-        cmd_signal();
-        cmds->pid = fork();
+		cmd_signal();
+		cmds->pid = fork();
 		if (cmds->pid == 0)
 			run_commands(shell, cmds);
 		cmds = cmds->next;
@@ -222,42 +35,13 @@ void	executor(t_minishell *shell)
 	wait_childs(shell);
 }
 
-void	clear_exit(t_minishell *shell, t_bool to_exit)
-{
-	ft_free_ptr((void **) &shell->user_input);
-	ft_free_tokens(shell);
-	free_cmd_list(&shell->commands);
-	free_here_docs(&shell->heredocs);
-	ft_garbage_clear(&shell->gc);
-	ft_delete_matrice(shell->env);
-	shell->env = NULL;
-	if (to_exit)
-	{
-		ft_free_env(shell);
-		close_all_fds();
-		exit(shell->exit_status);
-	}
-}
-
-void execute_piped_builtins(t_command *cmd)
-{
-	t_minishell *shell;
-
-	shell = ft_get_shell();
-	if (is_builtin(cmd, FALSE))
-	{
-		execute_builtin(cmd, TRUE);
-		clear_exit(shell, TRUE);
-	}
-}
-
 void	run_commands(t_minishell *shell, t_command *cmd)
 {
-    if (!check_redirect_files(cmd))
-    {
-    	shell->exit_status = 1;
+	if (!check_redirect_files(cmd))
+	{
+		shell->exit_status = 1;
 		clear_exit(shell, TRUE);
-    }
+	}
 	if (!cmd->name || !cmd->name[0])
 	{
 		shell->exit_status = 0;
@@ -275,51 +59,46 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 	handle_execve_error(shell, cmd);
 }
 
-void	handle_execve_error(t_minishell *shell, t_command *cmd)
+void	get_captalized_errors(t_command *cmd)
 {
-	t_io	tmp;
+	int		exit_status;
+	char	*error_msg;
 
-	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
+	if (access(cmd->name, F_OK) < 0)
 	{
-		if (access(cmd->name, F_OK))
-			tmp = (t_io){.infile_fd = 127,
-				.infile = "No such file or directory"};
-		else if (!access(cmd->name, X_OK))
-			tmp = (t_io){.infile_fd = 126, .infile = "Is a directory"};
-		else
-			tmp = (t_io){.infile_fd = 126, .infile = "Permission denied"};
+		error_msg = "No such file or directory";
+		exit_status = 127;
+	}
+	else if (access(cmd->name, X_OK) == 0)
+	{
+		error_msg = "Is a directory";
+		exit_status = 126;
 	}
 	else
-		tmp = (t_io){.infile_fd = 127, .infile = "command not found"};
-	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, tmp.infile);
-	shell->exit_status = tmp.infile_fd;
-	clear_exit(shell, TRUE);
+	{
+		error_msg = "Permission denied";
+		exit_status = 126;
+	}
+	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, error_msg);
+	ft_get_shell()->exit_status = exit_status;
+	clear_exit(ft_get_shell(), TRUE);
 }
 
-char	**list_to_array(t_env *vars)
+void	handle_execve_error(t_minishell *shell, t_command *cmd)
 {
-	char			**array;
-	t_env			*tmp;
-	unsigned	int	len;
-	unsigned	int	i;
+	int	exit_status;
 
-	len = 0;
-	tmp = vars;
-	while (tmp)
+	exit_status = 0;
+	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
+		get_captalized_errors(cmd);
+	else
 	{
-		len++;
-		tmp = tmp->next;
+		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name,
+			"command not found");
+		exit_status = 127;
 	}
-	array = ft_calloc(len + 1, sizeof(char *));
-	tmp = vars;
-	i = 0;
-	while (tmp)
-	{
-		array[i] = ft_strjoin_three(tmp->key, "=", tmp->value, FALSE);
-		i++;
-		tmp = tmp->next;
-	}
-	return (array);
+	shell->exit_status = exit_status;
+	clear_exit(shell, TRUE);
 }
 
 void	wait_childs(t_minishell *shell)
@@ -334,13 +113,4 @@ void	wait_childs(t_minishell *shell)
 		cmd = cmd->next;
 	}
 	shell->exit_status = WEXITSTATUS(status);
-}
-
-void	close_all_fds(void)
-{
-	int i;
-
-	i = 0;
-	while (i < 1025)
-		close(i++);
-}
+}	

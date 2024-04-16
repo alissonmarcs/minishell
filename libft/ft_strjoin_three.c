@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_three.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: almarcos <almarcos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 17:12:38 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 17:12:41 by matesant         ###   ########.fr       */
+/*   Created: 2024/04/16 19:12:28 by almarcos          #+#    #+#             */
+/*   Updated: 2024/04/16 19:12:29 by almarcos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

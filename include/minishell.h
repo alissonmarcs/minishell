@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
+
 # define MINISHELL_H
 
 # include "../libft/libft.h"
@@ -34,13 +35,10 @@ t_minishell		*ft_get_shell(void);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------TOKEN--------------------------------*/
-//#Validation pre-tokenization
 t_bool			ft_open_quotes(char *str);
 void			ft_skip_quotes(char *str, unsigned long *i);
 char			*ft_forbidden_separators(char *line);
 t_bool			ft_only_spaces(char *line);
-
-//#Tokenization
 int				ft_is_separator(char *str);
 t_bool			ft_tokenize(t_minishell *shell);
 void			ft_clear_spaces(char **str);
@@ -58,52 +56,50 @@ t_bool			ft_quotes_status(char c, int status);
 /*-------------------------------------------------------------------------*/
 
 /*------------------------------------PARSER-------------------------------*/
-void		append_command(t_command **cmd_list, t_command *new);
-t_command	*new_command(char *name, t_bool pipe);
-void		free_cmd_list(t_command **cmd_list);
-t_command	*get_last_command(t_command *cmd);
-int			get_len_args(t_token *token);
-void		add_dummy_node(t_command **cmd);
-void		populate_command_list(t_minishell *minishell);
-void		get_args(t_token **tokens, t_command *last);
-void		handle_words(t_token **token, t_command *last);
-void		handle_pipe(t_token **token, t_command **cmd, unsigned *command_index);
-void		handle_trunc_append_input(t_token **token, t_command *last);
-void		free_io(t_io *io);
-void		set_commands_with_no_argv(t_command *cmd);
-void		create_argv(t_token **tokens, t_command *last);
-void		add_to_argv(t_token **tokens, t_command *last);
-void		open_output_file(t_token *tokens, t_command *last);
-void		open_input_file(t_token *tokens, t_command *last);
-void		update_argv(t_command *last, char **split);
-char		*get_file_name(t_bool is_first);
-unsigned	count_commands(t_token *token);
+void			append_command(t_command **cmd_list, t_command *new);
+t_command		*new_command(char *name, t_bool pipe);
+void			free_cmd_list(t_command **cmd_list);
+t_command		*get_last_command(t_command *cmd);
+void			add_dummy_node(t_command **cmd);
+void			populate_command_list(t_minishell *minishell);
+void			handle_words(t_token **token, t_command *last);
+void			handle_pipe(t_token **token, t_command **cmd,
+					int unsigned *command_index);
+void			handle_trunc_append_input(t_token **token, t_command *last);
+void			free_io(t_io *io);
+void			set_commands_with_no_argv(t_command *cmd);
+char			*get_file_name(t_bool is_first);
+int unsigned	count_commands(t_token *token);
 t_herdoc_file	*new_file(char *file_name);
 t_herdoc_file	*get_last_file(t_herdoc_file *head);
 void			append_file(t_herdoc_file **head, t_herdoc_file *new);
 void			free_here_docs(t_heredoc **hd);
 t_bool			check_here_docs(t_minishell *shell);
-t_bool			execute_here_doc(char *delimiter, unsigned index, t_heredoc *hd,
-					t_bool is_first);
+t_bool			execute_here_doc(char *delimiter, unsigned index,
+					t_heredoc *hd, t_bool is_first);
 void			init_heredocs(t_token *tokens);
 void			handle_heredoc(t_token **tokens, t_command *last,
-					unsigned command_index);
+					int unsigned command_index);
 void			populate_file(char *file, t_bool var, char *delimiter);
 char			*expand_vars(char *line);
-int				len_next_alphanum(char *str);
 t_bool			have_quotes(char *delimiter);
 char			*remove_quotes(char *delimiter);
+t_bool			has_quotes(char *delimiter);
+void			here_doc_loop(int fd, t_bool quotes, char *delimiter);
+void			copy_standard_fds(t_minishell *shell);
+void			execute_builtin(t_command *cmd, t_bool is_piped);
+t_bool			is_builtin(t_command *cmds, t_bool check_if_alone);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
-t_bool		ft_error(char *str, int exit_code);
-void		ft_lstend(t_token **tokens, char *str, int type);
-void		ft_garbage_clear(t_gc **garbage);
-void		ft_rlstnew(void *content);
-void		clear_exit(t_minishell *shell, t_bool to_exit);
-void		ft_invalid_key(char *key, char *value);
-t_bool		ft_pre_token_err(char *line);
-void		ft_reset_v(t_v **v);
+t_bool			ft_error(char *str, int exit_code);
+void			ft_lstend(t_token **tokens, char *str, int type);
+void			ft_garbage_clear(t_gc **garbage);
+void			ft_rlstnew(void *content);
+void			clear_exit(t_minishell *shell, t_bool to_exit);
+void			ft_invalid_key(char *key, char *value);
+t_bool			ft_pre_token_err(char *line);
+void			ft_reset_v(t_v **v);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
@@ -144,18 +140,24 @@ void			ft_reset_promp(int signal, siginfo_t *info, void *context);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/
-void		create_pipes(t_command *cmds);
-t_bool		check_redirect_files(t_command *cmd);
-void		set_pipes(t_command *cmd);
-char		**get_paths(void);
-char		*find_executable(t_command *cmd);
-void		run_commands(t_minishell *shell, t_command *cmd);
-void		wait_childs(t_minishell *shell);
-void		executor(t_minishell *shell);
-void		handle_vars(t_token **tokens, t_command *last);
-t_bool		have_spaces(char *str);
-void		ctrl_c_heredoc(int sig);
-char		**list_to_array(t_env *vars);
-void		close_all_fds(void);
+void			create_pipes(t_command *cmds);
+t_bool			check_redirect_files(t_command *cmd);
+void			set_pipes(t_command *cmd);
+char			**get_paths(void);
+char			*find_executable(t_command *cmd);
+void			run_commands(t_minishell *shell, t_command *cmd);
+void			wait_childs(t_minishell *shell);
+void			executor(t_minishell *shell);
+void			handle_vars(t_token **tokens, t_command *last);
+void			ctrl_c_heredoc(int sig);
+char			**list_to_array(t_env *vars);
+void			close_pipes(t_command *cmds, t_command *to_keep);
+void			get_error(t_minishell *shell, t_command *cmd);
+void			set_redirects(t_command *cmd);
+void			close_redirect_files(t_command *cmd);
+void			execute_piped_builtins(t_command *cmd);
+void			handle_execve_error(t_minishell *shell, t_command *cmd);
+void			restore_standard_fds(t_minishell *shell);
 /*------------------------------------------------------------------------*/
+
 #endif

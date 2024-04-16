@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+static void	ft_loop(void);
+static void	ft_process(t_minishell *shell);
+
 t_minishell	*ft_get_shell(void)
 {
 	static t_minishell	shell;
@@ -19,17 +22,19 @@ t_minishell	*ft_get_shell(void)
 	return (&shell);
 }
 
-void	ft_process(t_minishell *shell)
+int	main(void)
 {
-	if (ft_tokenize(shell))
-		return ;
-	if (!check_here_docs(shell))
-		return ;
-	populate_command_list(shell);
-	executor(shell);
+	t_minishell	*shell;
+
+	shell = ft_get_shell();
+	copy_standard_fds(shell);
+	ft_clone_env(shell);
+	shell->teemo = -1;
+	ft_loop();
+	clear_exit(shell, TRUE);
 }
 
-void	ft_loop(void)
+static void	ft_loop(void)
 {
 	t_minishell	*shell;
 
@@ -54,21 +59,13 @@ void	ft_loop(void)
 	rl_clear_history();
 }
 
-void	copy_standard_fds(t_minishell *shell)
+static void	ft_process(t_minishell *shell)
 {
-	shell->standard_fds[0] = dup(STDIN_FILENO);
-	shell->standard_fds[1] = dup(STDOUT_FILENO);
-}
-
-int	main(void)
-{
-	t_minishell	*shell;
-
-	shell = ft_get_shell();
-	copy_standard_fds(shell);
-	ft_clone_env(shell);
-	shell->teemo = -1;
-	ft_loop();
-	clear_exit(shell, TRUE);
-	return (0);
+	if (ft_tokenize(shell))
+		return ;
+	if (!check_here_docs(shell))
+		return ;
+	populate_command_list(shell);
+	set_commands_with_no_argv(shell->commands);
+	executor(shell);
 }
