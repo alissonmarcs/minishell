@@ -48,7 +48,7 @@ void	ft_loop(void)
 		}
 		shell->env = list_to_array(shell->env_list);
 		ft_process(shell);
-		ft_clear(shell);
+		clear_exit(shell, FALSE);
 	}
 	ft_free_env(shell);
 	rl_clear_history();
@@ -69,8 +69,6 @@ int	main(void)
 	ft_clone_env(shell);
 	shell->teemo = -1;
 	ft_loop();
-	close(shell->standard_fds[0]);
-	close(shell->standard_fds[1]);
-	exit(ft_get_shell()->exit_status);
+	clear_exit(shell, TRUE);
 	return (0);
 }

@@ -99,15 +99,14 @@ char			*remove_quotes(char *delimiter);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------EXIT--------------------------------*/
-t_bool			ft_error(char *str, int exit_code);
-void			ft_lstend(t_token **tokens, char *str, int type);
-void			ft_garbage_clear(t_gc **garbage);
-void			ft_rlstnew(void *content);
-void			ft_clear_all(t_minishell *shell);
-void			ft_clear(t_minishell *shell);
-void			ft_invalid_key(char *key, char *value);
-t_bool			ft_pre_token_err(char *line);
-void			ft_reset_v(t_v **v);
+t_bool		ft_error(char *str, int exit_code);
+void		ft_lstend(t_token **tokens, char *str, int type);
+void		ft_garbage_clear(t_gc **garbage);
+void		ft_rlstnew(void *content);
+void		clear_exit(t_minishell *shell, t_bool to_exit);
+void		ft_invalid_key(char *key, char *value);
+t_bool		ft_pre_token_err(char *line);
+void		ft_reset_v(t_v **v);
 /*------------------------------------------------------------------------*/
 
 /*------------------------------------LIST--------------------------------*/
@@ -148,18 +147,18 @@ void			ft_reset_promp(int signal, siginfo_t *info, void *context);
 /*------------------------------------------------------------------------*/
 
 /*---------------------------------EXECUTION------------------------------*/
-void			create_pipes(t_command *cmds);
-t_bool			check_redirect_files(t_command *cmd);
-void			set_pipes(t_command *cmd);
-char			**get_paths(void);
-char			*find_executable(t_command *cmd);
-void			run_commands(t_minishell *shell, t_command *cmd);
-void			wait_childs(t_minishell *shell);
-void			executor(t_minishell *shell);
-void			clear_exit(t_minishell *shell, int exit_status);
-void			handle_vars(t_token **tokens, t_command *last);
-t_bool			have_spaces(char *str);
-void			ctrl_c_heredoc(int sig);
-char			**list_to_array(t_env *vars);
+void		create_pipes(t_command *cmds);
+t_bool		check_redirect_files(t_command *cmd);
+void		set_pipes(t_command *cmd);
+char		**get_paths(void);
+char		*find_executable(t_command *cmd);
+void		run_commands(t_minishell *shell, t_command *cmd);
+void		wait_childs(t_minishell *shell);
+void		executor(t_minishell *shell);
+void		handle_vars(t_token **tokens, t_command *last);
+t_bool		have_spaces(char *str);
+void		ctrl_c_heredoc(int sig);
+char		**list_to_array(t_env *vars);
+void		close_all_fds(void);
 /*------------------------------------------------------------------------*/
 #endif

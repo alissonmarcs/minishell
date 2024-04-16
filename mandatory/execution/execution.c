@@ -222,40 +222,47 @@ void	executor(t_minishell *shell)
 	wait_childs(shell);
 }
 
-void	clear_exit(t_minishell *shell, int exit_status)
+void	clear_exit(t_minishell *shell, t_bool to_exit)
 {
-	free(shell->user_input);
-	ft_delete_matrice(shell->env);
+	ft_free_ptr((void **) &shell->user_input);
 	ft_free_tokens(shell);
-	ft_free_env(shell);
-	close_pipes(shell->commands, NULL);
 	free_cmd_list(&shell->commands);
 	free_here_docs(&shell->heredocs);
-	shell->exit_status = exit_status;
-	close(shell->standard_fds[0]);
-	close(shell->standard_fds[1]);
 	ft_garbage_clear(&shell->gc);
-	exit(exit_status);
+	ft_delete_matrice(shell->env);
+	shell->env = NULL;
+	if (to_exit)
+	{
+		ft_free_env(shell);
+		close_all_fds();
+		exit(shell->exit_status);
+	}
 }
 
 void execute_piped_builtins(t_command *cmd)
 {
 	t_minishell *shell;
 
+	shell = ft_get_shell();
 	if (is_builtin(cmd, FALSE))
 	{
 		execute_builtin(cmd, TRUE);
-		shell = ft_get_shell();
-		clear_exit(shell, shell->exit_status);
+		clear_exit(shell, TRUE);
 	}
 }
 
 void	run_commands(t_minishell *shell, t_command *cmd)
 {
     if (!check_redirect_files(cmd))
-		clear_exit(shell, 1);
+    {
+    	shell->exit_status = 1;
+		clear_exit(shell, TRUE);
+    }
 	if (!cmd->name || !cmd->name[0])
-		clear_exit(shell, 0);
+	{
+		shell->exit_status = 0;
+		clear_exit(shell, TRUE);
+	}
 	set_pipes(cmd);
 	set_redirects(cmd);
 	close_redirect_files(cmd);
@@ -285,7 +292,8 @@ void	handle_execve_error(t_minishell *shell, t_command *cmd)
 	else
 		tmp = (t_io){.infile_fd = 127, .infile = "command not found"};
 	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, tmp.infile);
-	clear_exit(shell, tmp.infile_fd);
+	shell->exit_status = tmp.infile_fd;
+	clear_exit(shell, TRUE);
 }
 
 char	**list_to_array(t_env *vars)
@@ -326,4 +334,13 @@ void	wait_childs(t_minishell *shell)
 		cmd = cmd->next;
 	}
 	shell->exit_status = WEXITSTATUS(status);
+}
+
+void	close_all_fds(void)
+{
+	int i;
+
+	i = 0;
+	while (i < 1025)
+		close(i++);
 }

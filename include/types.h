@@ -72,23 +72,23 @@ typedef struct s_v
 
 typedef struct s_gc
 {
-	void					**content;
-	struct s_gc				*next;
-}							t_gc;
+
+	void				*content;
+	struct s_gc			*next;
+}						t_gc;
 
 typedef struct s_minishell
 {
-	char					*user_input;
-	char					**env;
-	t_token					*tokens;
-	t_env					*env_list;
-	t_command				*commands;
-	int						exit_status;
-	int						standard_fds[2];
-	char					teemo;
-	t_gc					*gc;
-	pid_t					last_child;
-	t_heredoc				*heredocs;
-}							t_minishell;
+	char				*user_input;
+	char				**env;
+	t_token				*tokens;
+	t_env				*env_list;
+	t_command			*commands;
+	int					exit_status;
+	int					standard_fds[2];
+	char				teemo;
+	t_gc				*gc;
+	t_heredoc			*heredocs;
+}						t_minishell;
 
 #endif

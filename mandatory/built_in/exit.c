@@ -18,8 +18,8 @@ t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: %s: %s: %s\n", argv[0],
 			arg, msg);
-		ft_clear_all(ft_get_shell());
-		exit(ecode);
+		ft_get_shell()->exit_status = ecode;
+		clear_exit(ft_get_shell(), TRUE);
 	}
 	else
 	{
@@ -55,6 +55,6 @@ void	ft_exit(char **argv)
 	}
 	else if (argv[1])
 		ft_get_shell()->exit_status = ft_atol(argv[1]);
-	ft_clear_all(ft_get_shell());
-	exit(ft_get_shell()->exit_status);
+	ft_putstr_fd("exit\n", 1);
+	clear_exit(ft_get_shell(), TRUE);
 }

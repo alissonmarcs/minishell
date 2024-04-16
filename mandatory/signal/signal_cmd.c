@@ -52,6 +52,12 @@ void	cmd_signal(void)
 
 void	ctrl_c_heredoc(int sig)
 {
+	t_minishell *shell;
+
+	shell = ft_get_shell();
 	if (sig == SIGINT)
-		clear_exit(ft_get_shell(), 130);
+	{
+		shell->exit_status = 130;
+		clear_exit(shell, TRUE);
+	}
 }

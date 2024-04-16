@@ -72,6 +72,8 @@ char	*remove_quotes(char *delimiter)
 	char	*new;
 	char	*tmp;
 
+	if (!ft_strchr(delimiter, '\'') && !ft_strchr(delimiter, '\"'))
+		return (ft_strdup(delimiter));
 	len = ft_strlen(delimiter);
 	new = ft_calloc(len + 1, sizeof(char));
 	tmp = new;
@@ -116,7 +118,8 @@ void	populate_file(char *file, t_bool have_quotes, char *delimiter)
 		free(line);
 	}
 	close(fd);
-	clear_exit(ft_get_shell(), 0);
+	ft_get_shell()->exit_status = 0;
+	clear_exit(ft_get_shell(), TRUE);
 }
 
 char *get_file_name(t_bool is_first)

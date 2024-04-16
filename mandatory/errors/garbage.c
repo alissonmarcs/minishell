@@ -16,9 +16,7 @@ void	ft_rlstnew(void *content)
 {
 	t_gc	*new;
 
-	new = malloc(sizeof(t_gc));
-	if (!new)
-		ft_error("malloc error", 900);
+	new = ft_calloc(1, sizeof(t_gc));
 	new->content = content;
 	new->next = ft_get_shell()->gc;
 	ft_get_shell()->gc = new;
@@ -26,15 +24,16 @@ void	ft_rlstnew(void *content)
 
 void	ft_garbage_clear(t_gc **garbage)
 {
-	t_gc	*tmp;
+	t_gc	*current;
+	t_gc	*next;
 
-	while (*garbage)
+	current = *garbage;
+	while (current)
 	{
-		tmp = *garbage;
-		*garbage = (*garbage)->next;
-		if (tmp->content && *tmp->content)
-			ft_free_ptr((void **)&tmp->content);
-		if (tmp)
-			ft_free_ptr((void **)&tmp);
+		next = current->next;
+		free(current->content);
+		free(current);
+		current = next;
 	}
+	*garbage = NULL;
 }
