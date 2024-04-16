@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:44:10 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/10 13:54:46 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:13:31 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_change_lane(t_env **head, t_env *to_delete)
 	if (!to_delete->prev)
 		*head = to_delete->next;
 	ft_free_env_token(to_delete);
-
 }
 
 void	ft_unset_env(char *argv)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:09:53 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 16:07:39 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:10:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ctrl_c_cmd(int sig)
+void	ctrl_c_cmd(int sig)
 {
 	(void)sig;
 	ft_printf_fd(STDERR_FILENO, "\n");
@@ -20,7 +20,7 @@ void ctrl_c_cmd(int sig)
 	rl_replace_line("", 0);
 }
 
-void sig_stop(int sig)
+void	sig_stop(int sig)
 {
 	(void)sig;
 	ft_printf_fd(STDERR_FILENO, "\n");
@@ -29,26 +29,27 @@ void sig_stop(int sig)
 	rl_replace_line("", 0);
 }
 
-void handle_z(int sig)
+void	handle_z(int sig)
 {
-    (void)sig;
-    ft_printf_fd(STDERR_FILENO, "\n");
-    ft_printf_fd(STDERR_FILENO, "Stopped\n");
-    rl_on_new_line();
-    rl_replace_line("", 0);
+	(void)sig;
+	ft_printf_fd(STDERR_FILENO, "\n");
+	ft_printf_fd(STDERR_FILENO, "Stopped\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
-void cmd_signal(void)
+void	cmd_signal(void)
 {
 	struct sigaction	act;
 
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    act.sa_handler = handle_z;
-    signal(SIGINT, ctrl_c_cmd);
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
+	act.sa_handler = handle_z;
+	signal(SIGINT, ctrl_c_cmd);
 	signal(SIGQUIT, sig_stop);
-    sigaction(SIGTSTP, &act, NULL);
+	sigaction(SIGTSTP, &act, NULL);
 }
+
 void	ctrl_c_heredoc(int sig)
 {
 	if (sig == SIGINT)

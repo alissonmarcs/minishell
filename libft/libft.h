@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:28 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 10:27:47 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:12:56 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_bool
 {
 	FALSE,
 	TRUE
-}		t_bool;
+}					t_bool;
 
 typedef struct s_list
 {
@@ -87,7 +87,8 @@ int					ft_matrice_len(char **matrice);
 char				*ft_nullstrdup(const char *str);
 void				ft_free_char(char **ptr);
 int					ft_has_alpha(char *str);
-char				*ft_strjoin_three(char *one, char *two, char *three, t_bool to_free);
+char				*ft_strjoin_three(char *one, char *two, char *three,
+						t_bool to_free);
 
 // GNL
 # ifndef BUFFER_SIZE

@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:22:17 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/05 16:38:44 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:11:33 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isalpha(int c)
 
 int	ft_has_alpha(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

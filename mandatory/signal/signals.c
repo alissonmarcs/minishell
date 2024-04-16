@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:51:04 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 15:43:58 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:10:29 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_receive_signal(void)
 {
 	struct sigaction	act;
 	struct sigaction	ign;
-	struct sigaction    stp;
+	struct sigaction	stp;
 
 	ft_memset(&act, 0, sizeof(act));
 	ft_memset(&ign, 0, sizeof(act));

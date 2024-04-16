@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:54:59 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 17:12:02 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:11:23 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_replace(char *old, char *new, char *str, int *i)
 	char	*klb;
 
 	ptr = str;
-    ptr += (*i);
+	ptr += (*i);
 	if (!ptr)
 		return (str);
 	igor = ft_substr(str, 0, ptr - str);
