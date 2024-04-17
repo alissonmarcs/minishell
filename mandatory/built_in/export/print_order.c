@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:37:29 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/02 17:37:03 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:48:06 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_print_in_order(char **env)
 				if (e->value && ft_strlen(e->value) > 0)
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
 						e->key, e->value);
-				else if (e->value && e->equal == 0)
+				else if (e->key && e->equal == 0)
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", e->key);
 				else
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"\"\n", e->key);

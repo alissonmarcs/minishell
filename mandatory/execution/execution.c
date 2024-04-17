@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matesant <matesant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/12 12:12:04 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:16:09 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,4 @@ static void	wait_childs(t_minishell *shell)
 		cmd = cmd->next;
 	}
 	shell->exit_status = WEXITSTATUS(status);
-}	
+}
