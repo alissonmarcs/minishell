@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-static void	ft_update_oldpwd(t_env *cur, char *oldpwd);
-static void	ft_set_env(char *oldpwd);
-static char	*ft_basic_errors(char **path, char **argv);
+static void		ft_update_oldpwd(t_env *cur, char *oldpwd);
+static void		ft_set_env(char *oldpwd);
+static char		*ft_basic_errors(char **path, char **argv);
 static t_bool	ft_isdir(char *path);
 
 void	ft_cd_builtin(char **argv)

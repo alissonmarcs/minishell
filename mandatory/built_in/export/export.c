@@ -116,5 +116,3 @@ static void	ft_add_var(char **argv)
 		i++;
 	}
 }
-
-

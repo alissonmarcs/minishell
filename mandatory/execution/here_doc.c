@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-static void	init_heredocs(t_token *tokens);
-static void	populate_file(char *file, t_bool quotes, char *delimiter);
-static void	here_doc_loop(int fd, t_bool quotes, char *delimiter);
+static void		init_heredocs(t_token *tokens);
+static void		populate_file(char *file, t_bool quotes, char *delimiter);
+static void		here_doc_loop(int fd, t_bool quotes, char *delimiter);
 static t_bool	execute_here_doc(char *delimiter, int unsigned index,
-		t_heredoc *hd, t_bool is_first);
+					t_heredoc *hd, t_bool is_first);
 
 t_bool	check_here_docs(t_minishell *shell)
 {

@@ -61,5 +61,3 @@ static t_bool	ft_check_max_min(char *arg)
 		return (TRUE);
 	return (FALSE);
 }
-
-
