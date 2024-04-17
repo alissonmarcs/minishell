@@ -13,17 +13,17 @@
 #include "minishell.h"
 
 static void	update_argv(t_command *last, char **split);
-static void	export(t_command *last, t_token *token);
-static void	others_cases(t_token *tokens, t_command *last);
+static void	handle_export(t_command *last, t_token *token);
+static void	handle_others_cases(t_token *tokens, t_command *last);
 
 void	handle_vars(t_token **tokens, t_command *last)
 {
 	if ((*tokens)->str && (*tokens)->str[0])
 	{
 		if (ft_strcmp(last->name, "export") == 0)
-			export(last, *tokens);
+			handle_export(last, *tokens);
 		else
-			others_cases(*tokens, last);
+			handle_others_cases(*tokens, last);
 	}
 	*tokens = (*tokens)->next;
 }
@@ -44,7 +44,7 @@ static void	update_argv(t_command *last, char **split)
 	last->argv = new_argv;
 }
 
-static void	export(t_command *last, t_token *token)
+static void	handle_export(t_command *last, t_token *token)
 {
 	char	**new_argv;
 	int		len;
@@ -66,7 +66,7 @@ static void	export(t_command *last, t_token *token)
 	}
 }
 
-static void	others_cases(t_token *tokens, t_command *last)
+static void	handle_others_cases(t_token *tokens, t_command *last)
 {
 	char	**split;
 
