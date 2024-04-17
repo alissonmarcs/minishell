@@ -60,7 +60,6 @@ void			append_command(t_command **cmd_list, t_command *new);
 t_command		*new_command(char *name, t_bool pipe);
 void			free_cmd_list(t_command **cmd_list);
 t_command		*get_last_command(t_command *cmd);
-void			add_dummy_node(t_command **cmd);
 void			populate_command_list(t_minishell *minishell);
 void			handle_words(t_token **token, t_command *last);
 void			handle_pipe(t_token **token, t_command **cmd,
@@ -75,17 +74,12 @@ t_herdoc_file	*get_last_file(t_herdoc_file *head);
 void			append_file(t_herdoc_file **head, t_herdoc_file *new);
 void			free_here_docs(t_heredoc **hd);
 t_bool			check_here_docs(t_minishell *shell);
-t_bool			execute_here_doc(char *delimiter, unsigned index,
-					t_heredoc *hd, t_bool is_first);
-void			init_heredocs(t_token *tokens);
 void			handle_heredoc(t_token **tokens, t_command *last,
 					int unsigned command_index);
-void			populate_file(char *file, t_bool var, char *delimiter);
 char			*expand_vars(char *line);
 t_bool			have_quotes(char *delimiter);
 char			*remove_quotes(char *delimiter);
 t_bool			has_quotes(char *delimiter);
-void			here_doc_loop(int fd, t_bool quotes, char *delimiter);
 void			copy_standard_fds(t_minishell *shell);
 void			execute_builtin(t_command *cmd, t_bool is_piped);
 t_bool			is_builtin(t_command *cmds, t_bool check_if_alone);
@@ -145,8 +139,6 @@ t_bool			check_redirect_files(t_command *cmd);
 void			set_pipes(t_command *cmd);
 char			**get_paths(void);
 char			*find_executable(t_command *cmd);
-void			run_commands(t_minishell *shell, t_command *cmd);
-void			wait_childs(t_minishell *shell);
 void			executor(t_minishell *shell);
 void			handle_vars(t_token **tokens, t_command *last);
 void			ctrl_c_heredoc(int sig);
@@ -156,8 +148,6 @@ void			get_error(t_minishell *shell, t_command *cmd);
 void			set_redirects(t_command *cmd);
 void			close_redirect_files(t_command *cmd);
 void			execute_piped_builtins(t_command *cmd);
-void			handle_execve_error(t_minishell *shell, t_command *cmd);
-void			restore_standard_fds(t_minishell *shell);
 /*------------------------------------------------------------------------*/
 
 #endif

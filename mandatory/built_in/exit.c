@@ -12,7 +12,26 @@
 
 #include "minishell.h"
 
-t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
+static t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode);
+static t_bool	ft_check_max_min(char *arg);
+
+void	ft_exit(char **argv)
+{
+	ft_get_shell()->exit_status = 0;
+	if ((argv[1] && ft_has_alpha(argv[1])) || (ft_check_max_min(argv[1])))
+		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
+	else if (ft_matrice_len(argv) > 2)
+	{
+		if (ft_exit_msg(argv, "too many arguments", NULL, 1))
+			return ;
+	}
+	else if (argv[1])
+		ft_get_shell()->exit_status = ft_atol(argv[1]);
+	ft_putstr_fd("exit\n", 1);
+	clear_exit(ft_get_shell(), TRUE);
+}
+
+static t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 {
 	if (arg)
 	{
@@ -30,7 +49,7 @@ t_bool	ft_exit_msg(char **argv, char *msg, char *arg, int ecode)
 	return (FALSE);
 }
 
-t_bool	ft_check_max_min(char *arg)
+static t_bool	ft_check_max_min(char *arg)
 {
 	while (arg && *arg == '0')
 		arg++;
@@ -43,18 +62,4 @@ t_bool	ft_check_max_min(char *arg)
 	return (FALSE);
 }
 
-void	ft_exit(char **argv)
-{
-	ft_get_shell()->exit_status = 0;
-	if ((argv[1] && ft_has_alpha(argv[1])) || (ft_check_max_min(argv[1])))
-		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
-	else if (ft_matrice_len(argv) > 2)
-	{
-		if (ft_exit_msg(argv, "too many arguments", NULL, 1))
-			return ;
-	}
-	else if (argv[1])
-		ft_get_shell()->exit_status = ft_atol(argv[1]);
-	ft_putstr_fd("exit\n", 1);
-	clear_exit(ft_get_shell(), TRUE);
-}
+

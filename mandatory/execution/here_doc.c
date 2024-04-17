@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+static void	init_heredocs(t_token *tokens);
+static void	populate_file(char *file, t_bool quotes, char *delimiter);
+static void	here_doc_loop(int fd, t_bool quotes, char *delimiter);
+static t_bool	execute_here_doc(char *delimiter, int unsigned index,
+		t_heredoc *hd, t_bool is_first);
+
 t_bool	check_here_docs(t_minishell *shell)
 {
 	unsigned int	command_index;
@@ -35,7 +41,7 @@ t_bool	check_here_docs(t_minishell *shell)
 	return (TRUE);
 }
 
-void	init_heredocs(t_token *tokens)
+static void	init_heredocs(t_token *tokens)
 {
 	t_heredoc	*hd;
 
@@ -45,8 +51,8 @@ void	init_heredocs(t_token *tokens)
 	ft_get_shell()->heredocs = hd;
 }
 
-t_bool	execute_here_doc(char *delimiter, int unsigned index, t_heredoc *hd,
-		t_bool is_first)
+static t_bool	execute_here_doc(char *delimiter, int unsigned index,
+		t_heredoc *hd, t_bool is_first)
 {
 	char	*file;
 	pid_t	pid;
@@ -67,7 +73,7 @@ t_bool	execute_here_doc(char *delimiter, int unsigned index, t_heredoc *hd,
 	return (TRUE);
 }
 
-void	populate_file(char *file, t_bool quotes, char *delimiter)
+static void	populate_file(char *file, t_bool quotes, char *delimiter)
 {
 	int		fd;
 
@@ -80,7 +86,7 @@ void	populate_file(char *file, t_bool quotes, char *delimiter)
 	clear_exit(ft_get_shell(), TRUE);
 }
 
-void	here_doc_loop(int fd, t_bool quotes, char *delimiter)
+static void	here_doc_loop(int fd, t_bool quotes, char *delimiter)
 {
 	char	*line;
 

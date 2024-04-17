@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+static void	run_commands(t_minishell *shell, t_command *cmd);
+static void	get_captalized_errors(t_command *cmd);
+static void	handle_execve_error(t_minishell *shell, t_command *cmd);
+static void	wait_childs(t_minishell *shell);
+
 void	executor(t_minishell *shell)
 {
 	t_command	*cmds;
@@ -35,7 +40,7 @@ void	executor(t_minishell *shell)
 	wait_childs(shell);
 }
 
-void	run_commands(t_minishell *shell, t_command *cmd)
+static void	run_commands(t_minishell *shell, t_command *cmd)
 {
 	if (!check_redirect_files(cmd))
 	{
@@ -59,7 +64,7 @@ void	run_commands(t_minishell *shell, t_command *cmd)
 	handle_execve_error(shell, cmd);
 }
 
-void	get_captalized_errors(t_command *cmd)
+static void	get_captalized_errors(t_command *cmd)
 {
 	int		exit_status;
 	char	*error_msg;
@@ -84,7 +89,7 @@ void	get_captalized_errors(t_command *cmd)
 	clear_exit(ft_get_shell(), TRUE);
 }
 
-void	handle_execve_error(t_minishell *shell, t_command *cmd)
+static void	handle_execve_error(t_minishell *shell, t_command *cmd)
 {
 	int	exit_status;
 
@@ -101,7 +106,7 @@ void	handle_execve_error(t_minishell *shell, t_command *cmd)
 	clear_exit(shell, TRUE);
 }
 
-void	wait_childs(t_minishell *shell)
+static void	wait_childs(t_minishell *shell)
 {
 	int			status;
 	t_command	*cmd;

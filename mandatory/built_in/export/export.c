@@ -12,7 +12,23 @@
 
 #include "minishell.h"
 
-void	ft_arrange(char **env)
+static void	ft_arrange(char **env);
+static void	ft_clonenvlst(void);
+static void	ft_add_var(char **argv);
+
+void	ft_export(char **argv)
+{
+	ft_get_shell()->exit_status = 0;
+	if (ft_matrice_len(argv) == 1)
+	{
+		ft_clonenvlst();
+		return ;
+	}
+	else
+		ft_add_var(argv);
+}
+
+static void	ft_arrange(char **env)
 {
 	int		i;
 	int		j;
@@ -36,7 +52,7 @@ void	ft_arrange(char **env)
 	}
 }
 
-void	ft_clonenvlst(void)
+static void	ft_clonenvlst(void)
 {
 	char	**env;
 	t_env	*cur;
@@ -72,7 +88,7 @@ t_bool	ft_valid_key(char *key)
 	return (FALSE);
 }
 
-void	ft_add_var(char **argv)
+static void	ft_add_var(char **argv)
 {
 	int			i;
 	t_v			*v;
@@ -101,14 +117,4 @@ void	ft_add_var(char **argv)
 	}
 }
 
-void	ft_export(char **argv)
-{
-	ft_get_shell()->exit_status = 0;
-	if (ft_matrice_len(argv) == 1)
-	{
-		ft_clonenvlst();
-		return ;
-	}
-	else
-		ft_add_var(argv);
-}
+

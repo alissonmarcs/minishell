@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+static void	restore_standard_fds(t_minishell *shell);
+
 void	execute_builtin(t_command *cmd, t_bool is_piped)
 {
 	if (!check_redirect_files(cmd))
@@ -79,7 +81,7 @@ void	copy_standard_fds(t_minishell *shell)
 	shell->standard_fds[1] = dup(STDOUT_FILENO);
 }
 
-void	restore_standard_fds(t_minishell *shell)
+static void	restore_standard_fds(t_minishell *shell)
 {
 	dup2(shell->standard_fds[0], STDIN_FILENO);
 	dup2(shell->standard_fds[1], STDOUT_FILENO);

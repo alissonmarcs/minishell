@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	add_dummy_node(t_command **cmd)
+ static void	add_dummy_node(t_command **cmd)
 {
 	t_command	*dummy;
 

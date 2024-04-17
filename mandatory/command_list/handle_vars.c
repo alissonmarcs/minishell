@@ -64,7 +64,6 @@ static void	export(t_command *last, t_token *token)
 		free(last->argv);
 		last->argv = new_argv;
 	}
-	print_cmd_list(last);
 }
 
 static void	others_cases(t_token *tokens, t_command *last)

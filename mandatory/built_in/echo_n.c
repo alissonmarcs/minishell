@@ -12,7 +12,26 @@
 
 #include "minishell.h"
 
-int	ft_flag(char *arg)
+static int	ft_flag(char *arg);
+static void	ft_print_args(char **argv, int i, int flag);
+
+void	ft_echo_builtin(char **argv)
+{
+	int	i;
+	int	flag;
+
+	ft_get_shell()->exit_status = 0;
+	i = 1;
+	flag = 0;
+	while (argv[i] && ft_flag(argv[i]))
+	{
+		i++;
+		flag = 1;
+	}
+	ft_print_args(argv, i, flag);
+}
+
+static int	ft_flag(char *arg)
 {
 	int	i;
 	int	flag;
@@ -36,7 +55,7 @@ int	ft_flag(char *arg)
 	return (flag);
 }
 
-void	ft_print_args(char **argv, int i, int flag)
+static void	ft_print_args(char **argv, int i, int flag)
 {
 	if (!argv[i])
 	{
@@ -53,20 +72,4 @@ void	ft_print_args(char **argv, int i, int flag)
 	}
 	if (!flag)
 		write(1, "\n", 1);
-}
-
-void	ft_echo_builtin(char **argv)
-{
-	int	i;
-	int	flag;
-
-	ft_get_shell()->exit_status = 0;
-	i = 1;
-	flag = 0;
-	while (argv[i] && ft_flag(argv[i]))
-	{
-		i++;
-		flag = 1;
-	}
-	ft_print_args(argv, i, flag);
 }

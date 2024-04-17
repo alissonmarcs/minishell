@@ -24,7 +24,6 @@ char	*expand_vars(char *line)
 	{
 		var = get_var(line);
 		line = replace(var, ft_getenv(var + 1), line);
-		continue ;
 	}
 	return (line);
 }
