@@ -15,13 +15,6 @@
 static void	ft_loop(void);
 static void	ft_process(t_minishell *shell);
 
-t_minishell	*ft_get_shell(void)
-{
-	static t_minishell	shell;
-
-	return (&shell);
-}
-
 int	main(void)
 {
 	t_minishell	*shell;
@@ -32,6 +25,13 @@ int	main(void)
 	shell->teemo = -1;
 	ft_loop();
 	clear_exit(shell, TRUE);
+}
+
+t_minishell	*ft_get_shell(void)
+{
+	static t_minishell	shell;
+
+	return (&shell);
 }
 
 static void	ft_loop(void)
