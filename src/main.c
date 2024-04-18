@@ -20,6 +20,7 @@ int	main(void)
 	t_minishell	*shell;
 
 	shell = ft_get_shell();
+	save_restore_input(0);
 	copy_standard_fds(shell);
 	ft_clone_env(shell);
 	shell->teemo = -1;
@@ -34,6 +35,16 @@ t_minishell	*ft_get_shell(void)
 	return (&shell);
 }
 
+void	save_restore_input(int fd)
+{
+	static struct termios	tty;
+
+	if (!fd)
+		tcgetattr(STDIN_FILENO, &tty);
+	else
+		tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+}
+
 static void	ft_loop(void)
 {
 	t_minishell	*shell;
@@ -41,10 +52,14 @@ static void	ft_loop(void)
 	shell = ft_get_shell();
 	while (TRUE)
 	{
+		save_restore_input(1);
 		ft_receive_signal();
 		shell->user_input = readline(YELLOW "CarlitoShell$ " RESET);
 		if (!shell->user_input)
+		{
+			ft_putstr_fd("\n", 1);
 			break ;
+		}
 		add_history(shell->user_input);
 		if (shell->user_input[0] == '\0')
 		{

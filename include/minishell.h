@@ -29,6 +29,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <termios.h>
 
 /*----------------------------------MAIN-STRUCT----------------------------*/
 t_minishell		*ft_get_shell(void);
@@ -148,6 +149,7 @@ void			get_error(t_minishell *shell, t_command *cmd);
 void			set_redirects(t_command *cmd);
 void			close_redirect_files(t_command *cmd);
 void			execute_piped_builtins(t_command *cmd);
+void			save_restore_input(int fd);
 /*------------------------------------------------------------------------*/
 
 #endif
