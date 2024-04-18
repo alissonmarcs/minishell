@@ -16,6 +16,8 @@ static void	restore_standard_fds(t_minishell *shell);
 
 void	execute_builtin(t_command *cmd, t_bool is_piped)
 {
+	if (is_piped)
+		signal(SIGPIPE, SIG_IGN);
 	if (!check_redirect_files(cmd))
 	{
 		ft_get_shell()->exit_status = 1;
