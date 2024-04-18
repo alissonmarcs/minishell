@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || ((c >= 'A' && c <= 'Z') || c == '_'))
@@ -25,7 +27,9 @@ int	ft_has_alpha(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]))
+		if (str[i] == '-' || str[i] == '+')
+			i++;
+		if (str[i] && !ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
