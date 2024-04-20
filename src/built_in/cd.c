@@ -48,9 +48,6 @@ void	ft_cd_builtin(char **argv)
 
 static void	ft_update_oldpwd(t_env *cur, char *oldpwd)
 {
-	int	status;
-
-	status = 0;
 	while (cur)
 	{
 		if ((!cur || cur->next == NULL) && (ft_strcmp(cur->key, "OLDPWD")))
@@ -60,7 +57,6 @@ static void	ft_update_oldpwd(t_env *cur, char *oldpwd)
 		}
 		if (!ft_strncmp(cur->key, "OLDPWD", 6))
 		{
-			status = 1;
 			free(cur->value);
 			cur->value = ft_strdup(oldpwd);
 			break ;
