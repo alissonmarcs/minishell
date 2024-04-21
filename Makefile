@@ -4,7 +4,7 @@ CFLAGS		:= -Wall -Werror -Wextra -g3 -O0
 RFLAGS 		:= -lreadline -lhistory
 BIN			:= ./bin/
 HEADER		:= ./include/
-SOURCE		:=	main.c token_list.c list_creation.c errors_1.c print_struct.c validations.c syntax.c command_list.c \
+SOURCE		:=	main.c token_list.c list_creation.c errors.c print_struct.c validations.c syntax.c command_list.c \
 				populate_command_list.c debug.c echo_n.c expansion.c signals.c get_env.c quotes.c expansion_treatments.c \
 				garbage.c pwd.c env.c cd.c execution.c exit.c export.c print_order.c unset.c pre_token_err.c \
 				here_doc.c here_doc_vars.c here_doc_files.c here_doc_utils.c signal_cmd.c handle_redirect.c \
