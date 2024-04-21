@@ -16,14 +16,10 @@ t_token	*ft_create_list(char *str, int type)
 {
 	t_token	*new;
 
-	new = malloc(sizeof(t_token));
-	if (!new)
-	ft_bzero(new, sizeof(t_token));
+	new = ft_calloc(1, sizeof(t_token));
 	ft_clear_spaces(&str);
 	new->str = ft_strdup(str);
 	new->type = type;
-	new->next = NULL;
-	new->prev = NULL;
 	free(str);
 	return (new);
 }
@@ -41,7 +37,6 @@ void	ft_lstend(t_token **tokens, char *str, int type)
 	while (curr->next)
 		curr = curr->next;
 	curr->next = ft_create_list(str, type);
-	if (!curr->next)
 	curr->next->prev = curr;
 }
 
