@@ -57,7 +57,7 @@ static void	ft_loop(void)
 		shell->user_input = readline(YELLOW "CarlitoShell$ " RESET);
 		if (!shell->user_input)
 		{
-			ft_putstr_fd("\n", 1);
+			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
 		add_history(shell->user_input);

@@ -46,7 +46,7 @@ char	*find_executable(t_command *cmd)
 
 	if (!cmd->name)
 		return (NULL);
-	if (access(cmd->name, X_OK) == 0)
+	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
 		return (ft_strdup(cmd->name));
 	paths = get_paths();
 	if (!paths)
