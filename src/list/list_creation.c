@@ -18,7 +18,6 @@ t_token	*ft_create_list(char *str, int type)
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-		ft_error("malloc error", 900);
 	ft_bzero(new, sizeof(t_token));
 	ft_clear_spaces(&str);
 	new->str = ft_strdup(str);
@@ -43,7 +42,6 @@ void	ft_lstend(t_token **tokens, char *str, int type)
 		curr = curr->next;
 	curr->next = ft_create_list(str, type);
 	if (!curr->next)
-		ft_error("malloc error", 900);
 	curr->next->prev = curr;
 }
 
