@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:36:00 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 18:00:10 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:40:41 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static t_bool	ft_check_max_min(char *arg);
 
 void	ft_exit(char **argv)
 {
-	ft_get_shell()->exit_status = 0;
 	if ((argv[1] && ft_has_alpha(argv[1])) || (ft_check_max_min(argv[1])))
 		ft_exit_msg(argv, "numeric argument required", argv[1], 2);
 	else if (ft_matrice_len(argv) > 2)

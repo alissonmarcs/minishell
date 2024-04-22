@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:51:04 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 17:10:29 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:40:56 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_reset_promp(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	(void)signal;
+	ft_get_shell()->exit_status = 130;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

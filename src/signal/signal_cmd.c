@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:09:53 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/16 17:10:50 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:41:17 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	sig_stop(int sig)
 	(void)sig;
 	ft_printf_fd(STDERR_FILENO, "\n");
 	ft_printf_fd(STDERR_FILENO, "Quit (core dumped)\n");
+	ft_get_shell()->exit_status = 131;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 }
