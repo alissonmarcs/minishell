@@ -22,8 +22,8 @@ void	ft_env_builtin(char **argv)
 	{
 		if (ft_matrice_len(argv) > 1)
 		{
-			ft_printf_fd(STDERR_FILENO, "env: ‘%s’: No such file or directory\n",
-				argv[1]);
+			ft_printf_fd(STDERR_FILENO, "env: ‘%s’:"
+				"No such file or directory\n", argv[1]);
 			ft_get_shell()->exit_status = 127;
 			return ;
 		}

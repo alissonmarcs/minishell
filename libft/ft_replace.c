@@ -25,15 +25,15 @@ char	*ft_replace(char *old, char *new, char *str, int *i)
 		return (str);
 	igor = ft_substr(str, 0, ptr - str);
 	klb = ft_strjoin(igor, new);
-	ft_free((void *)new);
+	free((void *)new);
 	new = NULL;
-	ft_free((void *)igor);
+	free((void *)igor);
 	igor = ft_substr(str, ptr - str + ft_strlen(old), ft_strlen(str));
-	ft_free((void *)str);
-	ft_free((void *)old);
+	free((void *)str);
+	free((void *)old);
 	old = NULL;
 	result = ft_strjoin(klb, igor);
-	ft_free((void *)igor);
-	ft_free((void *)klb);
+	free((void *)igor);
+	free((void *)klb);
 	return (result);
 }

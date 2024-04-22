@@ -14,7 +14,7 @@
 
 static void	run_commands(t_minishell *shell, t_command *cmd);
 static void	get_captalized_errors(t_command *cmd);
-static void	handle_execve_error(t_minishell *shell, t_command *cmd);
+static void	command_not_found_handler(t_minishell *shell, t_command *cmd);
 static void	wait_childs(t_minishell *shell);
 
 void	executor(t_minishell *shell)
@@ -60,8 +60,8 @@ static void	run_commands(t_minishell *shell, t_command *cmd)
 	cmd->path = find_executable(cmd);
 	if (cmd->path)
 		execve(cmd->path, cmd->argv, shell->env);
-	execve(cmd->name, cmd->argv, shell->env);
-	handle_execve_error(shell, cmd);
+	command_not_found_handler(shell, cmd);
+	clear_exit(shell, TRUE);
 }
 
 static void	get_captalized_errors(t_command *cmd)
@@ -89,21 +89,17 @@ static void	get_captalized_errors(t_command *cmd)
 	clear_exit(ft_get_shell(), TRUE);
 }
 
-static void	handle_execve_error(t_minishell *shell, t_command *cmd)
+static void	command_not_found_handler(t_minishell *shell, t_command *cmd)
 {
-	int	exit_status;
-
-	exit_status = 0;
 	if (ft_strchr(cmd->name, '/') || cmd->name[0] == '.')
 		get_captalized_errors(cmd);
 	else
 	{
 		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name,
 			"command not found");
-		exit_status = 127;
+		shell->exit_status = 127;
+		clear_exit(shell, TRUE);
 	}
-	shell->exit_status = exit_status;
-	clear_exit(shell, TRUE);
 }
 
 static void	wait_childs(t_minishell *shell)
