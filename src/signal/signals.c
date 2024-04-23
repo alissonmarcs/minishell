@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:51:04 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/22 16:40:56 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:22:34 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@ void	ft_receive_signal(void)
 {
 	struct sigaction	act;
 	struct sigaction	ign;
-	struct sigaction	stp;
 
 	ft_memset(&act, 0, sizeof(act));
 	ft_memset(&ign, 0, sizeof(act));
-	ft_memset(&stp, 0, sizeof(act));
 	act.sa_sigaction = ft_reset_promp;
 	ign.sa_handler = SIG_IGN;
-	stp.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGQUIT, &ign, NULL);
-	sigaction(SIGTSTP, &stp, NULL);
 }

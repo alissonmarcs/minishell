@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/17 18:16:09 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:20:30 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	executor(t_minishell *shell)
 	create_pipes(cmds);
 	while (cmds)
 	{
-		cmd_signal();
 		cmds->pid = fork();
+		cmd_signal();
 		if (cmds->pid == 0)
 			run_commands(shell, cmds);
 		cmds = cmds->next;
@@ -107,11 +107,13 @@ static void	wait_childs(t_minishell *shell)
 	int			status;
 	t_command	*cmd;
 
+	status = 0;
 	cmd = shell->commands;
 	while (cmd)
 	{
 		waitpid(cmd->pid, &status, 0);
 		cmd = cmd->next;
 	}
-	shell->exit_status = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
 }
