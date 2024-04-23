@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_1.c                                         :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:19:40 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/11 13:11:25 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:47:50 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	ft_invalid_key(char *key, char *value)
 {
 	if (value)
 		ft_printf_fd(STDERR_FILENO,
-			"minishell: export: `%s=%s': not a valid identifier\n", key,
+			"CarlitoShell: export: `%s=%s': not a valid identifier\n", key,
 			value);
 	else
 		ft_printf_fd(STDERR_FILENO,
-			"minishell: export: `%s': not a valid identifier\n", key);
+			"CarlitoShell: export: `%s': not a valid identifier\n", key);
 	ft_get_shell()->exit_status = 1;
 }
 
@@ -28,7 +28,7 @@ t_bool	ft_error(char *str, int exit_code)
 {
 	if (str != NULL)
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: %s\n", str);
+		ft_printf_fd(STDERR_FILENO, "CarlitoShell: %s\n", str);
 		ft_get_shell()->exit_status = exit_code;
 		ft_free_tokens(ft_get_shell());
 		return (TRUE);

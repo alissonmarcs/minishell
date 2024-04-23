@@ -6,37 +6,37 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:37:29 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/17 18:48:06 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:46:24 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_in_order(char **env)
+void	ft_print_in_order(char **key)
 {
 	int		i;
-	t_env	*e;
+	t_env	*env;
 
 	i = 0;
-	e = ft_get_shell()->env_list;
-	while (env[i])
+	env = ft_get_shell()->env_list;
+	while (key[i])
 	{
-		while (e)
+		while (env)
 		{
-			if (!ft_strcmp(env[i], e->key))
+			if (!ft_strcmp(key[i], env->key))
 			{
-				if (e->value && ft_strlen(e->value) > 0)
+				if (env->value && ft_strlen(env->value) > 0)
 					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"%s\"\n",
-						e->key, e->value);
-				else if (e->key && e->equal == 0)
-					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", e->key);
+						env->key, env->value);
+				else if (!env->value && env->equal == 0)
+					ft_printf_fd(STDOUT_FILENO, "declare -x %s\n", env->key);
 				else
-					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"\"\n", e->key);
+					ft_printf_fd(STDOUT_FILENO, "declare -x %s=\"\"\n", env->key);
 				break ;
 			}
-			e = e->next;
+			env = env->next;
 		}
-		e = ft_get_shell()->env_list;
+		env = ft_get_shell()->env_list;
 		i++;
 	}
 }

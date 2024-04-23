@@ -6,7 +6,7 @@
 /*   By: matesant <matesant@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:54 by matesant          #+#    #+#             */
-/*   Updated: 2024/04/23 15:20:30 by matesant         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:49:15 by matesant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	get_captalized_errors(t_command *cmd)
 		error_msg = "Permission denied";
 		exit_status = 126;
 	}
-	ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name, error_msg);
+	ft_printf_fd(2, "%s: %s: %s\n", "CarlitoShell", cmd->name, error_msg);
 	ft_get_shell()->exit_status = exit_status;
 	clear_exit(ft_get_shell(), TRUE);
 }
@@ -95,7 +95,7 @@ static void	command_not_found_handler(t_minishell *shell, t_command *cmd)
 		get_captalized_errors(cmd);
 	else
 	{
-		ft_printf_fd(2, "%s: %s: %s\n", "Minishell", cmd->name,
+		ft_printf_fd(2, "%s: %s: %s\n", "CarlitoShell", cmd->name,
 			"command not found");
 		shell->exit_status = 127;
 		clear_exit(shell, TRUE);

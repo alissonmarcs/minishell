@@ -127,4 +127,9 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+val:
+	valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes \
+	--track-fds=yes --suppressions=./sup.sup --trace-children=yes \
+	--trace-children-skip=/usr/*,./*,*/bin/* ./minishell
+
+.PHONY: all clean fclean re val
