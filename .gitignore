@@ -1,14 +1,3 @@
-bin
-obj
-minishell
-*.txt
-minishell2
-*.o
-*.a
-.vscode
-tmp
-.nfs*
-script.sh
-doom
-minishell_tester
-42_minishell_tester
+*
+!Makefile
+*.[ch]
