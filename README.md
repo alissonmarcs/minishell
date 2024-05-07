@@ -15,9 +15,8 @@
 $ git clone https://github.com/alissonmarcs/minishell.git
 $ cd minishell
 $ make
+$ ./minishell
 ```
-
-To use it, simply run `./minishell`.
 
 ## Features implemented:
 
@@ -27,5 +26,7 @@ To use it, simply run `./minishell`.
 - Variables
 - Simple and double quotes.
 - Builtins: `echo`, `export`, `env`, `exit`, `pwd`, `cd`, `unset`, and `exit`.
+- Of course, execution of commands
 
 As a first group project of 42, I would like to leave here my thanks to [matesant](https://github.com/Matesant), my partner in doing this project.
+If you find out some trouble when compile or run, please contact me by opening issue.
