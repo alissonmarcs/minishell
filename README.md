@@ -26,7 +26,7 @@ $ ./minishell
 - Variables
 - Simple and double quotes.
 - Builtins: `echo`, `export`, `env`, `exit`, `pwd`, `cd`, `unset`, and `exit`.
-- Of course, execution of commands
+- Of course, execution of commands.
 
 As a first group project of 42, I would like to leave here my thanks to [matesant](https://github.com/Matesant), my partner in doing this project.
 
