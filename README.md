@@ -45,4 +45,4 @@ To delete all files generated with make, go to the path and run:
 $ make fclean
 ```
 ## Testing
-This function have been tested with (https://github.com/LucasKuhn/minishell_tester).
+This project have been tested with (https://github.com/LucasKuhn/minishell_tester).
