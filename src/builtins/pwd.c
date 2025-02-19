@@ -26,6 +26,12 @@ void	ft_pwd_builtin(char **argv)
 	}
 	ft_get_shell()->exit_status = 0;
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+	{
+		ft_printf_fd(STDERR_FILENO, "pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+		ft_get_shell()->exit_status = 1;
+		return ;
+	}
 	ft_printf_fd(STDOUT_FILENO, "%s\n", pwd);
 	free(pwd);
 }
